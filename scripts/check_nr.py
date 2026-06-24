@@ -4,6 +4,7 @@ import re
 import hashlib
 import urllib.request
 import urllib.error
+from urllib.parse import urljoin
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
 
@@ -115,6 +116,74 @@ def page_hash(html_text):
     return hashlib.md5(clean.encode('utf-8')).hexdigest()
 
 
+
+# ─── Descobre automaticamente os links atuais das NRs no gov.br ─────────────
+class LinkExtractor(HTMLParser):
+    def __init__(self, base_url):
+        super().__init__()
+        self.base_url = base_url
+        self.links = []
+        self._href = None
+        self._text = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'a':
+            attrs = dict(attrs)
+            self._href = attrs.get('href')
+            self._text = []
+
+    def handle_data(self, data):
+        if self._href:
+            stripped = data.strip()
+            if stripped:
+                self._text.append(stripped)
+
+    def handle_endtag(self, tag):
+        if tag == 'a' and self._href:
+            text = ' '.join(self._text).strip()
+            href = urljoin(self.base_url, self._href)
+            self.links.append((text, href))
+            self._href = None
+            self._text = []
+
+
+def extract_nr_links(html_text, base_url):
+    """Extrai da página índice os links atuais de cada NR."""
+    parser = LinkExtractor(base_url)
+    parser.feed(html_text)
+
+    nr_urls = {}
+
+    for text, href in parser.links:
+        combined = f"{text} {href}"
+
+        # Pega padrões como NR-1, NR-01, nr-31 ou norma-regulamentadora-no-31-nr-31
+        match = re.search(
+            r'(?:\bNR[-\s]?0?(\d{1,2})\b|norma-regulamentadora-no-0?(\d{1,2})-nr-0?\d{1,2})',
+            combined,
+            re.IGNORECASE
+        )
+
+        if match and 'normas-regulamentadoras-vigentes' in href:
+            numero = match.group(1) or match.group(2)
+            nr_key = f"NR-{int(numero)}"
+            nr_urls[nr_key] = href
+
+    return nr_urls
+
+
+def fallback_nr_url(nr):
+    """Plano B caso a extração automática da página índice falhe."""
+    base_url = "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
+
+    numero = int(re.sub(r'\D', '', nr))
+
+    if numero == 1:
+        return f"{base_url}/nr-1"
+
+    return f"{base_url}/norma-regulamentadora-no-{numero}-nr-{numero}"
+
+
 # ─── Carregar e salvar estado ────────────────────────────────────────────────
 def load_state():
     if os.path.exists(STATE_FILE):
@@ -146,9 +215,10 @@ def run_check():
     now_str   = now_brasilia().strftime('%d/%m/%Y %H:%M')
 
     # ── Busca a página índice do MTE (hash geral também) ────────────────────
-    INDEX_URL = "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp-nrs/normas-regulamentadoras-nrs"
+    INDEX_URL = "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
     print("Verificando página índice do MTE...")
     index_html = fetch_page(INDEX_URL)
+    nr_urls = {}
     if index_html:
         idx_hash = page_hash(index_html)
         old_idx = state["hashes"].get("__index__")
@@ -156,11 +226,15 @@ def run_check():
             print("  → Alteração detectada na página índice do MTE!")
         state["hashes"]["__index__"] = idx_hash
 
+        nr_urls = extract_nr_links(index_html, INDEX_URL)
+        print(f"  → {len(nr_urls)} URLs de NRs encontradas na página índice.")
+
     # ── Verifica cada NR individualmente ────────────────────────────────────
     for nr_info in NR_LIST:
         nr_key = nr_info["nr"].lower().replace("-", "")
         print(f"  Verificando {nr_info['nr']}...", end=" ")
-        html = fetch_page(nr_info["url"])
+        current_url = nr_urls.get(nr_info["nr"]) or fallback_nr_url(nr_info["nr"])
+        html = fetch_page(current_url)
         if html is None:
             print("falha na requisição, pulando.")
             continue
@@ -178,7 +252,7 @@ def run_check():
             change_entry = {
                 "nr":    nr_info["nr"],
                 "nome":  nr_info["nome"],
-                "url":   nr_info["url"],
+                "url":   current_url,
                 "data":  today_str,
                 "data_fmt": now_brasilia().strftime('%d/%m/%Y'),
                 "source": "gov.br / MTE"
