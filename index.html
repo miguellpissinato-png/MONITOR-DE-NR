@@ -557,6 +557,9 @@
     <button class="tab-btn" onclick="switchTab('history')">
       📋 Histórico Completo
     </button>
+    <button class="tab-btn" onclick="switchTab('nrlist')">
+      📑 Todas as NR
+    </button>
     <button class="tab-btn" onclick="switchTab('about')">
       ℹ️ Sobre o Sistema
     </button>
@@ -585,6 +588,43 @@
       <div id="historyContent">
         <div class="loading"><div class="spinner"></div> Carregando histórico…</div>
       </div>
+    </div>
+  </div>
+
+  <!-- ── Aba: Todas as NR ───────────────────────────────────────────────── -->
+  <div id="panel-nrlist" class="tab-panel">
+    <div class="glass-panel">
+      <div class="panel-header">
+        <span class="panel-title">Todas as Normas Regulamentadoras</span>
+        <span class="panel-count">38 normas</span>
+      </div>
+      <div style="padding:16px 24px; border-bottom:1px solid var(--glass-border);">
+        <div style="position:relative;">
+          <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            id="nrSearch"
+            type="text"
+            placeholder="Buscar norma… (ex: NR-12, ergonomia, altura)"
+            oninput="filterNrList(this.value)"
+            style="
+              width:100%; padding:10px 12px 10px 36px;
+              background:rgba(255,255,255,0.05);
+              border:1px solid var(--glass-border);
+              border-radius:var(--radius-sm);
+              color:var(--white-90);
+              font-family:var(--font-sans);
+              font-size:13px;
+              outline:none;
+              transition:border-color var(--transition);
+            "
+            onfocus="this.style.borderColor='rgba(33,150,243,0.5)'"
+            onblur="this.style.borderColor='var(--glass-border)'"
+          />
+        </div>
+      </div>
+      <ul class="nr-list" id="nrFullList"></ul>
     </div>
   </div>
 
@@ -639,15 +679,108 @@
 // ─── Estado global ──────────────────────────────────────────────────────────
 let stateData = null;
 
+// ─── Lista completa das 38 NR ───────────────────────────────────────────────
+const BASE_URL = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
+
+const ALL_NRS = [
+  { nr:'NR-1',  nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais',                                              url:`${BASE_URL}/nr-1` },
+  { nr:'NR-2',  nome:'Inspeção Prévia (Revogada)',                                                                             url:`${BASE_URL}/norma-regulamentadora-no-2-nr-2` },
+  { nr:'NR-3',  nome:'Embargo e Interdição',                                                                                   url:`${BASE_URL}/nr-3` },
+  { nr:'NR-4',  nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho',                           url:`${BASE_URL}/nr-4` },
+  { nr:'NR-5',  nome:'Comissão Interna de Prevenção de Acidentes e de Assédio',                                               url:`${BASE_URL}/nr-5` },
+  { nr:'NR-6',  nome:'Equipamentos de Proteção Individual',                                                                    url:`${BASE_URL}/nr-6` },
+  { nr:'NR-7',  nome:'Programa de Controle Médico de Saúde Ocupacional',                                                      url:`${BASE_URL}/nr-7` },
+  { nr:'NR-8',  nome:'Edificações',                                                                                            url:`${BASE_URL}/nr-8` },
+  { nr:'NR-9',  nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos',             url:`${BASE_URL}/nr-9` },
+  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade',                                                   url:`${BASE_URL}/nr-10` },
+  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais',                                         url:`${BASE_URL}/nr-11` },
+  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos',                                                      url:`${BASE_URL}/nr-12` },
+  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão',                         url:`${BASE_URL}/nr-13` },
+  { nr:'NR-14', nome:'Fornos',                                                                                                 url:`${BASE_URL}/nr-14` },
+  { nr:'NR-15', nome:'Atividades e Operações Insalubres',                                                                     url:`${BASE_URL}/nr-15` },
+  { nr:'NR-16', nome:'Atividades e Operações Perigosas',                                                                      url:`${BASE_URL}/nr-16` },
+  { nr:'NR-17', nome:'Ergonomia',                                                                                              url:`${BASE_URL}/nr-17` },
+  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção',                                              url:`${BASE_URL}/nr-18` },
+  { nr:'NR-19', nome:'Explosivos',                                                                                             url:`${BASE_URL}/nr-19` },
+  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis',                                         url:`${BASE_URL}/nr-20` },
+  { nr:'NR-21', nome:'Trabalho a Céu Aberto',                                                                                 url:`${BASE_URL}/nr-21` },
+  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração',                                                            url:`${BASE_URL}/nr-22` },
+  { nr:'NR-23', nome:'Proteção Contra Incêndios',                                                                             url:`${BASE_URL}/nr-23` },
+  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho',                                             url:`${BASE_URL}/nr-24` },
+  { nr:'NR-25', nome:'Resíduos Industriais',                                                                                  url:`${BASE_URL}/nr-25` },
+  { nr:'NR-26', nome:'Sinalização de Segurança',                                                                              url:`${BASE_URL}/nr-26` },
+  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)',                                  url:`${BASE_URL}/nr-27` },
+  { nr:'NR-28', nome:'Fiscalização e Penalidades',                                                                            url:`${BASE_URL}/nr-28` },
+  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário',                                                               url:`${BASE_URL}/nr-29` },
+  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário',                                                              url:`${BASE_URL}/nr-30` },
+  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:`${BASE_URL}/nr-31` },
+  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde',                                            url:`${BASE_URL}/nr-32` },
+  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados',                                                 url:`${BASE_URL}/nr-33` },
+  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval',          url:`${BASE_URL}/nr-34` },
+  { nr:'NR-35', nome:'Trabalho em Altura',                                                                                    url:`${BASE_URL}/nr-35` },
+  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados',             url:`${BASE_URL}/nr-36` },
+  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo',                                                         url:`${BASE_URL}/nr-37` },
+  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos',         url:`${BASE_URL}/nr-38` },
+];
+
+// ─── Renderiza a lista completa de NRs ──────────────────────────────────────
+function renderNrFullList(filter = '') {
+  const q = filter.toLowerCase().trim();
+  const filtered = q
+    ? ALL_NRS.filter(n => n.nr.toLowerCase().includes(q) || n.nome.toLowerCase().includes(q))
+    : ALL_NRS;
+
+  const list = document.getElementById('nrFullList');
+  if (!list) return;
+
+  if (filtered.length === 0) {
+    list.innerHTML = `
+      <li style="padding:40px 24px;text-align:center;color:var(--white-40);font-size:13px;">
+        Nenhuma NR encontrada para "<strong style="color:var(--white-70)">${escHtml(filter)}</strong>"
+      </li>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(n => `
+    <li class="nr-item">
+      <div>
+        <span class="nr-badge">${escHtml(n.nr)}</span>
+      </div>
+      <div class="nr-info">
+        <div class="nr-name" title="${escHtml(n.nome)}">${escHtml(n.nome)}</div>
+        <div class="nr-source">gov.br / MTE</div>
+      </div>
+      <div class="nr-meta">
+        <a class="nr-link" href="${escHtml(n.url)}" target="_blank" rel="noopener">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Abrir no gov.br
+        </a>
+      </div>
+    </li>`).join('');
+}
+
+function filterNrList(value) {
+  renderNrFullList(value);
+}
+
 // ─── Troca de abas ──────────────────────────────────────────────────────────
 function switchTab(id) {
   document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    const ids = ['recent', 'history', 'about'];
+    const ids = ['recent', 'history', 'nrlist', 'about'];
     b.classList.toggle('active', ids[i] === id);
   });
   document.querySelectorAll('.tab-panel').forEach(p => {
     p.classList.toggle('active', p.id === `panel-${id}`);
   });
+  // Renderiza lista ao entrar na aba pela primeira vez
+  if (id === 'nrlist') {
+    const q = document.getElementById('nrSearch')?.value || '';
+    renderNrFullList(q);
+  }
 }
 
 // ─── Formatação de data ─────────────────────────────────────────────────────
@@ -805,6 +938,7 @@ async function loadState() {
 
 // ─── Init ───────────────────────────────────────────────────────────────────
 loadState();
+renderNrFullList();
 // Recarrega a cada 5 minutos (útil se a página ficar aberta)
 setInterval(loadState, 5 * 60 * 1000);
 </script>
