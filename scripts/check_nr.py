@@ -7,7 +7,6 @@ import urllib.error
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
 
-# ─── Fuso horário de Brasília ───────────────────────────────────────────────
 BRASILIA = timezone(timedelta(hours=-3))
 def now_brasilia():
     return datetime.now(BRASILIA)
@@ -16,59 +15,63 @@ DATA_DIR   = os.path.join(os.path.dirname(__file__), '..', 'data')
 STATE_FILE = os.path.join(DATA_DIR, 'state.json')
 os.makedirs(DATA_DIR, exist_ok=True)
 
-# ─── URL base ────────────────────────────────────────────────────────────────
-BASE = (
+# ─── URL da página índice (única confirmada como funcional) ──────────────────
+INDEX_URL = (
     "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/"
     "participacao-social/conselhos-e-orgaos-colegiados/"
     "comissao-tripartite-partitaria-permanente/"
     "normas-regulamentadora/normas-regulamentadoras-vigentes"
 )
 
-# ─── URLs REAIS confirmadas via pesquisa ao vivo ────────────────────────────
-# Padrão A: norma-regulamentadora-no-XX-nr-XX  (maioria)
-# Padrão B: nr-X  (algumas)
-def _b(slug): return f"{BASE}/{slug}"
+# ─── NR-1 tem página própria confirmada — monitoramos ela separadamente ──────
+NR1_URL = f"{INDEX_URL}/nr-1"
 
-NR_LIST = [
-    {"nr":"NR-1",  "nome":"Disposições Gerais e Gerenciamento de Riscos Ocupacionais",                                              "url":_b("nr-1")},
-    {"nr":"NR-2",  "nome":"Inspeção Prévia (Revogada)",                                                                             "url":_b("norma-regulamentadora-no-2-nr-2")},
-    {"nr":"NR-3",  "nome":"Embargo e Interdição",                                                                                   "url":_b("norma-regulamentadora-no-3-nr-3")},
-    {"nr":"NR-4",  "nome":"Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho",                           "url":_b("norma-regulamentadora-no-4-nr-4")},
-    {"nr":"NR-5",  "nome":"Comissão Interna de Prevenção de Acidentes e de Assédio",                                               "url":_b("norma-regulamentadora-no-5-nr-5")},
-    {"nr":"NR-6",  "nome":"Equipamentos de Proteção Individual",                                                                    "url":_b("norma-regulamentadora-no-6-nr-6")},
-    {"nr":"NR-7",  "nome":"Programa de Controle Médico de Saúde Ocupacional",                                                      "url":_b("norma-regulamentadora-no-7-nr-7")},
-    {"nr":"NR-8",  "nome":"Edificações",                                                                                            "url":_b("norma-regulamentadora-no-8-nr-8")},
-    {"nr":"NR-9",  "nome":"Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos",             "url":_b("norma-regulamentadora-no-9-nr-9")},
-    {"nr":"NR-10", "nome":"Segurança em Instalações e Serviços em Eletricidade",                                                   "url":_b("norma-regulamentadora-no-10-nr-10")},
-    {"nr":"NR-11", "nome":"Transporte, Movimentação, Armazenagem e Manuseio de Materiais",                                         "url":_b("norma-regulamentadora-no-11-nr-11")},
-    {"nr":"NR-12", "nome":"Segurança no Trabalho em Máquinas e Equipamentos",                                                      "url":_b("norma-regulamentadora-no-12-nr-12")},
-    {"nr":"NR-13", "nome":"Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão",                         "url":_b("norma-regulamentadora-no-13-nr-13")},
-    {"nr":"NR-14", "nome":"Fornos",                                                                                                 "url":_b("norma-regulamentadora-no-14-nr-14")},
-    {"nr":"NR-15", "nome":"Atividades e Operações Insalubres",                                                                     "url":_b("norma-regulamentadora-no-15-nr-15")},
-    {"nr":"NR-16", "nome":"Atividades e Operações Perigosas",                                                                      "url":_b("norma-regulamentadora-no-16-nr-16")},
-    {"nr":"NR-17", "nome":"Ergonomia",                                                                                              "url":_b("norma-regulamentadora-no-17-nr-17")},
-    {"nr":"NR-18", "nome":"Segurança e Saúde no Trabalho na Indústria da Construção",                                              "url":_b("norma-regulamentadora-no-18-nr-18")},
-    {"nr":"NR-19", "nome":"Explosivos",                                                                                             "url":_b("norma-regulamentadora-no-19-nr-19")},
-    {"nr":"NR-20", "nome":"Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis",                                         "url":_b("norma-regulamentadora-no-20-nr-20")},
-    {"nr":"NR-21", "nome":"Trabalho a Céu Aberto",                                                                                 "url":_b("norma-regulamentadora-no-21-nr-21")},
-    {"nr":"NR-22", "nome":"Segurança e Saúde Ocupacional na Mineração",                                                            "url":_b("norma-regulamentadora-no-22-nr-22")},
-    {"nr":"NR-23", "nome":"Proteção Contra Incêndios",                                                                             "url":_b("norma-regulamentadora-no-23-nr-23")},
-    {"nr":"NR-24", "nome":"Condições Sanitárias e de Conforto nos Locais de Trabalho",                                             "url":_b("norma-regulamentadora-no-24-nr-24")},
-    {"nr":"NR-25", "nome":"Resíduos Industriais",                                                                                  "url":_b("norma-regulamentadora-no-25-nr-25")},
-    {"nr":"NR-26", "nome":"Sinalização de Segurança",                                                                              "url":_b("norma-regulamentadora-no-26-nr-26")},
-    {"nr":"NR-27", "nome":"Registro Profissional do Técnico de Segurança do Trabalho (Revogada)",                                  "url":_b("norma-regulamentadora-no-27-nr-27")},
-    {"nr":"NR-28", "nome":"Fiscalização e Penalidades",                                                                            "url":_b("norma-regulamentadora-no-28-nr-28")},
-    {"nr":"NR-29", "nome":"Segurança e Saúde no Trabalho Portuário",                                                               "url":_b("norma-regulamentadora-no-29-nr-29")},
-    {"nr":"NR-30", "nome":"Segurança e Saúde no Trabalho Aquaviário",                                                              "url":_b("norma-regulamentadora-no-30-nr-30")},
-    {"nr":"NR-31", "nome":"Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura","url":_b("norma-regulamentadora-no-31-nr-31")},
-    {"nr":"NR-32", "nome":"Segurança e Saúde no Trabalho em Estabelecimentos de Saúde",                                            "url":_b("norma-regulamentadora-no-32-nr-32")},
-    {"nr":"NR-33", "nome":"Segurança e Saúde nos Trabalhos em Espaços Confinados",                                                 "url":_b("norma-regulamentadora-no-33-nr-33")},
-    {"nr":"NR-34", "nome":"Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval",          "url":_b("norma-regulamentadora-no-34-nr-34")},
-    {"nr":"NR-35", "nome":"Trabalho em Altura",                                                                                    "url":_b("norma-regulamentadora-no-35-nr-35")},
-    {"nr":"NR-36", "nome":"Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados",             "url":_b("norma-regulamentadora-no-36-nr-36")},
-    {"nr":"NR-37", "nome":"Segurança e Saúde em Plataformas de Petróleo",                                                         "url":_b("norma-regulamentadora-no-37-nr-37")},
-    {"nr":"NR-38", "nome":"Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos",          "url":_b("norma-regulamentadora-no-38-nr-38")},
+# ─── Lista para exibição no site (links sempre para a índice) ────────────────
+NR_DISPLAY = [
+    {"nr": f"NR-{i}", "nome": nome, "url": INDEX_URL}
+    for i, nome in enumerate([  # URLs individuais sobrescritas abaixo quando necessário
+        "Disposições Gerais e Gerenciamento de Riscos Ocupacionais",
+        "Inspeção Prévia (Revogada)",
+        "Embargo e Interdição",
+        "Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho",
+        "Comissão Interna de Prevenção de Acidentes e de Assédio",
+        "Equipamentos de Proteção Individual",
+        "Programa de Controle Médico de Saúde Ocupacional",
+        "Edificações",
+        "Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos",
+        "Segurança em Instalações e Serviços em Eletricidade",
+        "Transporte, Movimentação, Armazenagem e Manuseio de Materiais",
+        "Segurança no Trabalho em Máquinas e Equipamentos",
+        "Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão",
+        "Fornos",
+        "Atividades e Operações Insalubres",
+        "Atividades e Operações Perigosas",
+        "Ergonomia",
+        "Segurança e Saúde no Trabalho na Indústria da Construção",
+        "Explosivos",
+        "Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis",
+        "Trabalho a Céu Aberto",
+        "Segurança e Saúde Ocupacional na Mineração",
+        "Proteção Contra Incêndios",
+        "Condições Sanitárias e de Conforto nos Locais de Trabalho",
+        "Resíduos Industriais",
+        "Sinalização de Segurança",
+        "Registro Profissional do Técnico de Segurança do Trabalho (Revogada)",
+        "Fiscalização e Penalidades",
+        "Segurança e Saúde no Trabalho Portuário",
+        "Segurança e Saúde no Trabalho Aquaviário",
+        "Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura",
+        "Segurança e Saúde no Trabalho em Estabelecimentos de Saúde",
+        "Segurança e Saúde nos Trabalhos em Espaços Confinados",
+        "Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval",
+        "Trabalho em Altura",
+        "Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados",
+        "Segurança e Saúde em Plataformas de Petróleo",
+        "Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos",
+    ], start=1)
 ]
+# Corrige NR-1 para ter URL própria confirmada
+NR_DISPLAY[0]["url"] = NR1_URL
 
 # ─── Parser HTML ─────────────────────────────────────────────────────────────
 class TextExtractor(HTMLParser):
@@ -86,7 +89,7 @@ class TextExtractor(HTMLParser):
             if s: self.texts.append(s)
     def get_text(self): return ' '.join(self.texts)
 
-def fetch_page(url, timeout=25):
+def fetch_page(url, timeout=30):
     headers = {
         'User-Agent': 'Mozilla/5.0 (compatible; NR-Monitor/2.0)',
         'Accept': 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
@@ -108,33 +111,21 @@ def fetch_page(url, timeout=25):
 def page_hash(html):
     p = TextExtractor(); p.feed(html)
     clean = p.get_text()
-    clean = re.sub(r'\d{2}/\d{2}/\d{4}','',clean)
-    clean = re.sub(r'\d{4}-\d{2}-\d{2}','',clean)
+    # Remove datas e horários dinâmicos para evitar falsos positivos
+    clean = re.sub(r'\d{2}/\d{2}/\d{4}', '', clean)
+    clean = re.sub(r'\d{4}-\d{2}-\d{2}', '', clean)
+    clean = re.sub(r'\d{2}h\d{2}', '', clean)
     return hashlib.md5(clean.encode('utf-8')).hexdigest()
 
 def load_state():
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE,'r',encoding='utf-8') as f: return json.load(f)
-    return {"last_check":None,"status":"Monitorando","total_nrs":len(NR_LIST),
+    return {"last_check":None,"status":"Monitorando","total_nrs":38,
             "hashes":{},"recent_changes":[],"history":[]}
 
 def save_state(state):
     with open(STATE_FILE,'w',encoding='utf-8') as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
-
-def try_urls(nr_info):
-    """Tenta a URL principal; se 404, tenta a alternativa nr-X."""
-    main = nr_info["url"]
-    num = nr_info["nr"].replace("NR-","").lower()
-    alt  = _b(f"nr-{num}")
-    
-    for url in ([main] if main == alt else [main, alt]):
-        html = fetch_page(url)
-        if html:
-            # atualiza URL para a que funcionou
-            nr_info["url"] = url
-            return html
-    return None
 
 def run_check():
     print(f"\n{'='*60}")
@@ -146,62 +137,57 @@ def run_check():
     today_str = now_brasilia().strftime('%Y-%m-%d')
     now_str   = now_brasilia().strftime('%d/%m/%Y %H:%M')
 
-    # ── Página índice ────────────────────────────────────────────────────────
-    print("Verificando página índice MTE...", end=" ", flush=True)
-    idx_html = fetch_page(BASE)
-    if idx_html:
-        idx_hash = page_hash(idx_html)
-        old_idx  = state["hashes"].get("__index__")
-        if old_idx and idx_hash != old_idx:
-            print("ALTERAÇÃO NA ÍNDICE!")
-        else:
-            print("OK.")
-        state["hashes"]["__index__"] = idx_hash
+    # ── Monitora a página índice principal ───────────────────────────────────
+    pages_to_check = [
+        ("__index__", "Página Índice MTE (todas as NR)", INDEX_URL, INDEX_URL),
+        ("nr1",       "NR-1 (página individual)",         NR1_URL,   NR1_URL),
+    ]
 
-    # ── Verifica cada NR ────────────────────────────────────────────────────
-    for nr_info in NR_LIST:
-        nr_key = nr_info["nr"].lower().replace("-","")
-        print(f"  {nr_info['nr']}...", end=" ", flush=True)
-
-        html = try_urls(nr_info)
+    for key, label, url, link in pages_to_check:
+        print(f"  Verificando {label}...", end=" ", flush=True)
+        html = fetch_page(url)
         if html is None:
             print("falha, pulando.")
             continue
 
         new_hash = page_hash(html)
-        old_hash = state["hashes"].get(nr_key)
+        old_hash = state["hashes"].get(key)
 
         if old_hash is None:
-            state["hashes"][nr_key] = new_hash
+            state["hashes"][key] = new_hash
             print("hash inicial registrado.")
         elif new_hash != old_hash:
             print("ALTERAÇÃO DETECTADA!")
-            state["hashes"][nr_key] = new_hash
+            state["hashes"][key] = new_hash
+            # Quando a índice muda, pode indicar qualquer NR — registra como geral
             change_entry = {
-                "nr":       nr_info["nr"],
-                "nome":     nr_info["nome"],
-                "url":      nr_info["url"],
+                "nr":       "MTE",
+                "nome":     "Atualização detectada no portal de NR do Ministério do Trabalho",
+                "url":      link,
                 "data":     today_str,
                 "data_fmt": now_brasilia().strftime('%d/%m/%Y'),
                 "source":   "gov.br / MTE"
             }
+            if key == "nr1":
+                change_entry["nr"]   = "NR-1"
+                change_entry["nome"] = "Disposições Gerais e Gerenciamento de Riscos Ocupacionais"
             changes_found.append(change_entry)
         else:
             print("sem alteração.")
 
     # ── Atualiza estado ──────────────────────────────────────────────────────
     state["last_check"] = now_str
-    state["total_nrs"]  = len(NR_LIST)
+    state["total_nrs"]  = 38
     state["status"] = "Alteração Detectada" if changes_found else "Monitorando"
 
     if changes_found:
-        existing = {(c["nr"],c["data"]) for c in state["recent_changes"]}
+        existing = {(c["nr"], c["data"]) for c in state["recent_changes"]}
         for c in changes_found:
-            if (c["nr"],c["data"]) not in existing:
+            if (c["nr"], c["data"]) not in existing:
                 state["recent_changes"].append(c)
-        hist_ex = {(c["nr"],c["data"]) for c in state["history"]}
+        hist_ex = {(c["nr"], c["data"]) for c in state["history"]}
         for c in changes_found:
-            if (c["nr"],c["data"]) not in hist_ex:
+            if (c["nr"], c["data"]) not in hist_ex:
                 state["history"].append(c)
 
     cutoff = now_brasilia() - timedelta(days=7)
