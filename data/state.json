@@ -1,10 +1,10 @@
 {
-  "last_check": "26/06/2026 08:03",
-  "status": "Monitorando",
+  "last_check": "26/06/2026 08:12",
+  "status": "Alteração Detectada",
   "total_nrs": 38,
   "hashes": {
-    "__index__": "eedcfc125ec7c656a83884162d7cf815",
-    "nr1": "96a1e009ca57f63aa0f8ff6716443f15",
+    "__index__": "ba3cb2c2e7a354f36a4782dd5b9691de",
+    "nr1": "74f3fa5484f4f7aaa1b0f844d7315fb3",
     "nr2": "b34eb34adb2837a4985f4cad294e44da",
     "nr3": "6ea652ac79e565c1b86f9105ff89f9ad",
     "nr4": "afa57ee35524d6073e094a46ff1c9308",
@@ -42,6 +42,40 @@
     "nr36": "61dab193a7e580b3e2ee83bdcfeaed65",
     "nr38": "3758ed9b0e4e60f29b964463a3dbec6f"
   },
-  "recent_changes": [],
-  "history": []
+  "recent_changes": [
+    {
+      "nr": "MTE",
+      "nome": "Atualização detectada no portal de NR do Ministério do Trabalho",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
+      "data": "2026-06-26",
+      "data_fmt": "26/06/2026",
+      "source": "gov.br / MTE"
+    },
+    {
+      "nr": "NR-1",
+      "nome": "Disposições Gerais e Gerenciamento de Riscos Ocupacionais",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1",
+      "data": "2026-06-26",
+      "data_fmt": "26/06/2026",
+      "source": "gov.br / MTE"
+    }
+  ],
+  "history": [
+    {
+      "nr": "MTE",
+      "nome": "Atualização detectada no portal de NR do Ministério do Trabalho",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
+      "data": "2026-06-26",
+      "data_fmt": "26/06/2026",
+      "source": "gov.br / MTE"
+    },
+    {
+      "nr": "NR-1",
+      "nome": "Disposições Gerais e Gerenciamento de Riscos Ocupacionais",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1",
+      "data": "2026-06-26",
+      "data_fmt": "26/06/2026",
+      "source": "gov.br / MTE"
+    }
+  ]
 }
