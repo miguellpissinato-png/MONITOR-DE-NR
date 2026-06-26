@@ -22,7 +22,6 @@ BASE = (
     "normas-regulamentadora/normas-regulamentadoras-vigentes"
 )
 
-# ─── URLs confirmadas individualmente ────────────────────────────────────────
 NR_LIST = [
     {"nr":"NR-1",  "nome":"Disposições Gerais e Gerenciamento de Riscos Ocupacionais",                                               "url":f"{BASE}/nr-1"},
     {"nr":"NR-2",  "nome":"Inspeção Prévia (Revogada)",                                                                              "url":f"{BASE}/norma-regulamentadora-no-2-nr-2"},
@@ -64,28 +63,55 @@ NR_LIST = [
     {"nr":"NR-38", "nome":"Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos",           "url":f"{BASE}/norma-regulamentadora-no-38-nr-38"},
 ]
 
-# ─── Parser HTML ─────────────────────────────────────────────────────────────
+# ─── Parser HTML — extrai só texto, ignora nav/footer/scripts ────────────────
 class TextExtractor(HTMLParser):
     def __init__(self):
         super().__init__()
         self.texts = []
         self._skip = False
     def handle_starttag(self, tag, attrs):
-        if tag in ('script','style','nav','footer','header'): self._skip = True
+        if tag in ('script','style','nav','footer','header','aside'): self._skip = True
     def handle_endtag(self, tag):
-        if tag in ('script','style','nav','footer','header'): self._skip = False
+        if tag in ('script','style','nav','footer','header','aside'): self._skip = False
     def handle_data(self, data):
         if not self._skip:
             s = data.strip()
             if s: self.texts.append(s)
     def get_text(self): return ' '.join(self.texts)
 
+def extract_stable_content(html):
+    """Remove elementos dinâmicos do gov.br antes de gerar o hash."""
+    # Remove comentários HTML
+    html = re.sub(r'<!--.*?-->', '', html, flags=re.DOTALL)
+    # Remove blocos de script e style completos
+    html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.DOTALL | re.IGNORECASE)
+    html = re.sub(r'<style[^>]*>.*?</style>',  '', html, flags=re.DOTALL | re.IGNORECASE)
+
+    # Extrai texto
+    p = TextExtractor()
+    p.feed(html)
+    clean = p.get_text()
+
+    # Remove padrões dinâmicos comuns em portais gov.br
+    clean = re.sub(r'\d{2}/\d{2}/\d{4}(\s+\d{2}h\d{2})?', '', clean)  # datas e horários
+    clean = re.sub(r'\d{4}-\d{2}-\d{2}[T\d:.Z+-]*',        '', clean)  # datas ISO
+    clean = re.sub(r'\d{2}h\d{2}',                          '', clean)  # horários avulsos
+    clean = re.sub(r'Atualizado em[^.]*\.',                  '', clean)  # "Atualizado em X"
+    clean = re.sub(r'Publicado em[^.]*\.',                   '', clean)  # "Publicado em X"
+    clean = re.sub(r'\d+\s*visualizaç\w+',                  '', clean)  # contadores
+    clean = re.sub(r'[a-f0-9]{32,}',                        '', clean)  # hashes/tokens inline
+    clean = re.sub(r'\s+', ' ', clean).strip()
+
+    return clean
+
+def page_hash(html):
+    return hashlib.md5(extract_stable_content(html).encode('utf-8')).hexdigest()
+
 def fetch_page(url, timeout=30):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
-        'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive',
     }
     req = urllib.request.Request(url, headers=headers)
@@ -100,14 +126,6 @@ def fetch_page(url, timeout=30):
     except Exception as e:
         print(f"[ERRO: {e}]")
         return None
-
-def page_hash(html):
-    p = TextExtractor(); p.feed(html)
-    clean = p.get_text()
-    clean = re.sub(r'\d{2}/\d{2}/\d{4}', '', clean)
-    clean = re.sub(r'\d{4}-\d{2}-\d{2}', '', clean)
-    clean = re.sub(r'\d{2}h\d{2}', '', clean)
-    return hashlib.md5(clean.encode('utf-8')).hexdigest()
 
 def load_state():
     if os.path.exists(STATE_FILE):
@@ -148,7 +166,7 @@ def run_check():
 
         html = fetch_page(nr_info["url"])
 
-        # Se der 404, tenta fallback com /nr-X
+        # Fallback se der 404
         if html is None:
             num = nr_info["nr"].replace("NR-","")
             fallback = f"{BASE}/nr-{num}"
@@ -166,6 +184,7 @@ def run_check():
         old_hash = state["hashes"].get(nr_key)
 
         if old_hash is None:
+            # Primeira vez vendo esta NR — só registra, não conta como alteração
             state["hashes"][nr_key] = new_hash
             print("hash inicial registrado.")
         elif new_hash != old_hash:
