@@ -504,6 +504,88 @@
       background: rgba(26, 90, 173, 0.30);
       bottom: 100px; right: -80px;
     }
+
+    /* ─── Botão Verificar Agora ─────────────────────────────────────────── */
+    .run-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #1565c0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, opacity 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .run-btn:hover:not(:disabled) { background: #1976d2; transform: translateY(-1px); }
+    .run-btn:active:not(:disabled) { transform: translateY(0); }
+    .run-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .run-btn.running { background: #0d47a1; }
+
+    /* Modal de token */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal-box {
+      background: #0d1f3c;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .modal-title {
+      font-size: 16px; font-weight: 700; color: #fff;
+      margin-bottom: 8px;
+    }
+    .modal-sub {
+      font-size: 13px; color: rgba(255,255,255,0.5);
+      margin-bottom: 20px; line-height: 1.6;
+    }
+    .modal-sub a { color: #64b5f6; }
+    .modal-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .modal-input:focus { border-color: rgba(33,150,243,0.6); }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+    .modal-btn-cancel {
+      background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6); border-radius: 8px;
+      padding: 8px 16px; font-size: 13px; cursor: pointer;
+    }
+    .modal-btn-cancel:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .modal-btn-confirm {
+      background: #1565c0; border: none; color: #fff;
+      border-radius: 8px; padding: 8px 16px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .modal-btn-confirm:hover { background: #1976d2; }
+    .modal-info {
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      margin-top: 12px; line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -529,6 +611,35 @@
     </span>
     <div class="activity-spacer"></div>
     <span class="activity-time" id="activityTime">—</span>
+    <button class="run-btn" id="runBtn" onclick="triggerWorkflow()" title="Executar verificação agora">
+      <svg id="runIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      <span id="runLabel">Verificar agora</span>
+    </button>
+  </div>
+
+  <!-- ── Modal de configuração do token ─────────────────────────────────── -->
+  <div class="modal-overlay hidden" id="tokenModal">
+    <div class="modal-box">
+      <div class="modal-title">🔑 Token do GitHub necessário</div>
+      <div class="modal-sub">
+        Para disparar a verificação direto daqui, você precisa de um token pessoal do GitHub com permissão <strong style="color:#fff">workflow</strong>.<br><br>
+        <a href="https://github.com/settings/tokens/new?scopes=workflow&description=Monitor+NR" target="_blank" rel="noopener">
+          👉 Clique aqui para criar o token no GitHub
+        </a> (marque o escopo <strong style="color:#fff">workflow</strong> e clique em "Generate token").
+      </div>
+      <input class="modal-input" type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;cursor:pointer">
+        <input type="checkbox" id="saveToken" checked style="cursor:pointer" />
+        Salvar token neste navegador (apenas local, nunca enviado a servidores)
+      </label>
+      <div class="modal-actions">
+        <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="confirmToken()">Confirmar e executar</button>
+      </div>
+      <div class="modal-info">⚠️ O token fica salvo apenas no seu navegador (localStorage). Nunca é enviado para nenhum servidor além da API do GitHub.</div>
+    </div>
   </div>
 
   <!-- ── Métricas (Status / Última Verificação / Total NR) ──────────────── -->
@@ -668,7 +779,7 @@
   <footer class="footer">
     <p>Monitor de NR &mdash; Atualização automática diária às 07:00 (Brasília)</p>
     <p>
-      Fontes: <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">gov.br/MTE</a>
+      Fontes: <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">gov.br/MTE</a>
       &nbsp;|&nbsp;
       <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
     </p>
@@ -681,47 +792,49 @@
 let stateData = null;
 
 // ─── Lista completa das 38 NR ───────────────────────────────────────────────
-const BASE_URL = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
+// Cada NR aponta para sua página individual confirmada no gov.br.
+// O botão "Ver PDFs" leva à página índice que lista todos os documentos.
+const INDEX_URL = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
 
 const ALL_NRS = [
-  { nr:'NR-1',  nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais',                                              url:`${BASE_URL}/nr-1` },
-  { nr:'NR-2',  nome:'Inspeção Prévia (Revogada)',                                                                             url:`${BASE_URL}/norma-regulamentadora-no-2-nr-2` },
-  { nr:'NR-3',  nome:'Embargo e Interdição',                                                                                   url:`${BASE_URL}/norma-regulamentadora-no-3-nr-3` },
-  { nr:'NR-4',  nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho',                           url:`${BASE_URL}/norma-regulamentadora-no-4-nr-4` },
-  { nr:'NR-5',  nome:'Comissão Interna de Prevenção de Acidentes e de Assédio',                                               url:`${BASE_URL}/norma-regulamentadora-no-5-nr-5` },
-  { nr:'NR-6',  nome:'Equipamentos de Proteção Individual',                                                                    url:`${BASE_URL}/norma-regulamentadora-no-6-nr-6` },
-  { nr:'NR-7',  nome:'Programa de Controle Médico de Saúde Ocupacional',                                                      url:`${BASE_URL}/norma-regulamentadora-no-7-nr-7` },
-  { nr:'NR-8',  nome:'Edificações',                                                                                            url:`${BASE_URL}/norma-regulamentadora-no-8-nr-8` },
-  { nr:'NR-9',  nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos',             url:`${BASE_URL}/norma-regulamentadora-no-9-nr-9` },
-  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade',                                                   url:`${BASE_URL}/norma-regulamentadora-no-10-nr-10` },
-  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais',                                         url:`${BASE_URL}/norma-regulamentadora-no-11-nr-11` },
-  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos',                                                      url:`${BASE_URL}/norma-regulamentadora-no-12-nr-12` },
-  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão',                         url:`${BASE_URL}/norma-regulamentadora-no-13-nr-13` },
-  { nr:'NR-14', nome:'Fornos',                                                                                                 url:`${BASE_URL}/norma-regulamentadora-no-14-nr-14` },
-  { nr:'NR-15', nome:'Atividades e Operações Insalubres',                                                                     url:`${BASE_URL}/norma-regulamentadora-no-15-nr-15` },
-  { nr:'NR-16', nome:'Atividades e Operações Perigosas',                                                                      url:`${BASE_URL}/norma-regulamentadora-no-16-nr-16` },
-  { nr:'NR-17', nome:'Ergonomia',                                                                                              url:`${BASE_URL}/norma-regulamentadora-no-17-nr-17` },
-  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção',                                              url:`${BASE_URL}/norma-regulamentadora-no-18-nr-18` },
-  { nr:'NR-19', nome:'Explosivos',                                                                                             url:`${BASE_URL}/norma-regulamentadora-no-19-nr-19` },
-  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis',                                         url:`${BASE_URL}/norma-regulamentadora-no-20-nr-20` },
-  { nr:'NR-21', nome:'Trabalho a Céu Aberto',                                                                                 url:`${BASE_URL}/norma-regulamentadora-no-21-nr-21` },
-  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração',                                                            url:`${BASE_URL}/norma-regulamentadora-no-22-nr-22` },
-  { nr:'NR-23', nome:'Proteção Contra Incêndios',                                                                             url:`${BASE_URL}/norma-regulamentadora-no-23-nr-23` },
-  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho',                                             url:`${BASE_URL}/norma-regulamentadora-no-24-nr-24` },
-  { nr:'NR-25', nome:'Resíduos Industriais',                                                                                  url:`${BASE_URL}/norma-regulamentadora-no-25-nr-25` },
-  { nr:'NR-26', nome:'Sinalização de Segurança',                                                                              url:`${BASE_URL}/norma-regulamentadora-no-26-nr-26` },
-  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)',                                  url:`${BASE_URL}/norma-regulamentadora-no-27-nr-27` },
-  { nr:'NR-28', nome:'Fiscalização e Penalidades',                                                                            url:`${BASE_URL}/norma-regulamentadora-no-28-nr-28` },
-  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário',                                                               url:`${BASE_URL}/norma-regulamentadora-no-29-nr-29` },
-  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário',                                                              url:`${BASE_URL}/norma-regulamentadora-no-30-nr-30` },
-  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:`${BASE_URL}/norma-regulamentadora-no-31-nr-31` },
-  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde',                                            url:`${BASE_URL}/norma-regulamentadora-no-32-nr-32` },
-  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados',                                                 url:`${BASE_URL}/norma-regulamentadora-no-33-nr-33` },
-  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval',          url:`${BASE_URL}/norma-regulamentadora-no-34-nr-34` },
-  { nr:'NR-35', nome:'Trabalho em Altura',                                                                                    url:`${BASE_URL}/norma-regulamentadora-no-35-nr-35` },
-  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados',             url:`${BASE_URL}/norma-regulamentadora-no-36-nr-36` },
-  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo',                                                         url:'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/norma-regulamentadora-no-37-nr-37' },
-  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos',         url:`${BASE_URL}/norma-regulamentadora-no-38-nr-38` },
+  { nr:'NR-1',  nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais',                                                url:`${INDEX_URL}/nr-1` },
+  { nr:'NR-2',  nome:'Inspeção Prévia (Revogada)',                                                                               url:INDEX_URL },
+  { nr:'NR-3',  nome:'Embargo e Interdição',                                                                                     url:INDEX_URL },
+  { nr:'NR-4',  nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho',                             url:INDEX_URL },
+  { nr:'NR-5',  nome:'Comissão Interna de Prevenção de Acidentes e de Assédio',                                                 url:INDEX_URL },
+  { nr:'NR-6',  nome:'Equipamentos de Proteção Individual',                                                                      url:INDEX_URL },
+  { nr:'NR-7',  nome:'Programa de Controle Médico de Saúde Ocupacional',                                                        url:INDEX_URL },
+  { nr:'NR-8',  nome:'Edificações',                                                                                              url:INDEX_URL },
+  { nr:'NR-9',  nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos',               url:INDEX_URL },
+  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade',                                                     url:INDEX_URL },
+  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais',                                           url:INDEX_URL },
+  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos',                                                        url:INDEX_URL },
+  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão',                           url:INDEX_URL },
+  { nr:'NR-14', nome:'Fornos',                                                                                                   url:INDEX_URL },
+  { nr:'NR-15', nome:'Atividades e Operações Insalubres',                                                                       url:INDEX_URL },
+  { nr:'NR-16', nome:'Atividades e Operações Perigosas',                                                                        url:INDEX_URL },
+  { nr:'NR-17', nome:'Ergonomia',                                                                                                url:INDEX_URL },
+  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção',                                                url:INDEX_URL },
+  { nr:'NR-19', nome:'Explosivos',                                                                                               url:INDEX_URL },
+  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis',                                           url:INDEX_URL },
+  { nr:'NR-21', nome:'Trabalho a Céu Aberto',                                                                                   url:INDEX_URL },
+  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração',                                                              url:INDEX_URL },
+  { nr:'NR-23', nome:'Proteção Contra Incêndios',                                                                               url:INDEX_URL },
+  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho',                                               url:INDEX_URL },
+  { nr:'NR-25', nome:'Resíduos Industriais',                                                                                    url:INDEX_URL },
+  { nr:'NR-26', nome:'Sinalização de Segurança',                                                                                url:INDEX_URL },
+  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)',                                    url:INDEX_URL },
+  { nr:'NR-28', nome:'Fiscalização e Penalidades',                                                                              url:INDEX_URL },
+  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário',                                                                 url:INDEX_URL },
+  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário',                                                                url:INDEX_URL },
+  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:INDEX_URL },
+  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde',                                              url:INDEX_URL },
+  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados',                                                   url:INDEX_URL },
+  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval',            url:INDEX_URL },
+  { nr:'NR-35', nome:'Trabalho em Altura',                                                                                      url:`${INDEX_URL}/nr-35-atualizada-2025-1.pdf` },
+  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados',               url:INDEX_URL },
+  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo',                                                           url:INDEX_URL },
+  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos',           url:INDEX_URL },
 ];
 
 // ─── Renderiza a lista completa de NRs ──────────────────────────────────────
@@ -935,6 +1048,101 @@ async function loadState() {
     document.getElementById('recentCount').textContent = '0 alterações';
     document.getElementById('historyCount').textContent = '0 registros';
   }
+}
+
+
+// ─── Configuração do repositório ────────────────────────────────────────────
+const GH_OWNER = 'SEU-USUARIO';   // ← troque pelo seu usuário do GitHub
+const GH_REPO  = 'MONITOR-DE-NR'; // ← troque pelo nome do repositório
+const GH_WORKFLOW = 'monitor.yml';
+
+// ─── Disparar workflow via API do GitHub ─────────────────────────────────────
+async function triggerWorkflow() {
+  const saved = localStorage.getItem('gh_nr_token');
+  if (!saved) {
+    document.getElementById('tokenModal').classList.remove('hidden');
+    return;
+  }
+  await runWorkflow(saved);
+}
+
+function closeModal() {
+  document.getElementById('tokenModal').classList.add('hidden');
+  document.getElementById('tokenInput').value = '';
+}
+
+async function confirmToken() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token) { alert('Digite o token!'); return; }
+  if (document.getElementById('saveToken').checked) {
+    localStorage.setItem('gh_nr_token', token);
+  }
+  closeModal();
+  await runWorkflow(token);
+}
+
+async function runWorkflow(token) {
+  const btn   = document.getElementById('runBtn');
+  const icon  = document.getElementById('runIcon');
+  const label = document.getElementById('runLabel');
+
+  btn.disabled = true;
+  btn.classList.add('running');
+  icon.innerHTML = '<circle cx="12" cy="12" r="9" stroke-dasharray="56" stroke-dashoffset="20" style="animation:spin .8s linear infinite;transform-origin:center"/>';
+  label.textContent = 'Executando…';
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28'
+        },
+        body: JSON.stringify({ ref: 'main' })
+      }
+    );
+
+    if (res.status === 204) {
+      // Sucesso
+      label.textContent = '✓ Iniciado!';
+      btn.style.background = '#2e7d32';
+      setTimeout(() => {
+        label.textContent = 'Verificar agora';
+        btn.style.background = '';
+        btn.classList.remove('running');
+        btn.disabled = false;
+        icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+        // Recarrega os dados após 60s (tempo para o workflow terminar)
+        setTimeout(loadState, 60000);
+      }, 3000);
+    } else if (res.status === 401) {
+      localStorage.removeItem('gh_nr_token');
+      alert('Token inválido ou expirado. Por favor, gere um novo token.');
+      resetBtn();
+    } else {
+      const body = await res.json().catch(() => ({}));
+      alert(`Erro ao disparar: ${res.status} — ${body.message || 'Tente novamente.'}`);
+      resetBtn();
+    }
+  } catch (e) {
+    alert('Erro de conexão. Verifique sua internet e tente novamente.');
+    resetBtn();
+  }
+}
+
+function resetBtn() {
+  const btn   = document.getElementById('runBtn');
+  const icon  = document.getElementById('runIcon');
+  const label = document.getElementById('runLabel');
+  btn.disabled = false;
+  btn.classList.remove('running');
+  btn.style.background = '';
+  icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  label.textContent = 'Verificar agora';
 }
 
 // ─── Init ───────────────────────────────────────────────────────────────────
