@@ -6,8 +6,6 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
-import time
-import socket
 
 BRASILIA = timezone(timedelta(hours=-3))
 def now_brasilia():
@@ -18,9 +16,10 @@ STATE_FILE = os.path.join(DATA_DIR, 'state.json')
 os.makedirs(DATA_DIR, exist_ok=True)
 
 BASE = (
-    "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/"
-    "inspecao-do-trabalho/seguranca-e-saude-no-trabalho/"
-    "ctpp-nrs/normas-regulamentadoras-vigentes"
+    "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/"
+    "participacao-social/conselhos-e-orgaos-colegiados/"
+    "comissao-tripartite-partitaria-permanente/"
+    "normas-regulamentadora/normas-regulamentadoras-vigentes"
 )
 
 NR_LIST = [
@@ -108,46 +107,25 @@ def extract_stable_content(html):
 def page_hash(html):
     return hashlib.md5(extract_stable_content(html).encode('utf-8')).hexdigest()
 
-def fetch_page(url, timeout=30, retries=3, delay=5):
+def fetch_page(url, timeout=30):
     headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/124.0.0.0 Safari/537.36"
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
+        'Connection': 'keep-alive',
     }
-
     req = urllib.request.Request(url, headers=headers)
-
-    for tentativa in range(1, retries + 1):
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                raw = resp.read()
-
-                try:
-                    return raw.decode("utf-8")
-                except UnicodeDecodeError:
-                    return raw.decode("latin-1", errors="replace")
-
-        except urllib.error.HTTPError as e:
-            print(f"[HTTP {e.code}]")
-            return None
-
-        except (urllib.error.URLError, socket.timeout, TimeoutError) as e:
-            print(f"[Tentativa {tentativa}/{retries}] {e}")
-
-            if tentativa < retries:
-                time.sleep(delay)
-                continue
-
-            print("[ERRO] Não foi possível conectar ao site.")
-            return None
-
-        except Exception as e:
-            print(f"[ERRO] {e}")
-            return None
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read()
+            try: return raw.decode('utf-8')
+            except: return raw.decode('latin-1', errors='replace')
+    except urllib.error.HTTPError as e:
+        print(f"[HTTP {e.code}]")
+        return None
+    except Exception as e:
+        print(f"[ERRO: {e}]")
+        return None
 
 def load_state():
     if os.path.exists(STATE_FILE):
@@ -163,14 +141,6 @@ def run_check():
     print(f"\n{'='*60}")
     print(f"  Monitor de NR — {now_brasilia().strftime('%d/%m/%Y %H:%M')} (Brasília)")
     print(f"{'='*60}\n")
-    print("Testando conectividade com o gov.br...", end=" ", flush=True)
-
-if fetch_page(BASE, timeout=15, retries=2) is None:
-    print("FALHOU.")
-    print("O gov.br ou a rede do GitHub Actions estão indisponíveis.")
-    return
-
-print("OK.")
 
     state = load_state()
     changes_found = []
