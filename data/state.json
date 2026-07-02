@@ -1,6 +1,6 @@
 {
-  "last_check": "01/07/2026 14:28",
-  "status": "Monitorando",
+  "last_check": "02/07/2026 13:29",
+  "status": "Alteração Detectada",
   "total_nrs": 38,
   "hashes": {
     "__index__": "ac21e3a1b93ac3be816c9987d920f98d",
@@ -25,7 +25,7 @@
     "nr19": "dec096bafb71736acb69c3750f72f57a",
     "nr20": "fa399eebe9170ef13c4742c3ee73928c",
     "nr21": "a8591650ee03ac0019f33f031d0fc193",
-    "nr22": "2668648477cc08dd0ce440619ac0b027",
+    "nr22": "1c93f1ecb9ff648db8f96345836afb59",
     "nr23": "ed4355ea9a39d04d04e8428ed40886d2",
     "nr24": "1ee16075691f8203fd5bcc2dddd127cf",
     "nr25": "b568b88ff770edc206d7cc16ba431ac6",
@@ -43,6 +43,24 @@
     "nr37": "3f2be94457f3191030964f4b458786ef",
     "nr38": "5206b844447e975b8cd56e51210af692"
   },
-  "recent_changes": [],
-  "history": []
+  "recent_changes": [
+    {
+      "nr": "NR-22",
+      "nome": "Segurança e Saúde Ocupacional na Mineração",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-22-nr-22",
+      "data": "2026-07-02",
+      "data_fmt": "02/07/2026",
+      "source": "gov.br / MTE"
+    }
+  ],
+  "history": [
+    {
+      "nr": "NR-22",
+      "nome": "Segurança e Saúde Ocupacional na Mineração",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-22-nr-22",
+      "data": "2026-07-02",
+      "data_fmt": "02/07/2026",
+      "source": "gov.br / MTE"
+    }
+  ]
 }
