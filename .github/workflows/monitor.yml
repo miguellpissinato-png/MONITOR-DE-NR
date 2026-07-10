@@ -2,10 +2,13 @@ name: Monitor Diário de NR
 
 on:
   schedule:
-    # Roda todo dia às 10:00 UTC = 07:00 horário de Brasília
+    # Tenta às 10:00 UTC = 07:00 Brasília
     - cron: '0 10 * * *'
+    # Retry às 11:00 UTC caso o primeiro falhe
+    - cron: '0 11 * * *'
+    # Retry às 12:00 UTC caso os anteriores falhem
+    - cron: '0 12 * * *'
   workflow_dispatch:
-    # Permite rodar manualmente pelo painel do GitHub
     inputs:
       reason:
         description: 'Motivo da execução manual'
@@ -13,7 +16,7 @@ on:
         default: 'Verificação manual'
 
 permissions:
-  contents: write   # necessário para fazer commit do state.json
+  contents: write
 
 jobs:
   check-nr:
@@ -31,16 +34,40 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Verificar NR (sem dependências externas)
+      - name: Verificar conectividade com gov.br
+        id: net_check
+        run: |
+          echo "Testando conexão com gov.br..."
+          for i in 1 2 3 4 5; do
+            if curl -sf --max-time 15 "https://www.gov.br" > /dev/null 2>&1; then
+              echo "✅ Conexão OK na tentativa $i"
+              echo "connected=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            echo "⏳ Tentativa $i falhou, aguardando 30s..."
+            sleep 30
+          done
+          echo "❌ gov.br inacessível após 5 tentativas"
+          echo "connected=false" >> $GITHUB_OUTPUT
+          exit 1
+
+      - name: Verificar NR (com retry automático)
+        if: steps.net_check.outputs.connected == 'true'
         run: |
           cd scripts
-          python check_nr.py
+          for i in 1 2 3; do
+            echo "--- Tentativa $i de 3 ---"
+            python check_nr.py && break
+            if [ $i -lt 3 ]; then
+              echo "Aguardando 60s antes de tentar novamente..."
+              sleep 60
+            fi
+          done
 
-      - name: Salvar estado atualizado no repositório
+      - name: Salvar estado atualizado
         run: |
           git config user.name  "NR Monitor Bot"
           git config user.email "nr-monitor@github-actions"
           git add data/state.json
-          # Só faz commit se o arquivo tiver mudado
           git diff --cached --quiet || git commit -m "chore: atualização automática $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
