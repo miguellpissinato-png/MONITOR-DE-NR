@@ -1,117 +1,106 @@
+"""
+Monitor de Segurança do Trabalho — Diário Oficial da União
+Busca diariamente publicações relacionadas a NR, portarias SST,
+instruções normativas e outros atos que impactem a segurança do trabalho.
+"""
+
 import json
 import os
 import re
+import time
 import hashlib
 import urllib.request
+import urllib.parse
 import urllib.error
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
 
+# ─── Fuso horário de Brasília ────────────────────────────────────────────────
 BRASILIA = timezone(timedelta(hours=-3))
 def now_brasilia():
     return datetime.now(BRASILIA)
 
+# ─── Caminhos ────────────────────────────────────────────────────────────────
 DATA_DIR   = os.path.join(os.path.dirname(__file__), '..', 'data')
 STATE_FILE = os.path.join(DATA_DIR, 'state.json')
 os.makedirs(DATA_DIR, exist_ok=True)
 
-BASE = (
-    "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/"
-    "participacao-social/conselhos-e-orgaos-colegiados/"
-    "comissao-tripartite-partitaria-permanente/"
-    "normas-regulamentadora/normas-regulamentadoras-vigentes"
-)
-
-NR_LIST = [
-    {"nr":"NR-1",  "nome":"Disposições Gerais e Gerenciamento de Riscos Ocupacionais",                                               "url":f"{BASE}/nr-1"},
-    {"nr":"NR-2",  "nome":"Inspeção Prévia (Revogada)",                                                                              "url":f"{BASE}/norma-regulamentadora-no-2-nr-2"},
-    {"nr":"NR-3",  "nome":"Embargo e Interdição",                                                                                    "url":f"{BASE}/norma-regulamentadora-no-3-nr-3"},
-    {"nr":"NR-4",  "nome":"Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho",                            "url":f"{BASE}/norma-regulamentadora-no-4-nr-4"},
-    {"nr":"NR-5",  "nome":"Comissão Interna de Prevenção de Acidentes e de Assédio",                                                "url":f"{BASE}/norma-regulamentadora-no-5-nr-5"},
-    {"nr":"NR-6",  "nome":"Equipamentos de Proteção Individual",                                                                     "url":f"{BASE}/norma-regulamentadora-no-6-nr-6"},
-    {"nr":"NR-7",  "nome":"Programa de Controle Médico de Saúde Ocupacional",                                                       "url":f"{BASE}/norma-regulamentadora-no-7-nr-7"},
-    {"nr":"NR-8",  "nome":"Edificações",                                                                                             "url":f"{BASE}/norma-regulamentadora-no-8-nr-8"},
-    {"nr":"NR-9",  "nome":"Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos",              "url":f"{BASE}/norma-regulamentadora-no-9-nr-9"},
-    {"nr":"NR-10", "nome":"Segurança em Instalações e Serviços em Eletricidade",                                                    "url":f"{BASE}/norma-regulamentadora-no-10-nr-10"},
-    {"nr":"NR-11", "nome":"Transporte, Movimentação, Armazenagem e Manuseio de Materiais",                                          "url":f"{BASE}/norma-regulamentadora-no-11-nr-11"},
-    {"nr":"NR-12", "nome":"Segurança no Trabalho em Máquinas e Equipamentos",                                                       "url":f"{BASE}/norma-regulamentadora-no-12-nr-12"},
-    {"nr":"NR-13", "nome":"Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão",                          "url":f"{BASE}/norma-regulamentadora-no-13-nr-13"},
-    {"nr":"NR-14", "nome":"Fornos",                                                                                                  "url":f"{BASE}/norma-regulamentadora-no-14-nr-14"},
-    {"nr":"NR-15", "nome":"Atividades e Operações Insalubres",                                                                      "url":f"{BASE}/norma-regulamentadora-no-15-nr-15"},
-    {"nr":"NR-16", "nome":"Atividades e Operações Perigosas",                                                                       "url":f"{BASE}/norma-regulamentadora-no-16-nr-16"},
-    {"nr":"NR-17", "nome":"Ergonomia",                                                                                               "url":f"{BASE}/norma-regulamentadora-no-17-nr-17"},
-    {"nr":"NR-18", "nome":"Segurança e Saúde no Trabalho na Indústria da Construção",                                               "url":f"{BASE}/norma-regulamentadora-no-18-nr-18"},
-    {"nr":"NR-19", "nome":"Explosivos",                                                                                              "url":f"{BASE}/norma-regulamentadora-no-19-nr-19"},
-    {"nr":"NR-20", "nome":"Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis",                                          "url":f"{BASE}/norma-regulamentadora-no-20-nr-20"},
-    {"nr":"NR-21", "nome":"Trabalho a Céu Aberto",                                                                                  "url":f"{BASE}/norma-regulamentadora-no-21-nr-21"},
-    {"nr":"NR-22", "nome":"Segurança e Saúde Ocupacional na Mineração",                                                             "url":f"{BASE}/norma-regulamentadora-no-22-nr-22"},
-    {"nr":"NR-23", "nome":"Proteção Contra Incêndios",                                                                              "url":f"{BASE}/norma-regulamentadora-no-23-nr-23"},
-    {"nr":"NR-24", "nome":"Condições Sanitárias e de Conforto nos Locais de Trabalho",                                              "url":f"{BASE}/norma-regulamentadora-no-24-nr-24"},
-    {"nr":"NR-25", "nome":"Resíduos Industriais",                                                                                   "url":f"{BASE}/norma-regulamentadora-no-25-nr-25"},
-    {"nr":"NR-26", "nome":"Sinalização de Segurança",                                                                               "url":f"{BASE}/norma-regulamentadora-no-26-nr-26"},
-    {"nr":"NR-27", "nome":"Registro Profissional do Técnico de Segurança do Trabalho (Revogada)",                                   "url":f"{BASE}/norma-regulamentadora-no-27-nr-27"},
-    {"nr":"NR-28", "nome":"Fiscalização e Penalidades",                                                                             "url":f"{BASE}/norma-regulamentadora-no-28-nr-28"},
-    {"nr":"NR-29", "nome":"Segurança e Saúde no Trabalho Portuário",                                                                "url":f"{BASE}/norma-regulamentadora-no-29-nr-29"},
-    {"nr":"NR-30", "nome":"Segurança e Saúde no Trabalho Aquaviário",                                                               "url":f"{BASE}/norma-regulamentadora-no-30-nr-30"},
-    {"nr":"NR-31", "nome":"Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura","url":f"{BASE}/norma-regulamentadora-no-31-nr-31"},
-    {"nr":"NR-32", "nome":"Segurança e Saúde no Trabalho em Estabelecimentos de Saúde",                                             "url":f"{BASE}/norma-regulamentadora-no-32-nr-32"},
-    {"nr":"NR-33", "nome":"Segurança e Saúde nos Trabalhos em Espaços Confinados",                                                  "url":f"{BASE}/norma-regulamentadora-no-33-nr-33"},
-    {"nr":"NR-34", "nome":"Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval",           "url":f"{BASE}/norma-regulamentadora-no-34-nr-34"},
-    {"nr":"NR-35", "nome":"Trabalho em Altura",                                                                                     "url":f"{BASE}/norma-regulamentadora-no-35-nr-35"},
-    {"nr":"NR-36", "nome":"Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados",              "url":f"{BASE}/norma-regulamentadora-no-36-nr-36"},
-    {"nr":"NR-37", "nome":"Segurança e Saúde em Plataformas de Petróleo",                                                          "url":"https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/norma-regulamentadora-no-37-nr-37"},
-    {"nr":"NR-38", "nome":"Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos",           "url":f"{BASE}/norma-regulamentadora-no-38-nr-38"},
+# ─── Termos de busca no DOU ──────────────────────────────────────────────────
+# Cada termo gera uma busca independente no DOU
+SEARCH_TERMS = [
+    "norma regulamentadora",
+    "segurança saúde trabalho portaria",
+    "NR-1 NR-2 NR-3 NR-4 NR-5 NR-6 NR-7",
+    "NR-8 NR-9 NR-10 NR-11 NR-12 NR-13",
+    "NR-14 NR-15 NR-16 NR-17 NR-18 NR-19",
+    "NR-20 NR-21 NR-22 NR-23 NR-24 NR-25",
+    "NR-26 NR-27 NR-28 NR-29 NR-30 NR-31",
+    "NR-32 NR-33 NR-34 NR-35 NR-36 NR-37 NR-38",
+    "equipamento proteção individual EPI portaria",
+    "CIPA acidente trabalho portaria",
+    "insalubridade periculosidade portaria",
+    "espaço confinado portaria",
+    "trabalho altura portaria",
+    "PCMSO PPRA PGR portaria",
 ]
 
-# ─── Parser HTML — extrai só texto, ignora nav/footer/scripts ────────────────
+# ─── URLs das fontes monitoradas ─────────────────────────────────────────────
+DOU_SEARCH_BASE = "https://www.in.gov.br/consulta/-/buscar/dou"
+MTE_PORTARIAS   = "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/portarias-sst"
+MTE_INDEX       = "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
+
+# ─── Palavras-chave para filtrar resultados relevantes ───────────────────────
+KEYWORDS_INCLUDE = [
+    "norma regulamentadora", "nr-", " nr ", "portaria",
+    "segurança do trabalho", "saúde no trabalho", "segurança e saúde",
+    "insalubridade", "periculosidade", "epi", "equipamento de proteção",
+    "acidente de trabalho", "medicina do trabalho", "cipa",
+    "espaço confinado", "trabalho em altura", "ergonomia",
+    "pcmso", "pgr", "ppra", "ltcat", "laudo",
+    "agente nocivo", "agente químico", "agente físico", "agente biológico",
+    "caldeira", "vaso de pressão", "explosivo", "inflamável",
+    "mineração", "construção civil", "indústria da construção",
+]
+
+KEYWORDS_EXCLUDE = [
+    "concurso público", "licitação", "pregão", "contrato administrativo",
+    "aposentadoria", "pensão", "benefício previdenciário",
+    "imposto", "tributo", "fiscal", "receita federal",
+]
+
+# ─── Parser HTML ─────────────────────────────────────────────────────────────
 class TextExtractor(HTMLParser):
     def __init__(self):
         super().__init__()
         self.texts = []
         self._skip = False
+        self.links = []
+        self._current_href = None
+
     def handle_starttag(self, tag, attrs):
-        if tag in ('script','style','nav','footer','header','aside'): self._skip = True
+        if tag in ('script', 'style', 'nav', 'footer', 'head'): self._skip = True
+        if tag == 'a':
+            attrs_dict = dict(attrs)
+            self._current_href = attrs_dict.get('href', '')
+
     def handle_endtag(self, tag):
-        if tag in ('script','style','nav','footer','header','aside'): self._skip = False
+        if tag in ('script', 'style', 'nav', 'footer', 'head'): self._skip = False
+        if tag == 'a': self._current_href = None
+
     def handle_data(self, data):
         if not self._skip:
             s = data.strip()
             if s: self.texts.append(s)
+
     def get_text(self): return ' '.join(self.texts)
 
-def extract_stable_content(html):
-    """Remove elementos dinâmicos do gov.br antes de gerar o hash."""
-    # Remove comentários HTML
-    html = re.sub(r'<!--.*?-->', '', html, flags=re.DOTALL)
-    # Remove blocos de script e style completos
-    html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.DOTALL | re.IGNORECASE)
-    html = re.sub(r'<style[^>]*>.*?</style>',  '', html, flags=re.DOTALL | re.IGNORECASE)
 
-    # Extrai texto
-    p = TextExtractor()
-    p.feed(html)
-    clean = p.get_text()
-
-    # Remove padrões dinâmicos comuns em portais gov.br
-    clean = re.sub(r'\d{2}/\d{2}/\d{4}(\s+\d{2}h\d{2})?', '', clean)  # datas e horários
-    clean = re.sub(r'\d{4}-\d{2}-\d{2}[T\d:.Z+-]*',        '', clean)  # datas ISO
-    clean = re.sub(r'\d{2}h\d{2}',                          '', clean)  # horários avulsos
-    clean = re.sub(r'Atualizado em[^.]*\.',                  '', clean)  # "Atualizado em X"
-    clean = re.sub(r'Publicado em[^.]*\.',                   '', clean)  # "Publicado em X"
-    clean = re.sub(r'\d+\s*visualizaç\w+',                  '', clean)  # contadores
-    clean = re.sub(r'[a-f0-9]{32,}',                        '', clean)  # hashes/tokens inline
-    clean = re.sub(r'\s+', ' ', clean).strip()
-
-    return clean
-
-def page_hash(html):
-    return hashlib.md5(extract_stable_content(html).encode('utf-8')).hexdigest()
-
-def fetch_page(url, timeout=30):
+def fetch_url(url, timeout=25):
+    """Faz requisição HTTP simulando navegador."""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
+        'Accept-Language': 'pt-BR,pt;q=0.9',
         'Connection': 'keep-alive',
     }
     req = urllib.request.Request(url, headers=headers)
@@ -121,113 +110,239 @@ def fetch_page(url, timeout=30):
             try: return raw.decode('utf-8')
             except: return raw.decode('latin-1', errors='replace')
     except urllib.error.HTTPError as e:
-        print(f"[HTTP {e.code}]")
+        print(f"    [HTTP {e.code}]")
         return None
     except Exception as e:
-        print(f"[ERRO: {e}]")
+        print(f"    [ERRO: {type(e).__name__}: {e}]")
         return None
+
+
+def is_relevant(text):
+    """Verifica se o texto é relevante para segurança do trabalho."""
+    text_lower = text.lower()
+    # Deve conter pelo menos uma palavra-chave relevante
+    has_keyword = any(kw in text_lower for kw in KEYWORDS_INCLUDE)
+    # Não deve ser sobre assuntos não relacionados
+    has_exclusion = any(kw in text_lower for kw in KEYWORDS_EXCLUDE)
+    return has_keyword and not has_exclusion
+
+
+def extract_dou_results(html, search_term):
+    """Extrai resultados de busca do DOU."""
+    if not html:
+        return []
+
+    results = []
+
+    # Extrai blocos de resultado — o DOU usa divs com classe específica
+    # Padrão: título do ato + data + link
+    
+    # Busca por padrões de portaria/instrução no texto completo
+    parser = TextExtractor()
+    parser.feed(html)
+    full_text = parser.get_text()
+
+    # Extrai links do HTML
+    links = re.findall(
+        r'href=["\'](/materia/[^"\']+|https://www\.in\.gov\.br/[^"\']+)["\']',
+        html
+    )
+
+    # Extrai títulos de atos (padrão DOU)
+    patterns = [
+        # PORTARIA Nº X, DE X DE MÊS DE ANO
+        r'(PORTARIA\s+(?:MTE|MTb|SEFIT|SIT|SST|SEPRT)?\s*(?:N[Oº°\.]+\s*)?\d[\d\.]*[\s,]+DE\s+\d+\s+DE\s+\w+\s+DE\s+\d{4}[^\.]{0,300})',
+        # INSTRUÇÃO NORMATIVA
+        r'(INSTRU[ÇC][ÃA]O\s+NORMATIVA\s*(?:N[Oº°\.]+\s*)?\d[\d\.]*[\s,]+DE[^\.]{0,300})',
+        # RESOLUÇÃO
+        r'(RESOLU[ÇC][ÃA]O\s*(?:N[Oº°\.]+\s*)?\d[\d\.]*[\s,]+DE[^\.]{0,300})',
+        # Altera norma regulamentadora
+        r'((?:Altera|Aprova|Revoga|Institui|Estabelece)[^\.]{10,200}(?:[Nn]orma [Rr]egulamentadora|[Ss]egurança[^\.]{5,100}[Tt]rabalho)[^\.]{0,100})',
+    ]
+
+    found_acts = set()
+    for pattern in patterns:
+        matches = re.findall(pattern, full_text, re.IGNORECASE)
+        for match in matches:
+            clean = re.sub(r'\s+', ' ', match.strip())
+            if len(clean) > 20 and is_relevant(clean):
+                act_id = hashlib.md5(clean[:100].encode()).hexdigest()[:12]
+                if act_id not in found_acts:
+                    found_acts.add(act_id)
+                    # Tenta encontrar link correspondente
+                    link = next((
+                        f"https://www.in.gov.br{l}" if l.startswith('/') else l
+                        for l in links
+                        if 'materia' in l or 'dou' in l.lower()
+                    ), f"https://www.in.gov.br/consulta/-/buscar/dou?q={urllib.parse.quote(search_term)}&s=todos")
+
+                    results.append({
+                        "titulo": clean[:200],
+                        "link": link,
+                        "fonte": "Diário Oficial da União",
+                        "busca": search_term
+                    })
+
+    return results[:5]  # limita por busca
+
+
+def search_dou(term, date_str):
+    """Busca no DOU por termo específico na data de hoje."""
+    # URL de busca do DOU com filtro de data
+    encoded = urllib.parse.quote(f'"{term}"')
+    url = f"{DOU_SEARCH_BASE}?q={encoded}&s=todos&exactDate={date_str}&sortType=0"
+    print(f"    Buscando: \"{term}\"...", end=" ", flush=True)
+    html = fetch_url(url)
+    if not html:
+        print("falha.")
+        return []
+
+    # Verifica se há resultados
+    text_lower = html.lower()
+    has_results = (
+        'resultado' in text_lower or
+        'materia' in text_lower or
+        'portaria' in text_lower or
+        'instrução' in text_lower or
+        'norma regulamentadora' in text_lower
+    )
+
+    if not has_results:
+        print("sem publicações.")
+        return []
+
+    results = extract_dou_results(html, term)
+    print(f"{len(results)} resultado(s) relevante(s).")
+    return results
+
+
+def check_mte_portarias():
+    """Monitora a página de portarias SST do MTE."""
+    print("  Verificando portal de Portarias SST (MTE)...", end=" ", flush=True)
+    html = fetch_url(MTE_PORTARIAS)
+    if not html:
+        # Tenta URL alternativa
+        html = fetch_url(MTE_INDEX)
+    if not html:
+        print("falha.")
+        return None, None
+
+    parser = TextExtractor()
+    parser.feed(html)
+    clean = parser.get_text()
+    clean = re.sub(r'\d{2}/\d{2}/\d{4}', '', clean)
+    clean = re.sub(r'\d{4}-\d{2}-\d{2}', '', clean)
+    clean = re.sub(r'\s+', ' ', clean).strip()
+    h = hashlib.md5(clean.encode('utf-8')).hexdigest()
+    print("OK.")
+    return h, MTE_PORTARIAS
+
 
 def load_state():
     if os.path.exists(STATE_FILE):
-        with open(STATE_FILE,'r',encoding='utf-8') as f: return json.load(f)
-    return {"last_check":None,"status":"Monitorando","total_nrs":38,
-            "hashes":{},"recent_changes":[],"history":[]}
+        with open(STATE_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {
+        "last_check": None,
+        "status": "Monitorando",
+        "total_nrs": 38,
+        "hashes": {},
+        "publicacoes_recentes": [],
+        "history": [],
+        "recent_changes": []
+    }
+
 
 def save_state(state):
-    with open(STATE_FILE,'w',encoding='utf-8') as f:
+    with open(STATE_FILE, 'w', encoding='utf-8') as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
+
 def run_check():
-    print(f"\n{'='*60}")
-    print(f"  Monitor de NR — {now_brasilia().strftime('%d/%m/%Y %H:%M')} (Brasília)")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*65}")
+    print(f"  Monitor SST / DOU — {now_brasilia().strftime('%d/%m/%Y %H:%M')} (Brasília)")
+    print(f"{'='*65}\n")
 
     state = load_state()
-    changes_found = []
-    today_str = now_brasilia().strftime('%Y-%m-%d')
-    now_str   = now_brasilia().strftime('%d/%m/%Y %H:%M')
+    today     = now_brasilia()
+    today_str = today.strftime('%Y-%m-%d')
+    today_fmt = today.strftime('%d/%m/%Y')
+    now_str   = today.strftime('%d/%m/%Y %H:%M')
+    # Formato de data para o DOU (dd-mm-yyyy)
+    dou_date  = today.strftime('%d-%m-%Y')
 
-    # ── Página índice geral ──────────────────────────────────────────────────
-    print(f"  Verificando índice MTE...", end=" ", flush=True)
-    idx_html = fetch_page(BASE)
-    if idx_html:
-        idx_hash = page_hash(idx_html)
-        old_idx  = state["hashes"].get("__index__")
-        if old_idx and idx_hash != old_idx:
-            print("ALTERAÇÃO NA ÍNDICE!")
-        else:
-            print("OK.")
-        state["hashes"]["__index__"] = idx_hash
+    new_publications = []
 
-    # ── Verifica cada NR individualmente ────────────────────────────────────
-    for nr_info in NR_LIST:
-        nr_key = nr_info["nr"].lower().replace("-","")
-        print(f"  {nr_info['nr']}...", end=" ", flush=True)
+    # ── 1. Busca no Diário Oficial da União ──────────────────────────────────
+    print("[ DIÁRIO OFICIAL DA UNIÃO ]")
+    seen_ids = set()
 
-        html = fetch_page(nr_info["url"])
+    for term in SEARCH_TERMS:
+        results = search_dou(term, dou_date)
+        for r in results:
+            pub_id = hashlib.md5(r['titulo'][:80].encode()).hexdigest()[:16]
+            if pub_id not in seen_ids:
+                seen_ids.add(pub_id)
+                r['id']       = pub_id
+                r['data']     = today_str
+                r['data_fmt'] = today_fmt
+                r['tipo']     = 'DOU'
+                new_publications.append(r)
+        time.sleep(1)  # respeita o servidor
 
-        # Fallback se der 404
-        if html is None:
-            num = nr_info["nr"].replace("NR-","")
-            fallback = f"{BASE}/nr-{num}"
-            if fallback != nr_info["url"]:
-                print(f"tentando fallback...", end=" ", flush=True)
-                html = fetch_page(fallback)
-                if html:
-                    nr_info["url"] = fallback
-
-        if html is None:
-            print("falha, pulando.")
-            continue
-
-        new_hash = page_hash(html)
-        old_hash = state["hashes"].get(nr_key)
-
-        if old_hash is None:
-            # Primeira vez vendo esta NR — só registra, não conta como alteração
-            state["hashes"][nr_key] = new_hash
-            print("hash inicial registrado.")
-        elif new_hash != old_hash:
-            print("ALTERAÇÃO DETECTADA!")
-            state["hashes"][nr_key] = new_hash
-            changes_found.append({
-                "nr":       nr_info["nr"],
-                "nome":     nr_info["nome"],
-                "url":      nr_info["url"],
+    # ── 2. Monitora página de portarias SST do MTE ───────────────────────────
+    print("\n[ PORTAL MTE — PORTARIAS SST ]")
+    mte_hash, mte_url = check_mte_portarias()
+    if mte_hash:
+        old_mte = state["hashes"].get("__mte_portarias__")
+        if old_mte and mte_hash != old_mte:
+            print("  → ALTERAÇÃO DETECTADA no portal de portarias!")
+            pub = {
+                "id":       "mte_portal_" + today_str,
+                "titulo":   "Atualização detectada no portal de Portarias SST do MTE",
+                "link":     mte_url,
+                "fonte":    "Portal MTE — Portarias SST",
+                "busca":    "monitoramento automático",
                 "data":     today_str,
-                "data_fmt": now_brasilia().strftime('%d/%m/%Y'),
-                "source":   "gov.br / MTE"
-            })
-        else:
-            print("sem alteração.")
+                "data_fmt": today_fmt,
+                "tipo":     "MTE"
+            }
+            if pub["id"] not in seen_ids:
+                new_publications.append(pub)
+        state["hashes"]["__mte_portarias__"] = mte_hash
 
-    # ── Atualiza estado ──────────────────────────────────────────────────────
+    # ── Atualiza estado ───────────────────────────────────────────────────────
     state["last_check"] = now_str
     state["total_nrs"]  = 38
-    state["status"] = "Alteração Detectada" if changes_found else "Monitorando"
 
-    if changes_found:
-        existing = {(c["nr"], c["data"]) for c in state["recent_changes"]}
-        for c in changes_found:
-            if (c["nr"], c["data"]) not in existing:
-                state["recent_changes"].append(c)
-        hist_ex = {(c["nr"], c["data"]) for c in state["history"]}
-        for c in changes_found:
-            if (c["nr"], c["data"]) not in hist_ex:
-                state["history"].append(c)
+    if new_publications:
+        state["status"] = "Nova Publicação"
+        # Adiciona às recentes (evita duplicatas)
+        existing_ids = {p.get("id") for p in state.get("publicacoes_recentes", [])}
+        for p in new_publications:
+            if p["id"] not in existing_ids:
+                state.setdefault("publicacoes_recentes", []).append(p)
+                state.setdefault("history", []).append(p)
+                state.setdefault("recent_changes", []).append(p)
+    else:
+        state["status"] = "Monitorando"
 
-    cutoff = now_brasilia() - timedelta(days=7)
-    state["recent_changes"] = [
-        c for c in state["recent_changes"]
-        if datetime.strptime(c["data"],'%Y-%m-%d').replace(tzinfo=BRASILIA) >= cutoff
+    # Remove publicações recentes com mais de 7 dias
+    cutoff = today - timedelta(days=7)
+    state["publicacoes_recentes"] = [
+        p for p in state.get("publicacoes_recentes", [])
+        if datetime.strptime(p["data"], '%Y-%m-%d').replace(tzinfo=BRASILIA) >= cutoff
     ]
+    state["recent_changes"] = state["publicacoes_recentes"]
 
     save_state(state)
-    print(f"\n{'─'*60}")
-    print(f"  Status  : {state['status']}")
-    print(f"  Horário : {state['last_check']}")
-    print(f"  Mudanças: {len(changes_found)}")
-    print(f"{'─'*60}\n")
+
+    print(f"\n{'─'*65}")
+    print(f"  Status      : {state['status']}")
+    print(f"  Horário     : {state['last_check']}")
+    print(f"  Publicações : {len(new_publications)} nova(s) hoje")
+    print(f"{'─'*65}\n")
+
 
 if __name__ == '__main__':
     run_check()
