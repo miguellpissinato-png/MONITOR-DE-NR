@@ -3,45 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitor de NR — Normas Regulamentadoras</title>
+  <title>Monitor SST — Segurança e Saúde no Trabalho</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Reset & Base ──────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-deep:      #020c1b;
-      --bg-mid:       #041429;
-      --blue-1:       #0a2a5e;
-      --blue-2:       #0d3b8c;
-      --blue-3:       #1a5aad;
-      --glow-1:       #1e6fd9;
       --glow-2:       #2196f3;
-      --glow-soft:    rgba(33, 150, 243, 0.15);
-      --glass-bg:     rgba(255, 255, 255, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.10);
-      --glass-hover:  rgba(255, 255, 255, 0.07);
+      --glass-bg:     rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-hover:  rgba(255,255,255,0.07);
       --white:        #ffffff;
       --white-90:     rgba(255,255,255,0.90);
       --white-70:     rgba(255,255,255,0.70);
       --white-40:     rgba(255,255,255,0.40);
       --white-20:     rgba(255,255,255,0.20);
-      --white-10:     rgba(255,255,255,0.10);
       --green:        #00e676;
-      --green-dim:    rgba(0, 230, 118, 0.15);
+      --green-dim:    rgba(0,230,118,0.15);
       --amber:        #ffa726;
-      --amber-dim:    rgba(255, 167, 38, 0.15);
+      --amber-dim:    rgba(255,167,38,0.15);
       --red:          #ef5350;
-      --red-dim:      rgba(239, 83, 80, 0.15);
+      --red-dim:      rgba(239,83,80,0.15);
       --font-sans:    'Inter', system-ui, sans-serif;
-      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+      --font-mono:    'JetBrains Mono', monospace;
       --radius-sm:    8px;
       --radius-md:    14px;
       --radius-lg:    20px;
-      --transition:   0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition:   0.25s cubic-bezier(0.4,0,0.2,1);
     }
 
     html { scroll-behavior: smooth; }
@@ -54,564 +46,227 @@
       overflow-x: hidden;
     }
 
-    /* ─── Background animado com gradientes ────────────────────────────── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(13, 59, 140, 0.55) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 70% at 90% 80%, rgba(26, 90, 173, 0.45) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(10, 42, 94, 0.40) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(13,59,140,0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 90% 80%, rgba(26,90,173,0.45) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(10,42,94,0.40) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
     }
 
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
-        linear-gradient(rgba(33, 150, 243, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(33, 150, 243, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(33,150,243,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33,150,243,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* ─── Layout Wrapper ────────────────────────────────────────────────── */
-    .app {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
+    .glow-orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); }
+    .glow-1 { width:400px; height:400px; background:rgba(13,59,140,0.35); top:-100px; left:-100px; }
+    .glow-2 { width:350px; height:350px; background:rgba(26,90,173,0.30); bottom:100px; right:-80px; }
 
-    /* ─── Header / Marca ────────────────────────────────────────────────── */
-    .header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
+    .app { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:40px 24px 80px; }
 
-    .header-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--glow-2);
-      margin-bottom: 12px;
-    }
+    /* Header */
+    .header { text-align:center; margin-bottom:48px; }
+    .header-eyebrow { font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--glow-2); margin-bottom:12px; }
+    .header-title { font-size:clamp(28px,5vw,46px); font-weight:700; letter-spacing:-0.02em; line-height:1.1; color:var(--white); }
+    .header-title span { background:linear-gradient(135deg,var(--glow-2),#64b5f6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .header-sub { margin-top:12px; font-size:14px; color:var(--white-40); }
 
-    .header-title {
-      font-size: clamp(28px, 5vw, 46px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      color: var(--white);
+    /* Sources badge */
+    .sources-badge {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 16px; flex-wrap: wrap;
     }
-
-    .header-title span {
-      background: linear-gradient(135deg, var(--glow-2), #64b5f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .source-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; letter-spacing: 0.05em;
     }
+    .source-dou  { background: rgba(255,167,38,0.15); color: #ffa726; border: 1px solid rgba(255,167,38,0.3); }
+    .source-mte  { background: rgba(33,150,243,0.15); color: #2196f3; border: 1px solid rgba(33,150,243,0.3); }
 
-    .header-sub {
-      margin-top: 12px;
-      font-size: 14px;
-      color: var(--white-40);
-      letter-spacing: 0.01em;
-    }
-
-    /* ─── Activity Bar (barra de atividade branca) ──────────────────────── */
+    /* Activity Bar */
     .activity-bar {
-      background: rgba(255, 255, 255, 0.97);
+      background: rgba(255,255,255,0.97);
       border-radius: var(--radius-lg);
       padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: flex; align-items: center; gap: 8px;
       margin-bottom: 36px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.15);
     }
+    .activity-dot { width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2s infinite; flex-shrink:0; }
+    .activity-dot.warning { background:var(--amber); box-shadow:0 0 0 3px var(--amber-dim); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.2)} }
+    .activity-text { font-size:13px; font-weight:600; color:#1a2a4a; font-family:var(--font-mono); }
+    .activity-text .highlight { color:#1565c0; }
+    .activity-spacer { flex:1; }
+    .activity-time { font-size:11px; color:#8899aa; font-family:var(--font-mono); }
 
-    .activity-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 0 3px var(--green-dim);
-      animation: pulse 2s infinite;
-      flex-shrink: 0;
+    /* Run button */
+    .run-btn {
+      display:inline-flex; align-items:center; gap:7px;
+      background:#1565c0; color:#fff; border:none; border-radius:8px;
+      padding:8px 14px; font-family:var(--font-sans); font-size:12px;
+      font-weight:600; cursor:pointer; transition:background 0.2s,transform 0.1s;
+      white-space:nowrap; flex-shrink:0;
     }
+    .run-btn:hover:not(:disabled) { background:#1976d2; transform:translateY(-1px); }
+    .run-btn:disabled { opacity:0.6; cursor:not-allowed; }
+    .run-btn.running { background:#0d47a1; }
 
-    .activity-dot.warning { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-dim); }
-    .activity-dot.alert   { background: var(--red);   box-shadow: 0 0 0 3px var(--red-dim); }
+    /* Modal */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .modal-overlay.hidden { display:none; }
+    .modal-box { background:#0d1f3c; border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:28px; max-width:480px; width:100%; box-shadow:0 24px 60px rgba(0,0,0,0.5); }
+    .modal-title { font-size:16px; font-weight:700; color:#fff; margin-bottom:8px; }
+    .modal-sub { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; line-height:1.6; }
+    .modal-sub a { color:#64b5f6; }
+    .modal-input { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:#fff; font-family:var(--font-mono); font-size:13px; outline:none; margin-bottom:16px; }
+    .modal-input:focus { border-color:rgba(33,150,243,0.6); }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; }
+    .modal-btn-cancel { background:transparent; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.6); border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; }
+    .modal-btn-confirm { background:#1565c0; border:none; color:#fff; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+    .modal-info { font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px; line-height:1.5; }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.6; transform: scale(1.2); }
-    }
-
-    .activity-text {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1a2a4a;
-      font-family: var(--font-mono);
-    }
-
-    .activity-text .highlight {
-      color: #1565c0;
-    }
-
-    .activity-spacer { flex: 1; }
-
-    .activity-time {
-      font-size: 11px;
-      color: #8899aa;
-      font-family: var(--font-mono);
-    }
-
-    /* ─── Cards de status (3 métricas no topo) ──────────────────────────── */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    @media (max-width: 640px) {
-      .metrics-grid { grid-template-columns: 1fr; }
-    }
-
+    /* Metrics */
+    .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+    @media(max-width:640px) { .metrics-grid { grid-template-columns:1fr; } }
     .metric-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 24px 20px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: background var(--transition), border-color var(--transition);
-      position: relative;
-      overflow: hidden;
+      background:var(--glass-bg); border:1px solid var(--glass-border);
+      border-radius:var(--radius-md); padding:24px 20px;
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      transition:background var(--transition),border-color var(--transition);
+      position:relative; overflow:hidden;
     }
+    .metric-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 60%); pointer-events:none; }
+    .metric-card:hover { background:var(--glass-hover); border-color:rgba(255,255,255,0.18); }
+    .metric-label { font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--white-40); margin-bottom:14px; }
+    .metric-value { font-size:clamp(22px,3.5vw,30px); font-weight:700; color:var(--white); line-height:1; font-family:var(--font-mono); }
+    .metric-value.status-ok      { color:var(--green); }
+    .metric-value.status-changed { color:var(--amber); }
+    .metric-sub { font-size:12px; color:var(--white-40); margin-top:8px; }
+    .metric-badge { display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:12px; font-weight:500; padding:4px 10px; border-radius:20px; }
+    .badge-ok      { background:var(--green-dim); color:var(--green); }
+    .badge-changed { background:var(--amber-dim); color:var(--amber); }
 
-    .metric-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    /* Tabs */
+    .tabs { display:flex; gap:4px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:var(--radius-md); padding:6px; margin-bottom:24px; }
+    .tab-btn { flex:1; background:transparent; border:none; color:var(--white-40); font-family:var(--font-sans); font-size:13px; font-weight:500; padding:10px 16px; border-radius:var(--radius-sm); cursor:pointer; transition:all var(--transition); white-space:nowrap; }
+    .tab-btn:hover { color:var(--white-70); background:rgba(255,255,255,0.05); }
+    .tab-btn.active { background:rgba(33,150,243,0.18); color:var(--glow-2); font-weight:600; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
 
-    .metric-card:hover {
-      background: var(--glass-hover);
-      border-color: rgba(255,255,255,0.18);
-    }
+    /* Glass panel */
+    .glass-panel { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); overflow:hidden; }
+    .panel-header { padding:20px 24px; border-bottom:1px solid var(--glass-border); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .panel-title { font-size:14px; font-weight:600; color:var(--white-90); }
+    .panel-count { font-size:12px; color:var(--white-40); font-family:var(--font-mono); }
 
-    .metric-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--white-40);
-      margin-bottom: 14px;
-    }
-
-    .metric-value {
-      font-size: clamp(22px, 3.5vw, 30px);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1;
-      font-family: var(--font-mono);
-    }
-
-    .metric-value.status-ok      { color: var(--green); }
-    .metric-value.status-changed { color: var(--amber); }
-    .metric-value.status-alert   { color: var(--red); }
-
-    .metric-sub {
-      font-size: 12px;
-      color: var(--white-40);
-      margin-top: 8px;
-    }
-
-    .metric-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-
-    .badge-ok      { background: var(--green-dim); color: var(--green); }
-    .badge-changed { background: var(--amber-dim); color: var(--amber); }
-    .badge-alert   { background: var(--red-dim);   color: var(--red); }
-
-    /* ─── Abas de navegação ─────────────────────────────────────────────── */
-    .tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 6px;
-      margin-bottom: 24px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--white-40);
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 10px 16px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--transition);
-      white-space: nowrap;
-    }
-
-    .tab-btn:hover {
-      color: var(--white-70);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .tab-btn.active {
-      background: rgba(33, 150, 243, 0.18);
-      color: var(--glow-2);
-      font-weight: 600;
-    }
-
-    /* ─── Painéis das abas ──────────────────────────────────────────────── */
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* ─── Glass Panel (container genérico) ─────────────────────────────── */
-    .glass-panel {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      overflow: hidden;
-    }
-
-    .panel-header {
+    /* Publication items */
+    .pub-list { list-style:none; }
+    .pub-item {
       padding: 20px 24px;
-      border-bottom: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .panel-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--white-90);
-    }
-
-    .panel-count {
-      font-size: 12px;
-      color: var(--white-40);
-      font-family: var(--font-mono);
-    }
-
-    /* ─── Lista de NR alteradas ─────────────────────────────────────────── */
-    .nr-list { list-style: none; }
-
-    .nr-item {
-      display: grid;
-      grid-template-columns: 90px 1fr auto;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 24px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       transition: background var(--transition);
     }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-item:hover { background: rgba(255,255,255,0.03); }
 
-    .nr-item:last-child { border-bottom: none; }
+    .pub-header { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
+    .pub-tipo {
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px;
+      letter-spacing:0.06em; white-space:nowrap; flex-shrink:0; margin-top:2px;
+    }
+    .tipo-dou { background:rgba(255,167,38,0.15); color:#ffa726; border:1px solid rgba(255,167,38,0.3); }
+    .tipo-mte { background:rgba(33,150,243,0.15); color:#2196f3; border:1px solid rgba(33,150,243,0.3); }
 
-    .nr-item:hover { background: rgba(255,255,255,0.03); }
+    .pub-titulo { font-size:13px; font-weight:500; color:var(--white-90); line-height:1.5; }
+    .pub-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .pub-fonte { font-size:11px; color:var(--white-40); }
+    .pub-date { font-size:11px; color:var(--white-40); font-family:var(--font-mono); }
+    .pub-link {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:12px; font-weight:500; color:var(--glow-2);
+      text-decoration:none; padding:4px 10px; border-radius:6px;
+      border:1px solid rgba(33,150,243,0.25); background:rgba(33,150,243,0.08);
+      transition:all var(--transition); margin-left:auto;
+    }
+    .pub-link:hover { background:rgba(33,150,243,0.18); border-color:rgba(33,150,243,0.5); }
 
-    @media (max-width: 600px) {
-      .nr-item { grid-template-columns: 1fr; gap: 8px; }
-    }
+    /* NR List */
+    .nr-list { list-style:none; }
+    .nr-item { display:grid; grid-template-columns:90px 1fr auto; align-items:center; gap:16px; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.05); transition:background var(--transition); }
+    .nr-item:last-child { border-bottom:none; }
+    .nr-item:hover { background:rgba(255,255,255,0.03); }
+    @media(max-width:600px) { .nr-item { grid-template-columns:1fr; gap:8px; } }
+    .nr-badge { display:inline-flex; align-items:center; justify-content:center; background:rgba(33,150,243,0.12); border:1px solid rgba(33,150,243,0.25); color:var(--glow-2); font-size:12px; font-weight:700; font-family:var(--font-mono); padding:6px 10px; border-radius:8px; letter-spacing:0.04em; white-space:nowrap; }
+    .nr-info { min-width:0; }
+    .nr-name { font-size:13px; font-weight:500; color:var(--white-90); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .nr-source { font-size:11px; color:var(--white-40); margin-top:3px; }
+    .nr-link { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:500; color:var(--glow-2); text-decoration:none; padding:4px 10px; border-radius:6px; border:1px solid rgba(33,150,243,0.25); background:rgba(33,150,243,0.08); transition:all var(--transition); }
+    .nr-link:hover { background:rgba(33,150,243,0.18); border-color:rgba(33,150,243,0.5); }
 
-    .nr-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(33, 150, 243, 0.12);
-      border: 1px solid rgba(33, 150, 243, 0.25);
-      color: var(--glow-2);
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-      padding: 6px 10px;
-      border-radius: 8px;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
+    /* Empty state */
+    .empty-state { padding:60px 24px; text-align:center; }
+    .empty-icon { font-size:40px; margin-bottom:16px; }
+    .empty-title { font-size:16px; font-weight:600; color:var(--white-70); margin-bottom:8px; }
+    .empty-sub { font-size:13px; color:var(--white-40); line-height:1.6; }
 
-    .nr-info { min-width: 0; }
+    /* History month */
+    .history-month { padding:14px 24px 10px; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--glow-2); border-bottom:1px solid rgba(33,150,243,0.12); background:rgba(33,150,243,0.04); }
 
-    .nr-name {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white-90);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    /* Search */
+    .search-wrap { padding:16px 24px; border-bottom:1px solid var(--glass-border); }
+    .search-inner { position:relative; }
+    .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.4; }
+    .search-input { width:100%; padding:10px 12px 10px 36px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); border-radius:var(--radius-sm); color:var(--white-90); font-family:var(--font-sans); font-size:13px; outline:none; transition:border-color var(--transition); }
+    .search-input:focus { border-color:rgba(33,150,243,0.5); }
 
-    .nr-source {
-      font-size: 11px;
-      color: var(--white-40);
-      margin-top: 3px;
-    }
+    /* Loading */
+    .loading { display:flex; align-items:center; justify-content:center; padding:40px; gap:10px; color:var(--white-40); font-size:13px; }
+    .spinner { width:18px; height:18px; border:2px solid rgba(33,150,243,0.2); border-top-color:var(--glow-2); border-radius:50%; animation:spin 0.8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
-    .nr-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .nr-date {
-      font-size: 11px;
-      font-family: var(--font-mono);
-      color: var(--white-40);
-    }
-
-    .nr-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--glow-2);
-      text-decoration: none;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(33, 150, 243, 0.25);
-      background: rgba(33, 150, 243, 0.08);
-      transition: all var(--transition);
-    }
-
-    .nr-link:hover {
-      background: rgba(33, 150, 243, 0.18);
-      border-color: rgba(33, 150, 243, 0.5);
-      text-decoration: none;
-    }
-
-    /* ─── Estado vazio ───────────────────────────────────────────────────── */
-    .empty-state {
-      padding: 60px 24px;
-      text-align: center;
-    }
-
-    .empty-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-
-    .empty-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--white-70);
-      margin-bottom: 8px;
-    }
-
-    .empty-sub {
-      font-size: 13px;
-      color: var(--white-40);
-      line-height: 1.6;
-    }
-
-    /* ─── Histórico com agrupamento por mês ────────────────────────────── */
-    .history-month {
-      padding: 14px 24px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--glow-2);
-      border-bottom: 1px solid rgba(33, 150, 243, 0.12);
-      background: rgba(33, 150, 243, 0.04);
-    }
-
-    /* ─── Footer ────────────────────────────────────────────────────────── */
-    .footer {
-      margin-top: 56px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--white-20);
-      line-height: 1.8;
-    }
-
-    .footer a { color: var(--white-40); text-decoration: none; }
-    .footer a:hover { color: var(--white-70); }
-
-    /* ─── Loading state ─────────────────────────────────────────────────── */
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      gap: 10px;
-      color: var(--white-40);
-      font-size: 13px;
-    }
-
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(33, 150, 243, 0.2);
-      border-top-color: var(--glow-2);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─── Glow decoration ───────────────────────────────────────────────── */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      filter: blur(80px);
-    }
-
-    .glow-1 {
-      width: 400px; height: 400px;
-      background: rgba(13, 59, 140, 0.35);
-      top: -100px; left: -100px;
-    }
-
-    .glow-2 {
-      width: 350px; height: 350px;
-      background: rgba(26, 90, 173, 0.30);
-      bottom: 100px; right: -80px;
-    }
-
-    /* ─── Botão Verificar Agora ─────────────────────────────────────────── */
-    .run-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #1565c0;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s, opacity 0.2s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .run-btn:hover:not(:disabled) { background: #1976d2; transform: translateY(-1px); }
-    .run-btn:active:not(:disabled) { transform: translateY(0); }
-    .run-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .run-btn.running { background: #0d47a1; }
-
-    /* Modal de token */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 24px;
-    }
-    .modal-overlay.hidden { display: none; }
-    .modal-box {
-      background: #0d1f3c;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px;
-      padding: 28px;
-      max-width: 480px;
-      width: 100%;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-    }
-    .modal-title {
-      font-size: 16px; font-weight: 700; color: #fff;
-      margin-bottom: 8px;
-    }
-    .modal-sub {
-      font-size: 13px; color: rgba(255,255,255,0.5);
-      margin-bottom: 20px; line-height: 1.6;
-    }
-    .modal-sub a { color: #64b5f6; }
-    .modal-input {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: #fff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      outline: none;
-      margin-bottom: 16px;
-      transition: border-color 0.2s;
-    }
-    .modal-input:focus { border-color: rgba(33,150,243,0.6); }
-    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
-    .modal-btn-cancel {
-      background: transparent; border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.6); border-radius: 8px;
-      padding: 8px 16px; font-size: 13px; cursor: pointer;
-    }
-    .modal-btn-cancel:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-    .modal-btn-confirm {
-      background: #1565c0; border: none; color: #fff;
-      border-radius: 8px; padding: 8px 16px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-    }
-    .modal-btn-confirm:hover { background: #1976d2; }
-    .modal-info {
-      font-size: 11px; color: rgba(255,255,255,0.35);
-      margin-top: 12px; line-height: 1.5;
-    }
+    /* Footer */
+    .footer { margin-top:56px; text-align:center; font-size:12px; color:var(--white-20); line-height:1.8; }
+    .footer a { color:var(--white-40); text-decoration:none; }
+    .footer a:hover { color:var(--white-70); }
   </style>
 </head>
 <body>
 
-<!-- Orbs decorativos de glow -->
 <div class="glow-orb glow-1"></div>
 <div class="glow-orb glow-2"></div>
 
 <div class="app">
 
-  <!-- ── Cabeçalho ──────────────────────────────────────────────────────── -->
+  <!-- Header -->
   <header class="header">
     <p class="header-eyebrow">Sistema de Monitoramento Legislativo</p>
-    <h1 class="header-title">Monitor de <span>NR</span></h1>
-    <p class="header-sub">Normas Regulamentadoras — Ministério do Trabalho e Emprego</p>
+    <h1 class="header-title">Monitor <span>SST</span></h1>
+    <p class="header-sub">Segurança e Saúde no Trabalho — Normas Regulamentadoras e Publicações Oficiais</p>
+    <div class="sources-badge">
+      <span class="source-tag source-dou">📰 Diário Oficial da União</span>
+      <span class="source-tag source-mte">🏛️ Portal MTE — Portarias SST</span>
+    </div>
   </header>
 
-  <!-- ── Barra de atividade (branca) ────────────────────────────────────── -->
+  <!-- Activity Bar -->
   <div class="activity-bar" id="activityBar">
     <div class="activity-dot" id="activityDot"></div>
-    <span class="activity-text" id="activityText">
-      Carregando sistema…
-    </span>
+    <span class="activity-text" id="activityText">Carregando sistema…</span>
     <div class="activity-spacer"></div>
     <span class="activity-time" id="activityTime">—</span>
-    <button class="run-btn" id="runBtn" onclick="triggerWorkflow()" title="Executar verificação agora">
+    <button class="run-btn" id="runBtn" onclick="triggerWorkflow()">
       <svg id="runIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <polygon points="5 3 19 12 5 21 5 3"/>
       </svg>
@@ -619,30 +274,27 @@
     </button>
   </div>
 
-  <!-- ── Modal de configuração do token ─────────────────────────────────── -->
+  <!-- Modal Token -->
   <div class="modal-overlay hidden" id="tokenModal">
     <div class="modal-box">
       <div class="modal-title">🔑 Token do GitHub necessário</div>
       <div class="modal-sub">
-        Para disparar a verificação direto daqui, você precisa de um token pessoal do GitHub com permissão <strong style="color:#fff">workflow</strong>.<br><br>
-        <a href="https://github.com/settings/tokens/new?scopes=workflow&description=Monitor+NR" target="_blank" rel="noopener">
-          👉 Clique aqui para criar o token no GitHub
-        </a> (marque o escopo <strong style="color:#fff">workflow</strong> e clique em "Generate token").
+        Para disparar a verificação direto daqui, crie um token com permissão <strong style="color:#fff">workflow</strong>.<br><br>
+        <a href="https://github.com/settings/tokens/new?scopes=workflow&description=Monitor+SST" target="_blank">👉 Criar token no GitHub</a>
       </div>
       <input class="modal-input" type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
       <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;cursor:pointer">
-        <input type="checkbox" id="saveToken" checked style="cursor:pointer" />
-        Salvar token neste navegador (apenas local, nunca enviado a servidores)
+        <input type="checkbox" id="saveToken" checked /> Salvar token neste navegador
       </label>
       <div class="modal-actions">
         <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
         <button class="modal-btn-confirm" onclick="confirmToken()">Confirmar e executar</button>
       </div>
-      <div class="modal-info">⚠️ O token fica salvo apenas no seu navegador (localStorage). Nunca é enviado para nenhum servidor além da API do GitHub.</div>
+      <div class="modal-info">⚠️ Token salvo apenas localmente no seu navegador.</div>
     </div>
   </div>
 
-  <!-- ── Métricas (Status / Última Verificação / Total NR) ──────────────── -->
+  <!-- Metrics -->
   <div class="metrics-grid">
     <div class="metric-card">
       <div class="metric-label">Status</div>
@@ -651,37 +303,29 @@
     </div>
     <div class="metric-card">
       <div class="metric-label">Última Verificação</div>
-      <div class="metric-value" style="font-size:18px; color:var(--white-70)" id="metricLastCheck">—</div>
-      <div class="metric-sub">Verifica diariamente às 07:00 (Brasília)</div>
+      <div class="metric-value" style="font-size:18px;color:var(--white-70)" id="metricLastCheck">—</div>
+      <div class="metric-sub">Dias úteis às 07:00 (Brasília)</div>
     </div>
     <div class="metric-card">
       <div class="metric-label">NR Monitoradas</div>
       <div class="metric-value" id="metricTotal">38</div>
-      <div class="metric-sub">Normas Regulamentadoras ativas</div>
+      <div class="metric-sub">via DOU + Portal MTE</div>
     </div>
   </div>
 
-  <!-- ── Abas de navegação ───────────────────────────────────────────────── -->
+  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('recent')">
-      🔔 Alterações Recentes
-    </button>
-    <button class="tab-btn" onclick="switchTab('history')">
-      📋 Histórico Completo
-    </button>
-    <button class="tab-btn" onclick="switchTab('nrlist')">
-      📑 Todas as NR
-    </button>
-    <button class="tab-btn" onclick="switchTab('about')">
-      ℹ️ Sobre o Sistema
-    </button>
+    <button class="tab-btn active" onclick="switchTab('recent')">🔔 Publicações Recentes</button>
+    <button class="tab-btn" onclick="switchTab('history')">📋 Histórico Completo</button>
+    <button class="tab-btn" onclick="switchTab('nrlist')">📑 Todas as NR</button>
+    <button class="tab-btn" onclick="switchTab('about')">ℹ️ Sobre</button>
   </div>
 
-  <!-- ── Aba: Alterações Recentes (últimos 7 dias) ───────────────────────── -->
+  <!-- Aba: Publicações Recentes -->
   <div id="panel-recent" class="tab-panel active">
     <div class="glass-panel">
       <div class="panel-header">
-        <span class="panel-title">Alterações nos últimos 7 dias</span>
+        <span class="panel-title">Publicações dos últimos 7 dias</span>
         <span class="panel-count" id="recentCount">—</span>
       </div>
       <div id="recentContent">
@@ -690,11 +334,11 @@
     </div>
   </div>
 
-  <!-- ── Aba: Histórico Completo ─────────────────────────────────────────── -->
+  <!-- Aba: Histórico -->
   <div id="panel-history" class="tab-panel">
     <div class="glass-panel">
       <div class="panel-header">
-        <span class="panel-title">Histórico de Alterações</span>
+        <span class="panel-title">Histórico de Publicações</span>
         <span class="panel-count" id="historyCount">—</span>
       </div>
       <div id="historyContent">
@@ -703,452 +347,330 @@
     </div>
   </div>
 
-  <!-- ── Aba: Todas as NR ───────────────────────────────────────────────── -->
+  <!-- Aba: Todas as NR -->
   <div id="panel-nrlist" class="tab-panel">
     <div class="glass-panel">
       <div class="panel-header">
         <span class="panel-title">Todas as Normas Regulamentadoras</span>
         <span class="panel-count">38 normas</span>
       </div>
-      <div style="padding:16px 24px; border-bottom:1px solid var(--glass-border);">
-        <div style="position:relative;">
-          <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <div class="search-wrap">
+        <div class="search-inner">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-          <input
-            id="nrSearch"
-            type="text"
+          <input class="search-input" id="nrSearch" type="text"
             placeholder="Buscar norma… (ex: NR-12, ergonomia, altura)"
             oninput="filterNrList(this.value)"
-            style="
-              width:100%; padding:10px 12px 10px 36px;
-              background:rgba(255,255,255,0.05);
-              border:1px solid var(--glass-border);
-              border-radius:var(--radius-sm);
-              color:var(--white-90);
-              font-family:var(--font-sans);
-              font-size:13px;
-              outline:none;
-              transition:border-color var(--transition);
-            "
             onfocus="this.style.borderColor='rgba(33,150,243,0.5)'"
-            onblur="this.style.borderColor='var(--glass-border)'"
-          />
+            onblur="this.style.borderColor=''" />
         </div>
       </div>
       <ul class="nr-list" id="nrFullList"></ul>
     </div>
   </div>
 
-  <!-- ── Aba: Sobre ─────────────────────────────────────────────────────── -->
+  <!-- Aba: Sobre -->
   <div id="panel-about" class="tab-panel">
     <div class="glass-panel">
-      <div class="panel-header">
-        <span class="panel-title">Sobre o Sistema</span>
-      </div>
-      <div style="padding:28px 24px; line-height:1.8; font-size:14px; color:var(--white-70)">
+      <div class="panel-header"><span class="panel-title">Sobre o Sistema</span></div>
+      <div style="padding:28px 24px;line-height:1.8;font-size:14px;color:var(--white-70)">
         <p style="margin-bottom:16px">
-          O <strong style="color:var(--white)">Monitor de NR</strong> é um sistema automatizado de vigilância das
-          <strong style="color:var(--white)">Normas Regulamentadoras</strong> do Ministério do Trabalho e Emprego (MTE).
-          Ele acessa diariamente o portal gov.br e verifica se houve qualquer alteração no conteúdo das NR vigentes.
+          O <strong style="color:#fff">Monitor SST</strong> é um sistema de vigilância legislativa para a área de
+          <strong style="color:#fff">Segurança e Saúde no Trabalho</strong>. Monitora o
+          <strong style="color:#fff">Diário Oficial da União</strong> e o portal do
+          <strong style="color:#fff">Ministério do Trabalho e Emprego</strong> diariamente.
         </p>
-
         <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.2);border-radius:12px;padding:20px;margin:20px 0">
           <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--glow-2);margin-bottom:12px">Como funciona</p>
-          <p style="margin-bottom:10px">1. Todo dia às <strong style="color:var(--white)">07:00 (horário de Brasília)</strong> o sistema acessa o portal do MTE automaticamente.</p>
-          <p style="margin-bottom:10px">2. Compara o conteúdo atual de cada NR com a versão da última verificação.</p>
-          <p style="margin-bottom:10px">3. Se detectar diferença, registra a alteração com data, nome da NR e link direto.</p>
-          <p>4. Alterações permanecem visíveis na aba <em>Recentes</em> por <strong style="color:var(--white)">7 dias</strong> e depois são movidas para o Histórico permanente.</p>
+          <p style="margin-bottom:10px">1. Todo dia útil às <strong style="color:#fff">07:00 (Brasília)</strong> o sistema busca no DOU por publicações relacionadas à segurança do trabalho.</p>
+          <p style="margin-bottom:10px">2. Qualquer portaria, instrução normativa ou alteração de NR publicada no DOU é detectada no <strong style="color:#fff">mesmo dia</strong>.</p>
+          <p style="margin-bottom:10px">3. O portal de portarias SST do MTE também é monitorado como fonte complementar.</p>
+          <p>4. Publicações ficam visíveis por <strong style="color:#fff">7 dias</strong> na aba Recentes e depois vão para o Histórico permanente.</p>
         </div>
-
+        <div style="background:rgba(255,167,38,0.06);border:1px solid rgba(255,167,38,0.2);border-radius:12px;padding:20px;margin:20px 0">
+          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#ffa726;margin-bottom:12px">Fontes Monitoradas</p>
+          <p>• <strong style="color:#fff">Diário Oficial da União (DOU)</strong> — in.gov.br — fonte primária e oficial de toda legislação brasileira</p>
+          <p style="margin-top:8px">• <strong style="color:#fff">Portal MTE — Portarias SST</strong> — gov.br/trabalho-e-emprego — portal específico do Ministério do Trabalho</p>
+        </div>
         <div style="background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.15);border-radius:12px;padding:20px;margin:20px 0">
-          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px">Fontes Monitoradas</p>
-          <p>• <strong style="color:var(--white)">Gov.br / MTE</strong> — Página oficial de cada Norma Regulamentadora</p>
-          <p style="margin-top:8px">• <strong style="color:var(--white)">Página índice</strong> — Portal de NR do Ministério do Trabalho</p>
+          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px">O que é monitorado</p>
+          <p>Portarias MTE/MTP/SEFIT • Instruções Normativas SST • Alterações em NR (NR-1 a NR-38) • Resoluções relacionadas à segurança do trabalho • Publicações sobre EPI, CIPA, PCMSO, PGR, PPRA, LTCAT • Atos sobre insalubridade, periculosidade, espaços confinados, trabalho em altura, ergonomia e muito mais.</p>
         </div>
-
-        <p style="font-size:12px;color:var(--white-40);margin-top:20px">
-          Sistema hospedado gratuitamente no GitHub Pages. Automatização via GitHub Actions.
-          Nenhum servidor pago é necessário.
-        </p>
+        <p style="font-size:12px;color:var(--white-40);margin-top:20px">Sistema hospedado gratuitamente no GitHub Pages. Automatização via GitHub Actions. Nenhum servidor pago necessário.</p>
       </div>
     </div>
   </div>
 
-  <!-- ── Rodapé ─────────────────────────────────────────────────────────── -->
   <footer class="footer">
-    <p>Monitor de NR &mdash; Atualização automática diária às 07:00 (Brasília)</p>
+    <p>Monitor SST — Verificação automática nos dias úteis às 07:00 (Brasília)</p>
     <p>
-      Fontes: <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">gov.br/MTE</a>
+      <a href="https://www.in.gov.br" target="_blank" rel="noopener">Diário Oficial da União</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.gov.br/trabalho-e-emprego" target="_blank" rel="noopener">MTE</a>
       &nbsp;|&nbsp;
       <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
     </p>
   </footer>
 
-</div><!-- /app -->
+</div>
 
 <script>
-// ─── Estado global ──────────────────────────────────────────────────────────
-let stateData = null;
+// ─── Config ──────────────────────────────────────────────────────────────────
+const GH_OWNER    = 'miguellpissinato-png';
+const GH_REPO     = 'MONITOR-DE-NR';
+const GH_WORKFLOW = 'monitor.yml';
 
-// ─── Lista completa das 38 NR ───────────────────────────────────────────────
-// Cada NR aponta para sua página individual confirmada no gov.br.
-// O botão "Ver PDFs" leva à página índice que lista todos os documentos.
-const INDEX_URL = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
-
+// ─── Lista das 38 NR ─────────────────────────────────────────────────────────
+const BASE_NR = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
 const ALL_NRS = [
-  { nr:'NR-1', nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1' },
-  { nr:'NR-2', nome:'Inspeção Prévia (Revogada)', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-2-nr-2' },
-  { nr:'NR-3', nome:'Embargo e Interdição', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-3-nr-3' },
-  { nr:'NR-4', nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-4-nr-4' },
-  { nr:'NR-5', nome:'Comissão Interna de Prevenção de Acidentes e de Assédio', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-5-nr-5' },
-  { nr:'NR-6', nome:'Equipamentos de Proteção Individual', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-6-nr-6' },
-  { nr:'NR-7', nome:'Programa de Controle Médico de Saúde Ocupacional', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-7-nr-7' },
-  { nr:'NR-8', nome:'Edificações', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-8-nr-8' },
-  { nr:'NR-9', nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-9-nr-9' },
-  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-10-nr-10' },
-  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-11-nr-11' },
-  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-12-nr-12' },
-  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-13-nr-13' },
-  { nr:'NR-14', nome:'Fornos', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-14-nr-14' },
-  { nr:'NR-15', nome:'Atividades e Operações Insalubres', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-15-nr-15' },
-  { nr:'NR-16', nome:'Atividades e Operações Perigosas', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-16-nr-16' },
-  { nr:'NR-17', nome:'Ergonomia', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-17-nr-17' },
-  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-18-nr-18' },
-  { nr:'NR-19', nome:'Explosivos', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-19-nr-19' },
-  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-20-nr-20' },
-  { nr:'NR-21', nome:'Trabalho a Céu Aberto', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-21-nr-21' },
-  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-22-nr-22' },
-  { nr:'NR-23', nome:'Proteção Contra Incêndios', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-23-nr-23' },
-  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-24-nr-24' },
-  { nr:'NR-25', nome:'Resíduos Industriais', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-25-nr-25' },
-  { nr:'NR-26', nome:'Sinalização de Segurança', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-26-nr-26' },
-  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-27-nr-27' },
-  { nr:'NR-28', nome:'Fiscalização e Penalidades', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-28-nr-28' },
-  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-29-nr-29' },
-  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-30-nr-30' },
-  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-31-nr-31' },
-  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-32-nr-32' },
-  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-33-nr-33' },
-  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-34-nr-34' },
-  { nr:'NR-35', nome:'Trabalho em Altura', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-35-nr-35' },
-  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-36-nr-36' },
-  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo', url:'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/norma-regulamentadora-no-37-nr-37' },
-  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos', url:'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-38-nr-38' },
+  { nr:'NR-1',  nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais',                                                url:`${BASE_NR}/nr-1` },
+  { nr:'NR-2',  nome:'Inspeção Prévia (Revogada)',                                                                               url:`${BASE_NR}/norma-regulamentadora-no-2-nr-2` },
+  { nr:'NR-3',  nome:'Embargo e Interdição',                                                                                     url:`${BASE_NR}/norma-regulamentadora-no-3-nr-3` },
+  { nr:'NR-4',  nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho',                             url:`${BASE_NR}/norma-regulamentadora-no-4-nr-4` },
+  { nr:'NR-5',  nome:'Comissão Interna de Prevenção de Acidentes e de Assédio',                                                 url:`${BASE_NR}/norma-regulamentadora-no-5-nr-5` },
+  { nr:'NR-6',  nome:'Equipamentos de Proteção Individual',                                                                      url:`${BASE_NR}/norma-regulamentadora-no-6-nr-6` },
+  { nr:'NR-7',  nome:'Programa de Controle Médico de Saúde Ocupacional',                                                        url:`${BASE_NR}/norma-regulamentadora-no-7-nr-7` },
+  { nr:'NR-8',  nome:'Edificações',                                                                                              url:`${BASE_NR}/norma-regulamentadora-no-8-nr-8` },
+  { nr:'NR-9',  nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos',               url:`${BASE_NR}/norma-regulamentadora-no-9-nr-9` },
+  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade',                                                     url:`${BASE_NR}/norma-regulamentadora-no-10-nr-10` },
+  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais',                                           url:`${BASE_NR}/norma-regulamentadora-no-11-nr-11` },
+  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos',                                                        url:`${BASE_NR}/norma-regulamentadora-no-12-nr-12` },
+  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão',                           url:`${BASE_NR}/norma-regulamentadora-no-13-nr-13` },
+  { nr:'NR-14', nome:'Fornos',                                                                                                   url:`${BASE_NR}/norma-regulamentadora-no-14-nr-14` },
+  { nr:'NR-15', nome:'Atividades e Operações Insalubres',                                                                       url:`${BASE_NR}/norma-regulamentadora-no-15-nr-15` },
+  { nr:'NR-16', nome:'Atividades e Operações Perigosas',                                                                        url:`${BASE_NR}/norma-regulamentadora-no-16-nr-16` },
+  { nr:'NR-17', nome:'Ergonomia',                                                                                                url:`${BASE_NR}/norma-regulamentadora-no-17-nr-17` },
+  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção',                                                url:`${BASE_NR}/norma-regulamentadora-no-18-nr-18` },
+  { nr:'NR-19', nome:'Explosivos',                                                                                               url:`${BASE_NR}/norma-regulamentadora-no-19-nr-19` },
+  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis',                                           url:`${BASE_NR}/norma-regulamentadora-no-20-nr-20` },
+  { nr:'NR-21', nome:'Trabalho a Céu Aberto',                                                                                   url:`${BASE_NR}/norma-regulamentadora-no-21-nr-21` },
+  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração',                                                              url:`${BASE_NR}/norma-regulamentadora-no-22-nr-22` },
+  { nr:'NR-23', nome:'Proteção Contra Incêndios',                                                                               url:`${BASE_NR}/norma-regulamentadora-no-23-nr-23` },
+  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho',                                               url:`${BASE_NR}/norma-regulamentadora-no-24-nr-24` },
+  { nr:'NR-25', nome:'Resíduos Industriais',                                                                                    url:`${BASE_NR}/norma-regulamentadora-no-25-nr-25` },
+  { nr:'NR-26', nome:'Sinalização de Segurança',                                                                                url:`${BASE_NR}/norma-regulamentadora-no-26-nr-26` },
+  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)',                                    url:`${BASE_NR}/norma-regulamentadora-no-27-nr-27` },
+  { nr:'NR-28', nome:'Fiscalização e Penalidades',                                                                              url:`${BASE_NR}/norma-regulamentadora-no-28-nr-28` },
+  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário',                                                                 url:`${BASE_NR}/norma-regulamentadora-no-29-nr-29` },
+  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário',                                                                url:`${BASE_NR}/norma-regulamentadora-no-30-nr-30` },
+  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:`${BASE_NR}/norma-regulamentadora-no-31-nr-31` },
+  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde',                                              url:`${BASE_NR}/norma-regulamentadora-no-32-nr-32` },
+  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados',                                                   url:`${BASE_NR}/norma-regulamentadora-no-33-nr-33` },
+  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval',            url:`${BASE_NR}/norma-regulamentadora-no-34-nr-34` },
+  { nr:'NR-35', nome:'Trabalho em Altura',                                                                                      url:`${BASE_NR}/norma-regulamentadora-no-35-nr-35` },
+  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados',               url:`${BASE_NR}/norma-regulamentadora-no-36-nr-36` },
+  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo',                                                           url:'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/norma-regulamentadora-no-37-nr-37' },
+  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos',            url:`${BASE_NR}/norma-regulamentadora-no-38-nr-38` },
 ];
 
-// ─── Renderiza a lista completa de NRs ──────────────────────────────────────
-function renderNrFullList(filter = '') {
-  const q = filter.toLowerCase().trim();
-  const filtered = q
-    ? ALL_NRS.filter(n => n.nr.toLowerCase().includes(q) || n.nome.toLowerCase().includes(q))
-    : ALL_NRS;
+// ─── Utilitários ─────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatDate(iso) {
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+function monthYear(iso) {
+  const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const [y,m] = iso.split('-');
+  return `${months[parseInt(m)-1]} de ${y}`;
+}
 
-  const list = document.getElementById('nrFullList');
-  if (!list) return;
-
-  if (filtered.length === 0) {
-    list.innerHTML = `
-      <li style="padding:40px 24px;text-align:center;color:var(--white-40);font-size:13px;">
-        Nenhuma NR encontrada para "<strong style="color:var(--white-70)">${escHtml(filter)}</strong>"
-      </li>`;
-    return;
-  }
-
-  list.innerHTML = filtered.map(n => `
-    <li class="nr-item">
-      <div>
-        <span class="nr-badge">${escHtml(n.nr)}</span>
+// ─── Renderiza publicação do DOU/MTE ─────────────────────────────────────────
+function renderPub(pub) {
+  const tipoCls = pub.tipo === 'DOU' ? 'tipo-dou' : 'tipo-mte';
+  const tipoLabel = pub.tipo === 'DOU' ? 'DOU' : 'MTE';
+  return `
+    <li class="pub-item">
+      <div class="pub-header">
+        <span class="pub-tipo ${tipoCls}">${tipoLabel}</span>
+        <div class="pub-titulo">${esc(pub.titulo)}</div>
       </div>
-      <div class="nr-info">
-        <div class="nr-name" title="${escHtml(n.nome)}">${escHtml(n.nome)}</div>
-        <div class="nr-source">gov.br / MTE</div>
-      </div>
-      <div class="nr-meta">
-        <a class="nr-link" href="${escHtml(n.url)}" target="_blank" rel="noopener">
+      <div class="pub-meta">
+        <span class="pub-fonte">${esc(pub.fonte || 'Diário Oficial da União')}</span>
+        <span class="pub-date">${esc(pub.data_fmt || formatDate(pub.data))}</span>
+        <a class="pub-link" href="${esc(pub.link)}" target="_blank" rel="noopener">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Ver no DOU
+        </a>
+      </div>
+    </li>`;
+}
+
+// ─── Abas ────────────────────────────────────────────────────────────────────
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['recent','history','nrlist','about'][i] === id);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === `panel-${id}`);
+  });
+  if (id === 'nrlist') renderNrFullList(document.getElementById('nrSearch')?.value || '');
+}
+
+// ─── Lista NR ────────────────────────────────────────────────────────────────
+function renderNrFullList(filter = '') {
+  const q = filter.toLowerCase().trim();
+  const filtered = q ? ALL_NRS.filter(n => n.nr.toLowerCase().includes(q) || n.nome.toLowerCase().includes(q)) : ALL_NRS;
+  const list = document.getElementById('nrFullList');
+  if (!list) return;
+  if (filtered.length === 0) {
+    list.innerHTML = `<li style="padding:40px 24px;text-align:center;color:var(--white-40);font-size:13px;">Nenhuma NR encontrada para "<strong style="color:var(--white-70)">${esc(filter)}</strong>"</li>`;
+    return;
+  }
+  list.innerHTML = filtered.map(n => `
+    <li class="nr-item">
+      <div><span class="nr-badge">${esc(n.nr)}</span></div>
+      <div class="nr-info">
+        <div class="nr-name" title="${esc(n.nome)}">${esc(n.nome)}</div>
+        <div class="nr-source">gov.br / MTE</div>
+      </div>
+      <div>
+        <a class="nr-link" href="${esc(n.url)}" target="_blank" rel="noopener">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           Abrir no gov.br
         </a>
       </div>
     </li>`).join('');
 }
+function filterNrList(v) { renderNrFullList(v); }
 
-function filterNrList(value) {
-  renderNrFullList(value);
-}
-
-// ─── Troca de abas ──────────────────────────────────────────────────────────
-function switchTab(id) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    const ids = ['recent', 'history', 'nrlist', 'about'];
-    b.classList.toggle('active', ids[i] === id);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => {
-    p.classList.toggle('active', p.id === `panel-${id}`);
-  });
-  // Renderiza lista ao entrar na aba pela primeira vez
-  if (id === 'nrlist') {
-    const q = document.getElementById('nrSearch')?.value || '';
-    renderNrFullList(q);
-  }
-}
-
-// ─── Formatação de data ─────────────────────────────────────────────────────
-function formatDate(iso) {
-  if (!iso) return '—';
-  const [y, m, d] = iso.split('-');
-  return `${d}/${m}/${y}`;
-}
-
-function monthYear(iso) {
-  const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
-                  'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  const [y, m] = iso.split('-');
-  return `${months[parseInt(m) - 1]} de ${y}`;
-}
-
-// ─── Renderiza item de NR ───────────────────────────────────────────────────
-function renderNrItem(change) {
-  return `
-    <li class="nr-item">
-      <div>
-        <span class="nr-badge">${escHtml(change.nr)}</span>
-      </div>
-      <div class="nr-info">
-        <div class="nr-name" title="${escHtml(change.nome)}">${escHtml(change.nome)}</div>
-        <div class="nr-source">${escHtml(change.source || 'gov.br / MTE')}</div>
-      </div>
-      <div class="nr-meta">
-        <span class="nr-date">${escHtml(change.data_fmt || formatDate(change.data))}</span>
-        <a class="nr-link" href="${escHtml(change.url)}" target="_blank" rel="noopener">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Ver no gov.br
-        </a>
-      </div>
-    </li>`;
-}
-
-function escHtml(str) {
-  return String(str ?? '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ─── Atualiza a UI com os dados ─────────────────────────────────────────────
+// ─── Render UI ────────────────────────────────────────────────────────────────
 function renderUI(state) {
-  // ── Activity Bar ──────────────────────────────────────────────────────────
-  const isChanged = state.status && state.status.toLowerCase().includes('alteração');
+  const hasNew = state.status && (state.status.includes('Publicação') || state.status.includes('Alteração'));
   const dot = document.getElementById('activityDot');
   const actText = document.getElementById('activityText');
   const actTime = document.getElementById('activityTime');
 
-  if (isChanged) {
-    dot.className = 'activity-dot warning';
-    actText.innerHTML = `Sistema ativo — <span class="highlight">Alterações detectadas nas NR</span>`;
-  } else {
-    dot.className = 'activity-dot';
-    actText.innerHTML = `Sistema ativo — <span class="highlight">Monitorando • Nenhuma alteração recente</span>`;
-  }
+  dot.className = hasNew ? 'activity-dot warning' : 'activity-dot';
+  actText.innerHTML = hasNew
+    ? `Sistema ativo — <span class="highlight">Nova publicação detectada no DOU</span>`
+    : `Sistema ativo — <span class="highlight">Monitorando DOU e Portal MTE</span>`;
   actTime.textContent = state.last_check ? `Última verificação: ${state.last_check}` : 'Aguardando primeira verificação';
 
-  // ── Métricas ──────────────────────────────────────────────────────────────
   const statusEl = document.getElementById('metricStatus');
   const badgeEl  = document.getElementById('metricStatusBadge');
-
-  if (isChanged) {
-    statusEl.textContent = 'Alteração';
+  if (hasNew) {
+    statusEl.textContent = 'Publicação';
     statusEl.className = 'metric-value status-changed';
-    badgeEl.innerHTML = `<span class="metric-badge badge-changed">● Atenção</span>`;
+    badgeEl.innerHTML = `<span class="metric-badge badge-changed">● Nova publicação</span>`;
   } else {
     statusEl.textContent = 'Normal';
     statusEl.className = 'metric-value status-ok';
-    badgeEl.innerHTML = `<span class="metric-badge badge-ok">● Sem mudanças</span>`;
+    badgeEl.innerHTML = `<span class="metric-badge badge-ok">● Sem novidades</span>`;
   }
 
-  document.getElementById('metricLastCheck').textContent =
-    state.last_check ? state.last_check.split(' ')[0] : 'Pendente';
+  document.getElementById('metricLastCheck').textContent = state.last_check ? state.last_check.split(' ')[0] : 'Pendente';
   document.getElementById('metricTotal').textContent = state.total_nrs ?? 38;
 
-  // ── Aba Recentes ─────────────────────────────────────────────────────────
-  const recent = (state.recent_changes || []).slice().reverse();
-  document.getElementById('recentCount').textContent =
-    `${recent.length} alteração${recent.length !== 1 ? 'ões' : ''} nos últimos 7 dias`;
-
+  // Recentes — usa publicacoes_recentes OU recent_changes por compatibilidade
+  const recent = ((state.publicacoes_recentes || state.recent_changes || [])).slice().reverse();
+  document.getElementById('recentCount').textContent = `${recent.length} publicação${recent.length !== 1 ? 'ões' : ''} nos últimos 7 dias`;
   const recentContent = document.getElementById('recentContent');
-  if (recent.length === 0) {
-    recentContent.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">✅</div>
-        <div class="empty-title">Nenhuma alteração nos últimos 7 dias</div>
-        <div class="empty-sub">O sistema verifica todas as NR diariamente.<br>Esta área mostrará alterações detectadas automaticamente.</div>
-      </div>`;
-  } else {
-    recentContent.innerHTML = `<ul class="nr-list">${recent.map(renderNrItem).join('')}</ul>`;
-  }
+  recentContent.innerHTML = recent.length === 0
+    ? `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhuma publicação nos últimos 7 dias</div><div class="empty-sub">O sistema monitora o DOU e o portal MTE diariamente.<br>Qualquer portaria ou alteração de NR aparecerá aqui no mesmo dia.</div></div>`
+    : `<ul class="pub-list">${recent.map(renderPub).join('')}</ul>`;
 
-  // ── Aba Histórico ─────────────────────────────────────────────────────────
+  // Histórico
   const history = (state.history || []).slice().reverse();
-  document.getElementById('historyCount').textContent =
-    `${history.length} registro${history.length !== 1 ? 's' : ''} no total`;
-
-  const historyContent = document.getElementById('historyContent');
+  document.getElementById('historyCount').textContent = `${history.length} registro${history.length !== 1 ? 's' : ''} no total`;
+  const histContent = document.getElementById('historyContent');
   if (history.length === 0) {
-    historyContent.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📋</div>
-        <div class="empty-title">Histórico vazio</div>
-        <div class="empty-sub">Todas as alterações detectadas pelo sistema serão registradas aqui permanentemente.</div>
-      </div>`;
+    histContent.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Histórico vazio</div><div class="empty-sub">Todas as publicações detectadas serão registradas aqui permanentemente.</div></div>`;
   } else {
-    let html = '<ul class="nr-list">';
+    let html = '<ul class="pub-list">';
     let lastMonth = '';
-    for (const change of history) {
-      const m = monthYear(change.data);
+    for (const pub of history) {
+      const m = monthYear(pub.data);
       if (m !== lastMonth) {
         lastMonth = m;
-        html += `</ul><div class="history-month">${escHtml(m)}</div><ul class="nr-list">`;
+        html += `</ul><div class="history-month">${esc(m)}</div><ul class="pub-list">`;
       }
-      html += renderNrItem(change);
+      html += renderPub(pub);
     }
     html += '</ul>';
-    historyContent.innerHTML = html;
+    histContent.innerHTML = html;
   }
 }
 
-// ─── Carrega state.json ─────────────────────────────────────────────────────
+// ─── Carrega state.json ───────────────────────────────────────────────────────
 async function loadState() {
   try {
     const res = await fetch('data/state.json?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    stateData = await res.json();
-    renderUI(stateData);
+    const state = await res.json();
+    renderUI(state);
   } catch (err) {
-    console.error('Erro ao carregar state.json:', err);
-
-    // Fallback: exibe estado padrão com aviso
-    document.getElementById('activityText').innerHTML =
-      `Sistema ativo — <span class="highlight">Aguardando primeira verificação automática</span>`;
-    document.getElementById('activityTime').textContent =
-      'Execute o workflow manualmente no GitHub para a primeira verificação';
+    document.getElementById('activityText').innerHTML = `Sistema ativo — <span class="highlight">Aguardando primeira verificação</span>`;
+    document.getElementById('activityTime').textContent = 'Execute o workflow no GitHub para iniciar';
     document.getElementById('metricStatus').textContent = 'Aguardando';
-    document.getElementById('recentContent').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">⏳</div>
-        <div class="empty-title">Primeira verificação pendente</div>
-        <div class="empty-sub">O sistema ainda não realizou sua primeira verificação.<br>
-        Execute o workflow manualmente no GitHub Actions para iniciar.</div>
-      </div>`;
+    document.getElementById('recentContent').innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Primeira verificação pendente</div><div class="empty-sub">Execute o workflow no GitHub Actions para iniciar o monitoramento.</div></div>`;
     document.getElementById('historyContent').innerHTML = document.getElementById('recentContent').innerHTML;
-    document.getElementById('recentCount').textContent = '0 alterações';
+    document.getElementById('recentCount').textContent = '0 publicações';
     document.getElementById('historyCount').textContent = '0 registros';
   }
 }
 
-
-// ─── Configuração do repositório ────────────────────────────────────────────
-const GH_OWNER = 'SEU-USUARIO';   // ← troque pelo seu usuário do GitHub
-const GH_REPO  = 'MONITOR-DE-NR'; // ← troque pelo nome do repositório
-const GH_WORKFLOW = 'monitor.yml';
-
-// ─── Disparar workflow via API do GitHub ─────────────────────────────────────
+// ─── Botão Verificar Agora ────────────────────────────────────────────────────
 async function triggerWorkflow() {
   const saved = localStorage.getItem('gh_nr_token');
-  if (!saved) {
-    document.getElementById('tokenModal').classList.remove('hidden');
-    return;
-  }
+  if (!saved) { document.getElementById('tokenModal').classList.remove('hidden'); return; }
   await runWorkflow(saved);
 }
-
 function closeModal() {
   document.getElementById('tokenModal').classList.add('hidden');
   document.getElementById('tokenInput').value = '';
 }
-
 async function confirmToken() {
   const token = document.getElementById('tokenInput').value.trim();
   if (!token) { alert('Digite o token!'); return; }
-  if (document.getElementById('saveToken').checked) {
-    localStorage.setItem('gh_nr_token', token);
-  }
+  if (document.getElementById('saveToken').checked) localStorage.setItem('gh_nr_token', token);
   closeModal();
   await runWorkflow(token);
 }
-
 async function runWorkflow(token) {
-  const btn   = document.getElementById('runBtn');
-  const icon  = document.getElementById('runIcon');
+  const btn = document.getElementById('runBtn');
   const label = document.getElementById('runLabel');
-
-  btn.disabled = true;
-  btn.classList.add('running');
-  icon.innerHTML = '<circle cx="12" cy="12" r="9" stroke-dasharray="56" stroke-dashoffset="20" style="animation:spin .8s linear infinite;transform-origin:center"/>';
+  btn.disabled = true; btn.classList.add('running');
   label.textContent = 'Executando…';
-
   try {
     const res = await fetch(
       `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json',
-          'X-GitHub-Api-Version': '2022-11-28'
-        },
-        body: JSON.stringify({ ref: 'main' })
-      }
+      { method:'POST', headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json', 'X-GitHub-Api-Version':'2022-11-28' }, body:JSON.stringify({ref:'main'}) }
     );
-
     if (res.status === 204) {
-      // Sucesso
       label.textContent = '✓ Iniciado!';
       btn.style.background = '#2e7d32';
-      setTimeout(() => {
-        label.textContent = 'Verificar agora';
-        btn.style.background = '';
-        btn.classList.remove('running');
-        btn.disabled = false;
-        icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
-        // Recarrega os dados após 60s (tempo para o workflow terminar)
-        setTimeout(loadState, 60000);
-      }, 3000);
+      setTimeout(() => { label.textContent='Verificar agora'; btn.style.background=''; btn.classList.remove('running'); btn.disabled=false; setTimeout(loadState,90000); }, 3000);
     } else if (res.status === 401) {
       localStorage.removeItem('gh_nr_token');
-      alert('Token inválido ou expirado. Por favor, gere um novo token.');
+      alert('Token inválido ou expirado. Gere um novo token.');
       resetBtn();
     } else {
-      const body = await res.json().catch(() => ({}));
-      alert(`Erro ao disparar: ${res.status} — ${body.message || 'Tente novamente.'}`);
+      const b = await res.json().catch(()=>({}));
+      alert(`Erro: ${res.status} — ${b.message || 'Tente novamente.'}`);
       resetBtn();
     }
-  } catch (e) {
-    alert('Erro de conexão. Verifique sua internet e tente novamente.');
-    resetBtn();
-  }
+  } catch(e) { alert('Erro de conexão.'); resetBtn(); }
 }
-
 function resetBtn() {
-  const btn   = document.getElementById('runBtn');
-  const icon  = document.getElementById('runIcon');
-  const label = document.getElementById('runLabel');
-  btn.disabled = false;
-  btn.classList.remove('running');
-  btn.style.background = '';
-  icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
-  label.textContent = 'Verificar agora';
+  const btn = document.getElementById('runBtn');
+  btn.disabled=false; btn.classList.remove('running'); btn.style.background='';
+  document.getElementById('runLabel').textContent = 'Verificar agora';
 }
 
-// ─── Init ───────────────────────────────────────────────────────────────────
+// ─── Init ─────────────────────────────────────────────────────────────────────
 loadState();
 renderNrFullList();
-// Recarrega a cada 5 minutos (útil se a página ficar aberta)
 setInterval(loadState, 5 * 60 * 1000);
 </script>
 </body>
