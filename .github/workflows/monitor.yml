@@ -1,13 +1,10 @@
-name: Monitor Diário de NR
+name: Monitor Diário — SST e DOU
 
 on:
   schedule:
-    # Tenta às 10:00 UTC = 07:00 Brasília
-    - cron: '0 10 * * *'
-    # Retry às 11:00 UTC caso o primeiro falhe
-    - cron: '0 11 * * *'
-    # Retry às 12:00 UTC caso os anteriores falhem
-    - cron: '0 12 * * *'
+    - cron: '0 10 * * 1-5'
+    - cron: '0 11 * * 1-5'
+    - cron: '0 13 * * 1-5'
   workflow_dispatch:
     inputs:
       reason:
@@ -19,12 +16,12 @@ permissions:
   contents: write
 
 jobs:
-  check-nr:
+  monitor-sst:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - name: Checkout do repositório
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
@@ -34,40 +31,50 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Verificar conectividade com gov.br
+      - name: Verificar conectividade
         id: net_check
         run: |
-          echo "Testando conexão com gov.br..."
+          echo "Testando acesso ao DOU e MTE..."
+          connected=false
           for i in 1 2 3 4 5; do
-            if curl -sf --max-time 15 "https://www.gov.br" > /dev/null 2>&1; then
-              echo "✅ Conexão OK na tentativa $i"
-              echo "connected=true" >> $GITHUB_OUTPUT
-              exit 0
+            if curl -sf --max-time 15 "https://www.in.gov.br" > /dev/null 2>&1; then
+              echo "✅ Conectado na tentativa $i"
+              connected=true
+              break
             fi
-            echo "⏳ Tentativa $i falhou, aguardando 30s..."
+            echo "⏳ Tentativa $i falhou — aguardando 30s..."
             sleep 30
           done
-          echo "❌ gov.br inacessível após 5 tentativas"
-          echo "connected=false" >> $GITHUB_OUTPUT
-          exit 1
+          echo "connected=$connected" >> $GITHUB_OUTPUT
+          if [ "$connected" = "false" ]; then
+            echo "❌ Sem conexão após 5 tentativas"
+            exit 1
+          fi
 
-      - name: Verificar NR (com retry automático)
+      - name: Executar monitoramento (com retry)
         if: steps.net_check.outputs.connected == 'true'
         run: |
           cd scripts
+          success=false
           for i in 1 2 3; do
             echo "--- Tentativa $i de 3 ---"
-            python check_nr.py && break
-            if [ $i -lt 3 ]; then
-              echo "Aguardando 60s antes de tentar novamente..."
-              sleep 60
+            if python check_dou.py; then
+              success=true
+              break
             fi
+            echo "Falhou — aguardando 60s..."
+            sleep 60
           done
+          if [ "$success" = "false" ]; then
+            echo "⚠️ Todas as tentativas falharam"
+            exit 1
+          fi
 
-      - name: Salvar estado atualizado
+      - name: Salvar estado no repositório
+        if: always()
         run: |
-          git config user.name  "NR Monitor Bot"
-          git config user.email "nr-monitor@github-actions"
+          git config user.name  "Monitor SST Bot"
+          git config user.email "monitor-sst@github-actions"
           git add data/state.json
-          git diff --cached --quiet || git commit -m "chore: atualização automática $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git diff --cached --quiet || git commit -m "chore: monitoramento $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
