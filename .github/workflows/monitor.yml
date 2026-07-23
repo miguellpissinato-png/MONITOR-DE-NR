@@ -2,9 +2,8 @@ name: Monitor Diário — SST e DOU
 
 on:
   schedule:
-    - cron: '0 10 * * 1-5'
-    - cron: '0 11 * * 1-5'
-    - cron: '0 13 * * 1-5'
+    - cron: '0 10 * * 1-5'   # 07:00 Brasília — seg a sex
+    - cron: '0 12 * * 1-5'   # 09:00 Brasília — retry
   workflow_dispatch:
     inputs:
       reason:
@@ -31,50 +30,37 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Verificar conectividade
-        id: net_check
+      - name: Testar API Querido Diário
         run: |
-          echo "Testando acesso ao DOU e MTE..."
-          connected=false
-          for i in 1 2 3 4 5; do
-            if curl -sf --max-time 15 "https://www.in.gov.br" > /dev/null 2>&1; then
-              echo "✅ Conectado na tentativa $i"
-              connected=true
-              break
+          echo "Testando api.queridodiario.ok.org.br..."
+          for i in 1 2 3; do
+            if curl -sf --max-time 15 "https://api.queridodiario.ok.org.br/docs" > /dev/null 2>&1; then
+              echo "✅ API disponível"
+              exit 0
             fi
-            echo "⏳ Tentativa $i falhou — aguardando 30s..."
-            sleep 30
+            echo "⏳ Tentativa $i falhou — aguardando 20s..."
+            sleep 20
           done
-          echo "connected=$connected" >> $GITHUB_OUTPUT
-          if [ "$connected" = "false" ]; then
-            echo "❌ Sem conexão após 5 tentativas"
-            exit 1
-          fi
+          echo "❌ API indisponível — abortando"
+          exit 1
 
-      - name: Executar monitoramento (com retry)
-        if: steps.net_check.outputs.connected == 'true'
+      - name: Executar monitoramento
         run: |
           cd scripts
-          success=false
           for i in 1 2 3; do
             echo "--- Tentativa $i de 3 ---"
             if python check_dou.py; then
-              success=true
               break
             fi
-            echo "Falhou — aguardando 60s..."
-            sleep 60
+            echo "Aguardando 30s..."
+            sleep 30
           done
-          if [ "$success" = "false" ]; then
-            echo "⚠️ Todas as tentativas falharam"
-            exit 1
-          fi
 
-      - name: Salvar estado no repositório
+      - name: Salvar estado
         if: always()
         run: |
           git config user.name  "Monitor SST Bot"
           git config user.email "monitor-sst@github-actions"
           git add data/state.json
-          git diff --cached --quiet || git commit -m "chore: monitoramento $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git diff --cached --quiet || git commit -m "chore: monitoramento SST $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
