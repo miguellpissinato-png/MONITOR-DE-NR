@@ -1,8 +1,11 @@
 {
-  "last_check": "31/07/2026 10:28",
+  "last_check": "03/08/2026 09:15",
   "status": "Monitorando",
   "total_nrs": 38,
-  "hashes": {},
+  "hashes": {
+    "__mte_portarias__": "49847b8dedddf1f46938cb2353d9425d",
+    "__nr_index__": "28aacf7a0c03cb272e8b6e84b7e47bc7"
+  },
   "publicacoes_recentes": [],
   "recent_changes": [],
   "history": []
