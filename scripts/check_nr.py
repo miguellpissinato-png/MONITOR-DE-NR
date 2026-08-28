@@ -1,13 +1,22 @@
 """
-Monitor SST v3 — Segurança e Saúde no Trabalho
+Monitor SST v3.1 — Segurança e Saúde no Trabalho
 Fontes:
   1. Portarias SST MTE (gov.br/sst-portarias) — FONTE PRIMÁRIA
-  2. Querido Diário API (DOU federal)          — COMPLEMENTAR
-  3. Página índice NR (gov.br)                 — BACKUP
+  2. Página índice NR (gov.br)                 — BACKUP
+
+NOTA (2026-08-27): a antiga "Fonte 2 — DOU Federal via Querido Diário"
+foi REMOVIDA. O Querido Diário indexa apenas Diários Oficiais MUNICIPAIS
+(prefeituras) — ele nunca teve o Diário Oficial da União (DOU), então
+essa fonte nunca poderia detectar uma portaria federal do MTE, mesmo
+funcionando perfeitamente. Os erros de HTTPError vistos nos logs vinham
+dessa chamada, que foi removida por ser inútil e por gerar ruído/falhas
+falsas nos logs. As duas fontes abaixo (monitoramento por hash das
+páginas oficiais do MTE) continuam ativas e são as que efetivamente
+detectam mudanças.
 """
 
-import json, os, re, time, hashlib
-import urllib.request, urllib.parse, urllib.error
+import json, os, re, hashlib
+import urllib.request, urllib.error
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
 
@@ -29,28 +38,6 @@ MTE_INDEX_URL = (
     "comissao-tripartite-partitaria-permanente/"
     "normas-regulamentadora/normas-regulamentadoras-vigentes"
 )
-QD_API = "https://api.queridodiario.ok.org.br/gazettes"
-
-DOU_TERMS = [
-    "Portaria MTE norma regulamentadora",
-    "Portaria MTE NR segurança saúde trabalho altera",
-    "instrução normativa SIT SST norma regulamentadora",
-]
-
-MUST_HAVE = [
-    "portaria mte","portaria mtp","portaria sefit","portaria sit ","portaria seprt",
-    "instrução normativa sit","norma regulamentadora",
-    "nr-1 ","nr-2 ","nr-3 ","nr-4 ","nr-5 ","nr-6 ","nr-7 ","nr-8 ","nr-9 ",
-    "nr-10","nr-11","nr-12","nr-13","nr-14","nr-15","nr-16","nr-17","nr-18","nr-19","nr-20",
-    "nr-21","nr-22","nr-23","nr-24","nr-25","nr-26","nr-27","nr-28","nr-29","nr-30",
-    "nr-31","nr-32","nr-33","nr-34","nr-35","nr-36","nr-37","nr-38",
-]
-MUST_ACTION = ["altera","aprova","revoga","institui","estabelece","dispõe","regulamenta","prorroga"]
-DISCARD = [
-    "município de","prefeitura","câmara municipal","tribunal de","ministério público",
-    "concurso público","licitação","pregão","aposentadoria","pensão por morte",
-    "imposto de renda","receita federal","controladoria geral do município",
-]
 
 class TextExtractor(HTMLParser):
     def __init__(self):
@@ -79,14 +66,6 @@ def fetch_html(url, timeout=30):
             except: return raw.decode('latin-1',errors='replace')
     except urllib.error.HTTPError as e: print(f"[HTTP {e.code}]"); return None
     except Exception as e: print(f"[ERRO: {type(e).__name__}]"); return None
-
-def fetch_json(url, timeout=30):
-    headers={'User-Agent':'Monitor-SST/3.0','Accept':'application/json'}
-    req=urllib.request.Request(url,headers=headers)
-    try:
-        with urllib.request.urlopen(req,timeout=timeout) as r:
-            return json.loads(r.read().decode('utf-8'))
-    except Exception as e: print(f"[ERRO JSON: {type(e).__name__}]"); return None
 
 def stable_hash(text):
     t=re.sub(r'\d{2}/\d{2}/\d{4}(\s+\d{2}h\d{2})?','',text)
@@ -128,53 +107,8 @@ def check_mte_portarias(state, today_str, today_fmt):
         'data': today_str, 'data_fmt': today_fmt, 'tipo': 'MTE',
     }]
 
-def check_querido_diario(today_str, today_fmt):
-    print(f"\n[ FONTE 2 — DOU Federal via Querido Diário ]")
-    results, seen = [], set()
-
-    for term in DOU_TERMS:
-        params = urllib.parse.urlencode({
-            'querystring': term, 'published_since': today_str,
-            'published_until': today_str, 'excerpt_size': 800,
-            'number_of_excerpts': 3, 'size': 5, 'sort_by': 'relevance',
-        })
-        print(f"  [{term[:55]}]...", end=" ", flush=True)
-        data = fetch_json(f"{QD_API}?{params}")
-        if not data: print("falha."); time.sleep(2); continue
-
-        gazettes = data.get('gazettes', [])
-        if not gazettes: print("sem resultados."); time.sleep(2); continue
-
-        count = 0
-        for g in gazettes:
-            file_url = g.get('url','')
-            if not any(d in file_url for d in ['in.gov.br','queridodiario.ok.org.br']):
-                continue
-            date = g.get('date', today_str)
-            for excerpt in g.get('excerpts',[]):
-                t = excerpt.lower()
-                if not (any(k in t for k in MUST_HAVE) and
-                        any(k in t for k in MUST_ACTION) and
-                        not any(k in t for k in DISCARD)):
-                    continue
-                pub_id = hashlib.md5(excerpt[:120].encode()).hexdigest()[:16]
-                if pub_id in seen: continue
-                seen.add(pub_id)
-                results.append({
-                    'id': pub_id,
-                    'titulo': re.sub(r'\s+',' ',excerpt.strip())[:300],
-                    'link': file_url or "https://www.in.gov.br",
-                    'fonte': 'Diário Oficial da União (Federal)',
-                    'busca': term, 'data': date,
-                    'data_fmt': datetime.strptime(date,'%Y-%m-%d').strftime('%d/%m/%Y'),
-                    'tipo': 'DOU',
-                })
-                count += 1
-        print(f"{count} resultado(s)."); time.sleep(2)
-    return results
-
 def check_nr_index(state, today_str, today_fmt):
-    print(f"\n[ FONTE 3 — Índice NR MTE (backup) ]")
+    print(f"\n[ FONTE 2 — Índice NR MTE (backup) ]")
     print("  Verificando...", end=" ", flush=True)
     html = fetch_html(MTE_INDEX_URL)
     if not html: print("falha."); return []
@@ -207,7 +141,7 @@ def save_state(state):
 
 def run_check():
     print(f"\n{'='*65}")
-    print(f"  Monitor SST v3 — {now_brasilia().strftime('%d/%m/%Y %H:%M')} (Brasília)")
+    print(f"  Monitor SST v3.1 — {now_brasilia().strftime('%d/%m/%Y %H:%M')} (Brasília)")
     print(f"{'='*65}")
 
     state=load_state()
@@ -223,8 +157,6 @@ def run_check():
     new_pubs=[]
 
     for p in check_mte_portarias(state,today_str,today_fmt):
-        if p['id'] not in seen_ids: seen_ids.add(p['id']); new_pubs.append(p)
-    for p in check_querido_diario(today_str,today_fmt):
         if p['id'] not in seen_ids: seen_ids.add(p['id']); new_pubs.append(p)
     for p in check_nr_index(state,today_str,today_fmt):
         if p['id'] not in seen_ids: seen_ids.add(p['id']); new_pubs.append(p)
@@ -250,7 +182,7 @@ def run_check():
     print(f"  Status           : {state['status']}")
     print(f"  Horário          : {state['last_check']}")
     print(f"  Novas publicações: {len(new_pubs)}")
-    print(f"  Fontes ativas    : Portarias SST MTE + DOU Federal + Índice NR")
+    print(f"  Fontes ativas    : Portarias SST MTE + Índice NR (monitoramento por hash)")
     print(f"{'─'*65}\n")
 
 if __name__=='__main__':
