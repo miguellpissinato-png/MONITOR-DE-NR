@@ -30,20 +30,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Testar API Querido Diário
-        run: |
-          echo "Testando api.queridodiario.ok.org.br..."
-          for i in 1 2 3; do
-            if curl -sf --max-time 15 "https://api.queridodiario.ok.org.br/docs" > /dev/null 2>&1; then
-              echo "✅ API disponível"
-              exit 0
-            fi
-            echo "⏳ Tentativa $i falhou — aguardando 20s..."
-            sleep 20
-          done
-          echo "❌ API indisponível — abortando"
-          exit 1
-
       - name: Executar monitoramento
         run: |
           cd scripts
