@@ -1,27 +1,43 @@
 name: Monitor Diário — SST e DOU
 
 on:
+  # O cron do GitHub é BEST-EFFORT: atrasa e às vezes simplesmente não roda.
+  # Ele fica aqui só como rede de segurança. O disparo confiável deve vir de
+  # um agendador externo via repository_dispatch (ver README).
   schedule:
-    - cron: '0 10 * * 1-5'
-    - cron: '0 12 * * 1-5'
+    - cron: '0 9 * * 1-5'
+    - cron: '0 11 * * 1-5'
+    - cron: '0 13 * * 1-5'
+  repository_dispatch:
+    types: [monitor]
   workflow_dispatch:
     inputs:
       reason:
         description: 'Motivo da execução manual'
         required: false
         default: 'Verificação manual'
+      dry_run:
+        description: 'Só verificar, sem gravar o estado no repositório'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
+# Duas execuções simultâneas disputariam o push do state.json. Serializa.
+concurrency:
+  group: monitor-sst
+  cancel-in-progress: false
+
 jobs:
   monitor-sst:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -31,22 +47,40 @@ jobs:
           python-version: '3.11'
 
       - name: Executar monitoramento
+        id: monitor
         run: |
-          cd scripts
-          for i in 1 2 3; do
-            echo "--- Tentativa $i de 3 ---"
-            if python check_nr.py; then
-              break
+          set -uo pipefail
+          for tentativa in 1 2 3; do
+            echo "--- Tentativa $tentativa de 3 ---"
+            if python scripts/check_nr.py; then
+              exit 0
             fi
-            echo "Aguardando 30s..."
-            sleep 30
+            [ "$tentativa" -lt 3 ] && echo "Aguardando 60s..." && sleep 60
           done
+          echo "::error::As 3 tentativas falharam — ao menos uma fonte crítica está inacessível."
+          exit 1
 
+      # Roda mesmo se o passo acima falhou: o state.json já contém o registro
+      # da falha, e é ele que faz o painel exibir "DESATUALIZADO".
       - name: Salvar estado
-        if: always()
+        if: always() && !inputs.dry_run
         run: |
+          set -euo pipefail
           git config user.name  "Monitor SST Bot"
           git config user.email "monitor-sst@github-actions"
           git add data/state.json
-          git diff --cached --quiet || git commit -m "chore: monitoramento SST $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+          if git diff --cached --quiet; then
+            echo "Nada mudou no estado."
+            exit 0
+          fi
+          git commit -m "chore: monitoramento SST $(date -u +'%Y-%m-%d %H:%M UTC')"
+          for tentativa in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              exit 0
+            fi
+            echo "Push falhou (tentativa $tentativa) — nova tentativa em 10s..."
+            sleep 10
+          done
+          echo "::error::Não foi possível gravar o state.json."
+          exit 1

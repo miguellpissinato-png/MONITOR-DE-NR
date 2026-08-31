@@ -103,11 +103,36 @@
     }
     .activity-dot { width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2s infinite; flex-shrink:0; }
     .activity-dot.warning { background:var(--amber); box-shadow:0 0 0 3px var(--amber-dim); }
+    .activity-dot.bad { background:#ef4444; box-shadow:0 0 0 3px rgba(239,68,68,0.25); }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.2)} }
     .activity-text { font-size:13px; font-weight:600; color:#1a2a4a; font-family:var(--font-mono); }
     .activity-text .highlight { color:#1565c0; }
     .activity-spacer { flex:1; }
     .activity-time { font-size:11px; color:#8899aa; font-family:var(--font-mono); }
+
+    /* Banner de saúde do monitoramento */
+    .health-banner {
+      display:none; align-items:flex-start; gap:12px;
+      border-radius:var(--radius-lg); padding:16px 22px; margin-bottom:18px;
+      font-family:var(--font-mono); box-shadow:0 4px 24px rgba(0,0,0,0.3);
+    }
+    .health-banner.show { display:flex; }
+    .health-banner.stale  { background:#7f1d1d; border:1px solid #ef4444; }
+    .health-banner.degraded { background:#78350f; border:1px solid #f59e0b; }
+    .health-icon { font-size:20px; line-height:1.2; flex-shrink:0; }
+    .health-title { font-size:14px; font-weight:800; color:#fff; letter-spacing:.3px; }
+    .health-msg { font-size:12px; color:rgba(255,255,255,0.88); margin-top:5px; line-height:1.55; }
+    .health-msg li { margin-top:3px; }
+
+    /* Saúde por fonte */
+    .src-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-top:14px; }
+    .src-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px; padding:12px 14px; font-family:var(--font-mono); }
+    .src-card.ok   { border-left:3px solid var(--green); }
+    .src-card.warn { border-left:3px solid var(--amber); }
+    .src-card.bad  { border-left:3px solid #ef4444; }
+    .src-name { font-size:12px; font-weight:700; color:#fff; }
+    .src-meta { font-size:10.5px; color:rgba(255,255,255,0.6); margin-top:4px; line-height:1.5; word-break:break-word; }
 
     /* Run button */
     .run-btn {
@@ -260,6 +285,15 @@
     </div>
   </header>
 
+  <!-- Banner de saúde: só aparece quando o monitoramento NÃO está confiável -->
+  <div class="health-banner" id="healthBanner">
+    <div class="health-icon" id="healthIcon">⚠️</div>
+    <div>
+      <div class="health-title" id="healthTitle"></div>
+      <div class="health-msg" id="healthMsg"></div>
+    </div>
+  </div>
+
   <!-- Activity Bar -->
   <div class="activity-bar" id="activityBar">
     <div class="activity-dot" id="activityDot"></div>
@@ -273,6 +307,9 @@
       <span id="runLabel">Verificar agora</span>
     </button>
   </div>
+
+  <!-- Saúde individual de cada fonte monitorada -->
+  <div class="src-grid" id="srcGrid"></div>
 
   <!-- Modal Token -->
   <div class="modal-overlay hidden" id="tokenModal">
@@ -544,22 +581,126 @@ function renderNrFullList(filter = '') {
 }
 function filterNrList(v) { renderNrFullList(v); }
 
+// ─── Saúde do monitoramento ───────────────────────────────────────────────────
+// "Sem novidades" e "não consegui verificar" são coisas MUITO diferentes.
+// Estas funções existem para que a segunda nunca se disfarce da primeira.
+
+const pad2 = n => String(n).padStart(2, '0');
+
+// Momento em que a verificação MAIS RECENTE deveria ter acontecido:
+// o último dia útil às 09:00 (Brasília), com 2h de tolerância para o atraso
+// normal do agendador — ou seja, se às 11h da manhã ainda não houve execução,
+// a tela fica vermelha. Ignora sábado e domingo, para não dar alarme falso.
+function lastExpectedRun(now) {
+  const GRACE = 2 * 3600 * 1000;
+  for (let i = 0; i < 10; i++) {
+    const brt = new Date(now.getTime() - i * 86400000 - 3 * 3600000);
+    const dow = brt.getUTCDay();
+    if (dow === 0 || dow === 6) continue;               // sábado/domingo
+    const t = Date.parse(`${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}T09:00:00-03:00`);
+    if (t + GRACE <= now.getTime()) return t;
+  }
+  return null;
+}
+
+function lastCheckTime(state) {
+  if (state.last_check_iso) {
+    const t = Date.parse(state.last_check_iso);
+    if (!isNaN(t)) return t;
+  }
+  const m = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/.exec(state.last_check || '');
+  if (!m) return null;
+  const t = Date.parse(`${m[3]}-${m[2]}-${m[1]}T${m[4]}:${m[5]}:00-03:00`);
+  return isNaN(t) ? null : t;
+}
+
+function renderHealth(state) {
+  const banner = document.getElementById('healthBanner');
+  const now = Date.now();
+  const last = lastCheckTime(state);
+  const expected = lastExpectedRun(now);
+
+  const falhas = state.failures || [];
+  const fontes = state.sources || {};
+  const degradadas = Object.values(fontes).filter(f => f.degraded);
+  const comFalha  = Object.values(fontes).filter(f => (f.consecutive_failures || 0) > 0);
+  const atrasado  = expected !== null && (last === null || last < expected);
+
+  let cls = '', icone = '', titulo = '', msg = '';
+
+  if (atrasado) {
+    const horas = last ? Math.round((now - last) / 3600000) : null;
+    cls = 'stale'; icone = '🔴';
+    titulo = 'MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA';
+    msg = `A última verificação bem-sucedida foi ${last ? `há ${horas}h (${esc(state.last_check)})` : 'nunca'}, `
+        + `mas já deveria ter ocorrido uma hoje pela manhã. `
+        + `<strong>Pode haver norma nova publicada e não detectada.</strong> `
+        + `Clique em "Verificar agora" e confira as execuções em GitHub → Actions.`;
+  } else if (falhas.length) {
+    cls = 'stale'; icone = '🔴';
+    titulo = 'FALHA NA ÚLTIMA VERIFICAÇÃO';
+    msg = 'Estas fontes não puderam ser lidas — o que aparece abaixo pode estar incompleto:<ul>'
+        + falhas.map(f => `<li>${esc(f)}</li>`).join('') + '</ul>';
+  } else if (degradadas.length || comFalha.length) {
+    cls = 'degraded'; icone = '🟡';
+    titulo = 'ATENÇÃO — MONITORAMENTO PARCIAL';
+    const partes = [];
+    if (degradadas.length) partes.push(`${degradadas.length} fonte(s) em modo degradado: o site oficial mudou de estrutura e a extração detalhada parou de funcionar (ainda detecta que <em>algo</em> mudou, mas não diz o quê).`);
+    if (comFalha.length)  partes.push(`${comFalha.length} fonte(s) com falha recente.`);
+    msg = partes.join(' ');
+  }
+
+  if (cls) {
+    banner.className = 'health-banner show ' + cls;
+    document.getElementById('healthIcon').textContent = icone;
+    document.getElementById('healthTitle').textContent = titulo;
+    document.getElementById('healthMsg').innerHTML = msg;
+  } else {
+    banner.className = 'health-banner';
+  }
+
+  // Cartão por fonte
+  const grid = document.getElementById('srcGrid');
+  const ids = Object.keys(fontes);
+  grid.innerHTML = ids.map(id => {
+    const f = fontes[id];
+    const falhando = (f.consecutive_failures || 0) > 0;
+    const estado = falhando ? 'bad' : (f.degraded ? 'warn' : 'ok');
+    const marca = falhando ? '🔴' : (f.degraded ? '🟡' : '🟢');
+    let meta;
+    if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s)<br>${esc(f.last_error || 'erro desconhecido')}`;
+    else if (f.degraded) meta = `Modo degradado — extração vazia<br>OK em ${esc(f.last_ok || '—')}`;
+    else               meta = `${f.item_count ?? 0} itens acompanhados<br>OK em ${esc(f.last_ok || '—')}`;
+    return `<div class="src-card ${estado}"><div class="src-name">${marca} ${esc(f.label || id)}</div><div class="src-meta">${meta}</div></div>`;
+  }).join('');
+
+  return { atrasado, falhou: falhas.length > 0 };
+}
+
 // ─── Render UI ────────────────────────────────────────────────────────────────
 function renderUI(state) {
+  const saude = renderHealth(state);
+  const problema = saude.atrasado || saude.falhou;
   const hasNew = state.status && (state.status.includes('Publicação') || state.status.includes('Alteração'));
   const dot = document.getElementById('activityDot');
   const actText = document.getElementById('activityText');
   const actTime = document.getElementById('activityTime');
 
-  dot.className = hasNew ? 'activity-dot warning' : 'activity-dot';
-  actText.innerHTML = hasNew
-    ? `Sistema ativo — <span class="highlight">Nova publicação detectada no DOU</span>`
-    : `Sistema ativo — <span class="highlight">Monitorando DOU e Portal MTE</span>`;
+  dot.className = problema ? 'activity-dot bad' : (hasNew ? 'activity-dot warning' : 'activity-dot');
+  actText.innerHTML = problema
+    ? `<span class="highlight" style="color:#c62828">Monitoramento não confirmado — verifique o alerta acima</span>`
+    : (hasNew
+        ? `Sistema ativo — <span class="highlight">Nova publicação detectada</span>`
+        : `Sistema ativo — <span class="highlight">Monitorando DOU, MTE e normas técnicas</span>`);
   actTime.textContent = state.last_check ? `Última verificação: ${state.last_check}` : 'Aguardando primeira verificação';
 
   const statusEl = document.getElementById('metricStatus');
   const badgeEl  = document.getElementById('metricStatusBadge');
-  if (hasNew) {
+  if (problema) {
+    statusEl.textContent = 'Falha';
+    statusEl.className = 'metric-value status-changed';
+    badgeEl.innerHTML = `<span class="metric-badge badge-changed">● Verificação não confirmada</span>`;
+  } else if (hasNew) {
     statusEl.textContent = 'Publicação';
     statusEl.className = 'metric-value status-changed';
     badgeEl.innerHTML = `<span class="metric-badge badge-changed">● Nova publicação</span>`;
@@ -610,7 +751,17 @@ async function loadState() {
     const state = await res.json();
     renderUI(state);
   } catch (err) {
-    document.getElementById('activityText').innerHTML = `Sistema ativo — <span class="highlight">Aguardando primeira verificação</span>`;
+    // Não conseguir ler o state.json é, por si só, uma falha do monitoramento:
+    // sinaliza em vermelho em vez de sugerir que está tudo apenas "aguardando".
+    const banner = document.getElementById('healthBanner');
+    banner.className = 'health-banner show stale';
+    document.getElementById('healthIcon').textContent = '🔴';
+    document.getElementById('healthTitle').textContent = 'NÃO FOI POSSÍVEL LER O ESTADO DO MONITORAMENTO';
+    document.getElementById('healthMsg').textContent =
+      'O arquivo data/state.json não pôde ser carregado (' + err.message + '). '
+      + 'Nada nesta tela reflete a situação real das normas.';
+    document.getElementById('activityDot').className = 'activity-dot bad';
+    document.getElementById('activityText').innerHTML = `<span class="highlight" style="color:#c62828">Estado indisponível</span>`;
     document.getElementById('activityTime').textContent = 'Execute o workflow no GitHub para iniciar';
     document.getElementById('metricStatus').textContent = 'Aguardando';
     document.getElementById('recentContent').innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Primeira verificação pendente</div><div class="empty-sub">Execute o workflow no GitHub Actions para iniciar o monitoramento.</div></div>`;

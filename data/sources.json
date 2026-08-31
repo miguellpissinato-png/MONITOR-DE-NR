@@ -1,0 +1,50 @@
+{
+  "_comment": "Fontes monitoradas. Para acrescentar uma norma/página nova, basta adicionar um objeto aqui — não é preciso mexer no código Python. Placeholders {YEAR} e {YEAR_PREV} são substituídos em tempo de execução.",
+  "sources": [
+    {
+      "id": "mte_portarias",
+      "label": "Portarias SST — MTE",
+      "kind": "page_items",
+      "tipo": "MTE",
+      "critical": true,
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/{YEAR}-1",
+      "url_fallbacks": [
+        "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/{YEAR_PREV}-1",
+        "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias"
+      ],
+      "item_pattern": "portaria|instru\\u00e7\\u00e3o normativa|nr-?\\s*\\d+"
+    },
+    {
+      "id": "nr_index",
+      "label": "Índice das Normas Regulamentadoras — MTE",
+      "kind": "page_items",
+      "tipo": "MTE",
+      "critical": true,
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
+      "item_pattern": "nr-?\\s*\\d+|norma regulamentadora"
+    },
+    {
+      "id": "dou_sst",
+      "label": "Diário Oficial da União — Seção 1",
+      "kind": "dou_search",
+      "tipo": "DOU",
+      "critical": true,
+      "sections": ["do1"],
+      "window_days": 7,
+      "queries": [
+        "\"norma regulamentadora\"",
+        "\"segurança e saúde no trabalho\"",
+        "\"NR-\""
+      ]
+    },
+    {
+      "id": "abnt_sst",
+      "label": "ABNT — normas técnicas (experimental)",
+      "kind": "page_items",
+      "tipo": "NBR",
+      "critical": false,
+      "url": "https://www.abntcatalogo.com.br/normagrid.aspx?Q=NBR",
+      "item_pattern": "nbr\\s*\\d+"
+    }
+  ]
+}
