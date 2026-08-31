@@ -134,32 +134,6 @@
     .src-name { font-size:12px; font-weight:700; color:#fff; }
     .src-meta { font-size:10.5px; color:rgba(255,255,255,0.6); margin-top:4px; line-height:1.5; word-break:break-word; }
 
-    /* Run button */
-    .run-btn {
-      display:inline-flex; align-items:center; gap:7px;
-      background:#1565c0; color:#fff; border:none; border-radius:8px;
-      padding:8px 14px; font-family:var(--font-sans); font-size:12px;
-      font-weight:600; cursor:pointer; transition:background 0.2s,transform 0.1s;
-      white-space:nowrap; flex-shrink:0;
-    }
-    .run-btn:hover:not(:disabled) { background:#1976d2; transform:translateY(-1px); }
-    .run-btn:disabled { opacity:0.6; cursor:not-allowed; }
-    .run-btn.running { background:#0d47a1; }
-
-    /* Modal */
-    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; }
-    .modal-overlay.hidden { display:none; }
-    .modal-box { background:#0d1f3c; border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:28px; max-width:480px; width:100%; box-shadow:0 24px 60px rgba(0,0,0,0.5); }
-    .modal-title { font-size:16px; font-weight:700; color:#fff; margin-bottom:8px; }
-    .modal-sub { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; line-height:1.6; }
-    .modal-sub a { color:#64b5f6; }
-    .modal-input { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:#fff; font-family:var(--font-mono); font-size:13px; outline:none; margin-bottom:16px; }
-    .modal-input:focus { border-color:rgba(33,150,243,0.6); }
-    .modal-actions { display:flex; gap:10px; justify-content:flex-end; }
-    .modal-btn-cancel { background:transparent; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.6); border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; }
-    .modal-btn-confirm { background:#1565c0; border:none; color:#fff; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
-    .modal-info { font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px; line-height:1.5; }
-
     /* Metrics */
     .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
     @media(max-width:640px) { .metrics-grid { grid-template-columns:1fr; } }
@@ -300,36 +274,10 @@
     <span class="activity-text" id="activityText">Carregando sistema…</span>
     <div class="activity-spacer"></div>
     <span class="activity-time" id="activityTime">—</span>
-    <button class="run-btn" id="runBtn" onclick="triggerWorkflow()">
-      <svg id="runIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polygon points="5 3 19 12 5 21 5 3"/>
-      </svg>
-      <span id="runLabel">Verificar agora</span>
-    </button>
   </div>
 
   <!-- Saúde individual de cada fonte monitorada -->
   <div class="src-grid" id="srcGrid"></div>
-
-  <!-- Modal Token -->
-  <div class="modal-overlay hidden" id="tokenModal">
-    <div class="modal-box">
-      <div class="modal-title">🔑 Token do GitHub necessário</div>
-      <div class="modal-sub">
-        Para disparar a verificação direto daqui, crie um token com permissão <strong style="color:#fff">workflow</strong>.<br><br>
-        <a href="https://github.com/settings/tokens/new?scopes=workflow&description=Monitor+SST" target="_blank">👉 Criar token no GitHub</a>
-      </div>
-      <input class="modal-input" type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;cursor:pointer">
-        <input type="checkbox" id="saveToken" checked /> Salvar token neste navegador
-      </label>
-      <div class="modal-actions">
-        <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
-        <button class="modal-btn-confirm" onclick="confirmToken()">Confirmar e executar</button>
-      </div>
-      <div class="modal-info">⚠️ Token salvo apenas localmente no seu navegador.</div>
-    </div>
-  </div>
 
   <!-- Metrics -->
   <div class="metrics-grid">
@@ -454,9 +402,6 @@
 
 <script>
 // ─── Config ──────────────────────────────────────────────────────────────────
-const GH_OWNER    = 'miguellpissinato-png';
-const GH_REPO     = 'MONITOR-DE-NR';
-const GH_WORKFLOW = 'monitor.yml';
 
 // ─── Lista das 38 NR ─────────────────────────────────────────────────────────
 const BASE_NR = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
@@ -635,7 +580,7 @@ function renderHealth(state) {
     msg = `A última verificação bem-sucedida foi ${last ? `há ${horas}h (${esc(state.last_check)})` : 'nunca'}, `
         + `mas já deveria ter ocorrido uma hoje pela manhã. `
         + `<strong>Pode haver norma nova publicada e não detectada.</strong> `
-        + `Clique em "Verificar agora" e confira as execuções em GitHub → Actions.`;
+        + `Verifique as execuções em GitHub → Actions.`;
   } else if (falhas.length) {
     cls = 'stale'; icone = '🔴';
     titulo = 'FALHA NA ÚLTIMA VERIFICAÇÃO';
@@ -771,55 +716,11 @@ async function loadState() {
   }
 }
 
-// ─── Botão Verificar Agora ────────────────────────────────────────────────────
-async function triggerWorkflow() {
-  const saved = localStorage.getItem('gh_nr_token');
-  if (!saved) { document.getElementById('tokenModal').classList.remove('hidden'); return; }
-  await runWorkflow(saved);
-}
-function closeModal() {
-  document.getElementById('tokenModal').classList.add('hidden');
-  document.getElementById('tokenInput').value = '';
-}
-async function confirmToken() {
-  const token = document.getElementById('tokenInput').value.trim();
-  if (!token) { alert('Digite o token!'); return; }
-  if (document.getElementById('saveToken').checked) localStorage.setItem('gh_nr_token', token);
-  closeModal();
-  await runWorkflow(token);
-}
-async function runWorkflow(token) {
-  const btn = document.getElementById('runBtn');
-  const label = document.getElementById('runLabel');
-  btn.disabled = true; btn.classList.add('running');
-  label.textContent = 'Executando…';
-  try {
-    const res = await fetch(
-      `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
-      { method:'POST', headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json', 'X-GitHub-Api-Version':'2022-11-28' }, body:JSON.stringify({ref:'main'}) }
-    );
-    if (res.status === 204) {
-      label.textContent = '✓ Iniciado!';
-      btn.style.background = '#2e7d32';
-      setTimeout(() => { label.textContent='Verificar agora'; btn.style.background=''; btn.classList.remove('running'); btn.disabled=false; setTimeout(loadState,90000); }, 3000);
-    } else if (res.status === 401) {
-      localStorage.removeItem('gh_nr_token');
-      alert('Token inválido ou expirado. Gere um novo token.');
-      resetBtn();
-    } else {
-      const b = await res.json().catch(()=>({}));
-      alert(`Erro: ${res.status} — ${b.message || 'Tente novamente.'}`);
-      resetBtn();
-    }
-  } catch(e) { alert('Erro de conexão.'); resetBtn(); }
-}
-function resetBtn() {
-  const btn = document.getElementById('runBtn');
-  btn.disabled=false; btn.classList.remove('running'); btn.style.background='';
-  document.getElementById('runLabel').textContent = 'Verificar agora';
-}
-
 // ─── Init ─────────────────────────────────────────────────────────────────────
+// O botão de execução manual foi removido; se algum token ficou salvo no
+// navegador de quando ele existia, apaga na primeira visita.
+try { localStorage.removeItem('gh_nr_token'); } catch (e) { /* modo privado */ }
+
 loadState();
 renderNrFullList();
 setInterval(loadState, 5 * 60 * 1000);
