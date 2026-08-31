@@ -536,14 +536,15 @@ const pad2 = n => String(n).padStart(2, '0');
 // o último dia útil às 09:00 (Brasília), com 2h de tolerância para o atraso
 // normal do agendador — ou seja, se às 11h da manhã ainda não houve execução,
 // a tela fica vermelha. Ignora sábado e domingo, para não dar alarme falso.
-function lastExpectedRun(now) {
+// Recebe milissegundos (Date.now()), não um objeto Date.
+function lastExpectedRun(nowMs) {
   const GRACE = 2 * 3600 * 1000;
   for (let i = 0; i < 10; i++) {
-    const brt = new Date(now.getTime() - i * 86400000 - 3 * 3600000);
+    const brt = new Date(nowMs - i * 86400000 - 3 * 3600000);
     const dow = brt.getUTCDay();
     if (dow === 0 || dow === 6) continue;               // sábado/domingo
     const t = Date.parse(`${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}T09:00:00-03:00`);
-    if (t + GRACE <= now.getTime()) return t;
+    if (t + GRACE <= nowMs) return t;
   }
   return null;
 }
@@ -689,30 +690,47 @@ function renderUI(state) {
 }
 
 // ─── Carrega state.json ───────────────────────────────────────────────────────
+function mostrarFalhaGrave(titulo, mensagem) {
+  const banner = document.getElementById('healthBanner');
+  banner.className = 'health-banner show stale';
+  document.getElementById('healthIcon').textContent = '🔴';
+  document.getElementById('healthTitle').textContent = titulo;
+  document.getElementById('healthMsg').textContent = mensagem;
+  document.getElementById('activityDot').className = 'activity-dot bad';
+  document.getElementById('activityText').innerHTML = `<span class="highlight" style="color:#c62828">Estado indisponível</span>`;
+  document.getElementById('activityTime').textContent = 'Confira GitHub → Actions';
+  document.getElementById('metricStatus').textContent = 'Aguardando';
+}
+
 async function loadState() {
+  // As duas etapas são separadas de propósito: um erro ao DESENHAR a tela não
+  // pode ser reportado como "não consegui ler o arquivo". Foi exatamente essa
+  // confusão que fez o painel culpar o state.json por um bug de JavaScript.
+  let state;
   try {
     const res = await fetch('data/state.json?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const state = await res.json();
-    renderUI(state);
+    state = await res.json();
   } catch (err) {
-    // Não conseguir ler o state.json é, por si só, uma falha do monitoramento:
-    // sinaliza em vermelho em vez de sugerir que está tudo apenas "aguardando".
-    const banner = document.getElementById('healthBanner');
-    banner.className = 'health-banner show stale';
-    document.getElementById('healthIcon').textContent = '🔴';
-    document.getElementById('healthTitle').textContent = 'NÃO FOI POSSÍVEL LER O ESTADO DO MONITORAMENTO';
-    document.getElementById('healthMsg').textContent =
+    mostrarFalhaGrave(
+      'NÃO FOI POSSÍVEL LER O ESTADO DO MONITORAMENTO',
       'O arquivo data/state.json não pôde ser carregado (' + err.message + '). '
-      + 'Nada nesta tela reflete a situação real das normas.';
-    document.getElementById('activityDot').className = 'activity-dot bad';
-    document.getElementById('activityText').innerHTML = `<span class="highlight" style="color:#c62828">Estado indisponível</span>`;
-    document.getElementById('activityTime').textContent = 'Execute o workflow no GitHub para iniciar';
-    document.getElementById('metricStatus').textContent = 'Aguardando';
-    document.getElementById('recentContent').innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Primeira verificação pendente</div><div class="empty-sub">Execute o workflow no GitHub Actions para iniciar o monitoramento.</div></div>`;
+      + 'Nada nesta tela reflete a situação real das normas.');
+    document.getElementById('recentContent').innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Primeira verificação pendente</div><div class="empty-sub">Execute o workflow em GitHub → Actions para iniciar o monitoramento.</div></div>`;
     document.getElementById('historyContent').innerHTML = document.getElementById('recentContent').innerHTML;
     document.getElementById('recentCount').textContent = '0 publicações';
     document.getElementById('historyCount').textContent = '0 registros';
+    return;
+  }
+
+  try {
+    renderUI(state);
+  } catch (err) {
+    mostrarFalhaGrave(
+      'ERRO AO EXIBIR O PAINEL',
+      'O state.json foi lido com sucesso, mas a página falhou ao montá-lo ('
+      + err.message + '). O monitoramento em si pode estar funcionando — '
+      + 'confira as execuções em GitHub → Actions.');
   }
 }
 
