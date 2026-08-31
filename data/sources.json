@@ -29,7 +29,9 @@
       "kind": "dou_search",
       "tipo": "DOU",
       "critical": true,
-      "sections": ["do1"],
+      "sections": [
+        "do1"
+      ],
       "window_days": 7,
       "queries": [
         "\"norma regulamentadora\"",
@@ -39,11 +41,11 @@
     },
     {
       "id": "abnt_sst",
-      "label": "ABNT — normas técnicas (experimental)",
+      "label": "ABNT — normas técnicas publicadas",
       "kind": "page_items",
       "tipo": "NBR",
       "critical": false,
-      "url": "https://www.abntcatalogo.com.br/normagrid.aspx?Q=NBR",
+      "url": "https://www.abntcatalogo.com.br/",
       "item_pattern": "nbr\\s*\\d+"
     }
   ]

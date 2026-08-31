@@ -251,8 +251,10 @@ def collect_dou(cfg):
                 continue
 
             sucessos += 1
+            # O portlet do in.gov.br prefixa o id do script com o nome da
+            # classe Java (…_BuscaDouPortlet_params), então casamos pelo sufixo.
             m = re.search(
-                r'<script[^>]+id="params"[^>]*>(.*?)</script>', html, re.S | re.I)
+                r'<script[^>]+id="[^"]*params"[^>]*>(.*?)</script>', html, re.S | re.I)
             if not m:
                 continue
             try:
