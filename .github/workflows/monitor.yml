@@ -21,6 +21,11 @@ on:
         required: false
         type: boolean
         default: false
+      diag:
+        description: 'Rodar diagnóstico de fontes (temporário)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -45,6 +50,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Diagnóstico de fontes (temporário)
+        if: inputs.diag
+        run: python scripts/_diag.py
 
       - name: Executar monitoramento
         id: monitor
