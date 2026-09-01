@@ -1,15 +1,15 @@
 {
   "schema_version": 4,
-  "last_check": "31/08/2026 11:12",
-  "last_success": "2026-08-31T11:12:42.711837-03:00",
-  "status": "Monitorando",
+  "last_check": "01/09/2026 07:25",
+  "last_success": "2026-09-01T07:25:25.690473-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "31/08/2026 11:12",
+      "last_ok": "01/09/2026 07:25",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "31/08/2026 11:12",
+      "last_ok": "01/09/2026 07:25",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,15 +83,21 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "31/08/2026 11:12",
+      "last_ok": "01/09/2026 07:25",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 22,
+      "item_count": 23,
       "known_ids": [
+        "7b15a4b549b3bb54",
         "14bcbbea57635f1b",
         "d238a1e5604448ad",
         "a4e5a42f57d6d18d",
+        "194c320be89f64f2",
+        "2796a6546033aedf",
+        "607e1a908b42542b",
+        "68a35f26800d1f54",
+        "f2daba1e0845d5d5",
         "a1c7931984ec0ae2",
         "e6110a1f9b9b5d40",
         "f641d78cdd58d193",
@@ -105,18 +111,13 @@
         "1bc546d98f9c270e",
         "4f8944598023160a",
         "a253151367a91e64",
-        "bd2741cd2f912179",
-        "56675335be829f1b",
-        "81ffe8bf8616a37a",
-        "20756417a0025df2",
-        "fa1e7201aca98903",
-        "f8ede4c50d864619"
+        "bd2741cd2f912179"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "31/08/2026 11:12",
+      "last_ok": "01/09/2026 07:25",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -143,10 +144,193 @@
       ]
     }
   },
-  "publicacoes_recentes": [],
-  "recent_changes": [],
-  "history": [],
-  "last_check_iso": "2026-08-31T11:12:42.711837-03:00",
+  "publicacoes_recentes": [
+    {
+      "id": "dou_sst_7b15a4b549b3bb54",
+      "titulo": "Instrução Normativa Seq /MTE nº 8, de 31 de agosto de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-seq-/mte-n-8-de-31-de-agosto-de-2026-729312884",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194c320be89f64f2",
+      "titulo": "PORTARIA Nº 2.015, DE 28 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-2.015-de-28-de-agosto-de-2026-729408818",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_2796a6546033aedf",
+      "titulo": "RESOLUÇÃO CFM Nº 2.469, DE 13 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.469-de-13-de-agosto-de-2026-729407046",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_607e1a908b42542b",
+      "titulo": "PORTARIA CC/ PR Nº 735, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-cc/-pr-n-735-de-31-de-agosto-de-2026-729403872",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_68a35f26800d1f54",
+      "titulo": "Portaria GM/MS Nº 12.134, DE 31 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.134-de-31-de-agosto-de-2026-729400778",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_f2daba1e0845d5d5",
+      "titulo": "RESOLUÇÃO DA DIRETORIA COLEGIADA ANVISA Nº 1.041, DE 26 DE AGOSTO DE 2026(*)",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-da-diretoria-colegiada-anvisa-n-1.041-de-26-de-agosto-de-2026-*-729400697",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    }
+  ],
+  "recent_changes": [
+    {
+      "id": "dou_sst_7b15a4b549b3bb54",
+      "titulo": "Instrução Normativa Seq /MTE nº 8, de 31 de agosto de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-seq-/mte-n-8-de-31-de-agosto-de-2026-729312884",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194c320be89f64f2",
+      "titulo": "PORTARIA Nº 2.015, DE 28 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-2.015-de-28-de-agosto-de-2026-729408818",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_2796a6546033aedf",
+      "titulo": "RESOLUÇÃO CFM Nº 2.469, DE 13 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.469-de-13-de-agosto-de-2026-729407046",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_607e1a908b42542b",
+      "titulo": "PORTARIA CC/ PR Nº 735, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-cc/-pr-n-735-de-31-de-agosto-de-2026-729403872",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_68a35f26800d1f54",
+      "titulo": "Portaria GM/MS Nº 12.134, DE 31 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.134-de-31-de-agosto-de-2026-729400778",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_f2daba1e0845d5d5",
+      "titulo": "RESOLUÇÃO DA DIRETORIA COLEGIADA ANVISA Nº 1.041, DE 26 DE AGOSTO DE 2026(*)",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-da-diretoria-colegiada-anvisa-n-1.041-de-26-de-agosto-de-2026-*-729400697",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    }
+  ],
+  "history": [
+    {
+      "id": "dou_sst_7b15a4b549b3bb54",
+      "titulo": "Instrução Normativa Seq /MTE nº 8, de 31 de agosto de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-seq-/mte-n-8-de-31-de-agosto-de-2026-729312884",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194c320be89f64f2",
+      "titulo": "PORTARIA Nº 2.015, DE 28 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-2.015-de-28-de-agosto-de-2026-729408818",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_2796a6546033aedf",
+      "titulo": "RESOLUÇÃO CFM Nº 2.469, DE 13 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.469-de-13-de-agosto-de-2026-729407046",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_607e1a908b42542b",
+      "titulo": "PORTARIA CC/ PR Nº 735, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-cc/-pr-n-735-de-31-de-agosto-de-2026-729403872",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_68a35f26800d1f54",
+      "titulo": "Portaria GM/MS Nº 12.134, DE 31 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.134-de-31-de-agosto-de-2026-729400778",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_f2daba1e0845d5d5",
+      "titulo": "RESOLUÇÃO DA DIRETORIA COLEGIADA ANVISA Nº 1.041, DE 26 DE AGOSTO DE 2026(*)",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-da-diretoria-colegiada-anvisa-n-1.041-de-26-de-agosto-de-2026-*-729400697",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-01",
+      "data_fmt": "01/09/2026",
+      "tipo": "DOU"
+    }
+  ],
+  "last_check_iso": "2026-09-01T07:25:25.690473-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
