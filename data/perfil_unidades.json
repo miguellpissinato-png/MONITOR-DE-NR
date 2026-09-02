@@ -1,0 +1,51 @@
+{
+  "_comment": "Perfil OPERACIONAL usado para avaliar a quem cada mudanca normativa se aplica. Deliberadamente GENERICO: sem razao social, CNPJ, cidade, endereco ou headcount, porque este repositorio e publico. Descreve tipos de unidade, nao a empresa. Edite quando a operacao mudar.",
+  "_aviso": "NAO acrescente dados identificaveis aqui enquanto o repositorio for publico.",
+  "unidades": [
+    {
+      "id": "fabrica",
+      "nome": "Fábrica / planta industrial",
+      "descricao": "Manufatura de eletroeletrônicos: linhas de montagem, maquinário, almoxarifado de insumos, manutenção industrial.",
+      "nrs_criticas": ["NR-01", "NR-06", "NR-07", "NR-09", "NR-10", "NR-11", "NR-12", "NR-17", "NR-23", "NR-26", "NR-33", "NR-35"],
+      "temas_sensiveis": ["máquinas e equipamentos", "proteção de partes móveis", "instalações elétricas", "agentes químicos e ruído", "movimentação de cargas", "trabalho em altura", "espaço confinado", "EPI"]
+    },
+    {
+      "id": "centro_logistico",
+      "nome": "Centro logístico / distribuição",
+      "descricao": "Armazenagem, separação, expedição e movimentação de cargas, com empilhadeiras e estruturas porta-paletes.",
+      "nrs_criticas": ["NR-01", "NR-06", "NR-11", "NR-12", "NR-17", "NR-23"],
+      "temas_sensiveis": ["movimentação e armazenagem de materiais", "empilhadeiras e equipamentos móveis", "levantamento manual de cargas", "empilhamento e estanterias", "circulação de pedestres e veículos"]
+    },
+    {
+      "id": "call_center",
+      "nome": "Call-center / teleatendimento",
+      "descricao": "Operação de atendimento telefônico e digital, postos de trabalho com uso intensivo de headset e monitor.",
+      "nrs_criticas": ["NR-01", "NR-17", "NR-23"],
+      "temas_sensiveis": ["NR-17 Anexo II — teleatendimento/telemarketing", "mobiliário e posto de trabalho", "pausas e jornada", "ruído em headset", "riscos psicossociais", "metas e monitoramento de desempenho"],
+      "observacao": "Maior exposição do grupo à NR-17: o Anexo II é específico para teleatendimento. Qualquer alteração nele é crítica para esta unidade."
+    },
+    {
+      "id": "administrativo",
+      "nome": "Setor administrativo / escritório",
+      "descricao": "Atividades administrativas em ambiente de escritório, trabalho predominantemente sentado com computador.",
+      "nrs_criticas": ["NR-01", "NR-17", "NR-23"],
+      "temas_sensiveis": ["ergonomia de escritório", "mobiliário e iluminação", "prevenção e combate a incêndio", "trabalho remoto/híbrido quando aplicável"]
+    },
+    {
+      "id": "equipe_externa",
+      "nome": "Promotores de venda / equipe externa",
+      "descricao": "Profissionais em campo, visitando pontos de venda, com deslocamento frequente e sem posto fixo.",
+      "nrs_criticas": ["NR-01", "NR-06", "NR-07"],
+      "temas_sensiveis": ["trabalho externo e deslocamento", "gerenciamento de riscos para atividade externa", "exames ocupacionais", "jornada e controle de ponto externo", "riscos de trânsito"],
+      "observacao": "Frequentemente esquecida no PGR por não ter posto fixo — mudanças na NR-01 sobre trabalho externo importam aqui."
+    }
+  ],
+  "temas_transversais": [
+    "NR-01 — Gerenciamento de Riscos Ocupacionais (PGR): atinge todas as unidades",
+    "NR-04 — dimensionamento do SESMT",
+    "NR-05 — CIPA",
+    "NR-07 — PCMSO e exames ocupacionais",
+    "eSocial — eventos de SST (S-2210, S-2220, S-2240)",
+    "Prazos de adequação e períodos de transição em qualquer NR"
+  ]
+}

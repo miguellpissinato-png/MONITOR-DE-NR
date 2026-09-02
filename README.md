@@ -96,6 +96,53 @@ consegue dizer *o quê* — é o aviso de que o `item_pattern` precisa de ajuste
 python3 scripts/check_nr.py   # sai com código != 0 se uma fonte crítica falhar
 ```
 
+## Relatório de análise em PDF
+
+Quando o monitor detecta publicações relevantes, `scripts/gerar_relatorio.py`
+busca o texto integral de cada uma, pede à API da Claude uma análise de
+aplicabilidade por tipo de unidade e emite um PDF em `relatorios/`, listado no
+painel.
+
+### Ativar
+
+Cadastre o secret `ANTHROPIC_API_KEY` em **Settings → Secrets and variables →
+Actions → New repository secret** (chave obtida em console.anthropic.com).
+
+**Sem o secret, o monitoramento funciona normalmente** — a etapa do relatório
+apenas avisa e é ignorada. O relatório é uma camada extra, nunca um ponto único
+de falha.
+
+### Custo
+
+Modelo `claude-opus-5` (US$ 5/MTok entrada, US$ 25/MTok saída). Cada ato consome
+cerca de 5 mil tokens de entrada e 800 de saída — algo como US$ 0,05 por ato.
+Com a triagem filtrando o ruído do DOU, a ordem de grandeza é **US$ 2 a 3 por
+mês**. `MAX_ITENS_POR_EXECUCAO` limita a 15 análises por execução como trava.
+
+### O que o relatório é, e o que não é
+
+É uma **triagem** para reduzir o volume de leitura diária. **Não é parecer
+técnico.** Modelos de linguagem podem interpretar mal texto normativo —
+sobretudo prazos, exceções e revogações. Todo item traz o link do texto oficial,
+e a responsabilidade técnica permanece humana. O PDF diz isso em rodapé.
+
+Dois cuidados de projeto valem registro:
+
+- **Nada é descartado em silêncio.** Itens de baixa relevância vão para a seção
+  "descartados" do PDF, com o órgão emissor. Se a triagem errar, o erro fica
+  visível em vez de enterrado — o modo de falha perigoso seria a norma que
+  importava sumir sem ninguém saber.
+- **Falha vira item de leitura manual.** Se o texto não puder ser lido ou o
+  modelo recusar a análise, o item aparece na seção "não analisadas" em vez de
+  desaparecer.
+
+### Perfil das unidades
+
+`data/perfil_unidades.json` descreve os tipos de unidade e as NRs de maior
+exposição de cada um. É **deliberadamente genérico** — sem razão social, cidade,
+CNPJ ou headcount — porque este repositório é público. Edite quando a operação
+mudar; não acrescente dados identificáveis enquanto o repositório for público.
+
 ## Limitações conhecidas
 
 - **Feriados nacionais** não são tratados: em feriado que caia em dia útil, o
@@ -103,6 +150,10 @@ python3 scripts/check_nr.py   # sai com código != 0 se uma fonte crítica falha
 - **O botão "Verificar agora"** pede um token do GitHub e o guarda no
   `localStorage` do navegador. Em um site público, use um token de escopo
   mínimo (apenas este repositório) e evite usá-lo em computador compartilhado.
+- **Relatórios são públicos** enquanto o repositório for público. Por isso o
+  perfil das unidades não identifica a empresa. Para análises nomeando unidades
+  e locais reais, o repositório precisa ser privado (GitHub Pages em repositório
+  privado exige plano pago).
 - **ABNT/NBR:** o catálogo da ABNT não tem API pública e as normas são pagas.
   A fonte `abnt_sst` é experimental e monitora a página pública de catálogo;
   ela é `critical: false` justamente por isso.

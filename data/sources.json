@@ -35,8 +35,9 @@
       "window_days": 7,
       "queries": [
         "\"norma regulamentadora\"",
+        "\"normas regulamentadoras\"",
         "\"segurança e saúde no trabalho\"",
-        "\"NR-\""
+        "\"segurança e medicina do trabalho\""
       ]
     },
     {
@@ -48,5 +49,33 @@
       "url": "https://www.abntcatalogo.com.br/",
       "item_pattern": "nbr\\s*\\d+"
     }
+  ],
+  "_comment_relevancia": "Itens do DOU recebem relevancia alta/baixa conforme casem com termos_sst. Nada e descartado em silencio: item de baixa relevancia continua registrado e aparece na secao de descartados do relatorio.",
+  "termos_sst": [
+    "norma[s]? regulamentadora",
+    "\\bNR[-\\s]?\\d{1,2}\\b",
+    "segurança e saúde no trabalho",
+    "segurança e medicina do trabalho",
+    "\\bSESMT\\b",
+    "\\bCIPA\\b",
+    "\\bEPI\\b",
+    "equipamento de proteção",
+    "insalubridade",
+    "periculosidade",
+    "ergonomia",
+    "ergonômic",
+    "acidente[s]? de trabalho",
+    "doença ocupacional",
+    "saúde ocupacional",
+    "\\bPGR\\b",
+    "\\bPCMSO\\b",
+    "gerenciamento de riscos ocupacionais",
+    "agentes? (nociv|químic|biológic|físic)",
+    "trabalho em altura",
+    "espaço confinado",
+    "Ministério do Trabalho e Emprego",
+    "\\bMTE\\b",
+    "Inspeção do Trabalho",
+    "Secretaria de Inspeção do Trabalho"
   ]
 }

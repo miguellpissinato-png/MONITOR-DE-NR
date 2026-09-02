@@ -134,6 +134,21 @@
     .src-name { font-size:12px; font-weight:700; color:#fff; }
     .src-meta { font-size:10.5px; color:rgba(255,255,255,0.6); margin-top:4px; line-height:1.5; word-break:break-word; }
 
+    /* Relatórios em PDF */
+    .rel-box { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
+               border-radius:12px; padding:16px 20px; margin-top:14px; }
+    .rel-head { font-size:12px; font-weight:700; color:#fff; font-family:var(--font-mono);
+                display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+    .rel-sub  { font-size:10.5px; color:rgba(255,255,255,0.5); line-height:1.5; margin-bottom:10px; }
+    .rel-item { display:flex; align-items:center; gap:10px; padding:8px 0;
+                border-top:1px solid rgba(255,255,255,0.08); font-family:var(--font-mono); }
+    .rel-data { font-size:11px; color:#fff; font-weight:600; min-width:112px; }
+    .rel-tags { font-size:10px; color:rgba(255,255,255,0.55); flex:1; }
+    .rel-link { font-size:10.5px; color:#64b5f6; text-decoration:none; white-space:nowrap; }
+    .rel-link:hover { text-decoration:underline; }
+    .rel-badge { display:inline-block; font-size:9px; padding:2px 7px; border-radius:5px;
+                 background:rgba(255,167,38,0.15); color:#ffa726; border:1px solid rgba(255,167,38,0.3); }
+
     /* Metrics */
     .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
     @media(max-width:640px) { .metrics-grid { grid-template-columns:1fr; } }
@@ -278,6 +293,9 @@
 
   <!-- Saúde individual de cada fonte monitorada -->
   <div class="src-grid" id="srcGrid"></div>
+
+  <!-- Relatórios de análise em PDF -->
+  <div id="relBox"></div>
 
   <!-- Metrics -->
   <div class="metrics-grid">
@@ -632,9 +650,37 @@ function renderHealth(state) {
   return { atrasado, falhou: falhas.length > 0 };
 }
 
+// ─── Relatórios em PDF ───────────────────────────────────────────────────────
+function renderRelatorios(state) {
+  const box = document.getElementById('relBox');
+  const rels = state.relatorios || [];
+  if (!rels.length) { box.innerHTML = ''; return; }
+
+  const linhas = rels.slice(0, 12).map(r => {
+    const partes = [];
+    if (r.com_impacto) partes.push(`<span class="rel-badge">${r.com_impacto} com impacto</span>`);
+    partes.push(`${r.analisados} analisada(s)`);
+    if (r.descartados) partes.push(`${r.descartados} descartada(s)`);
+    if (r.falhas)      partes.push(`<span style="color:#ef9a9a">${r.falhas} falha(s)</span>`);
+    return `<div class="rel-item">
+      <span class="rel-data">${esc(r.data)}</span>
+      <span class="rel-tags">${partes.join(' &middot; ')}</span>
+      <a class="rel-link" href="relatorios/${esc(r.arquivo)}" target="_blank" rel="noopener">Abrir PDF &rsaquo;</a>
+    </div>`;
+  }).join('');
+
+  box.innerHTML = `<div class="rel-box">
+    <div class="rel-head">📄 Relatórios de análise</div>
+    <div class="rel-sub">Triagem automatizada das publicações detectadas, com aplicabilidade por tipo de unidade.
+      Cada relatório traz o link do texto oficial &mdash; a análise é apoio à leitura, não parecer técnico.</div>
+    ${linhas}
+  </div>`;
+}
+
 // ─── Render UI ────────────────────────────────────────────────────────────────
 function renderUI(state) {
   const saude = renderHealth(state);
+  renderRelatorios(state);
   const problema = saude.atrasado || saude.falhou;
   const hasNew = state.status && (state.status.includes('Publicação') || state.status.includes('Alteração'));
   const dot = document.getElementById('activityDot');

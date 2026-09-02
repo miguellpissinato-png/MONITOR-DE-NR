@@ -46,6 +46,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Instalar dependências do relatório
+        if: ${{ !inputs.dry_run }}
+        run: pip install --quiet anthropic reportlab
+
       - name: Executar monitoramento
         id: monitor
         run: |
@@ -60,6 +64,16 @@ jobs:
           echo "::error::As 3 tentativas falharam — ao menos uma fonte crítica está inacessível."
           exit 1
 
+      # O relatório é uma camada extra: se falhar, não derruba o monitoramento,
+      # que é a função essencial. Sem o secret ANTHROPIC_API_KEY o script apenas
+      # avisa e sai com sucesso.
+      - name: Gerar relatório de análise
+        if: success() && !inputs.dry_run
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/gerar_relatorio.py
+
       # Roda mesmo se o passo acima falhou: o state.json já contém o registro
       # da falha, e é ele que faz o painel exibir "DESATUALIZADO".
       - name: Salvar estado
@@ -68,7 +82,7 @@ jobs:
           set -euo pipefail
           git config user.name  "Monitor SST Bot"
           git config user.email "monitor-sst@github-actions"
-          git add data/state.json
+          git add data/state.json relatorios/ 2>/dev/null || git add data/state.json
           if git diff --cached --quiet; then
             echo "Nada mudou no estado."
             exit 0

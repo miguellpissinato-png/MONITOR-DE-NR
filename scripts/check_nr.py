@@ -278,6 +278,8 @@ def collect_dou(cfg):
                     'link': link,
                     'pub_date': r.get('pubDate') or '',
                     'busca': termo,
+                    'orgao': (r.get('hierarchyStr') or r.get('pubName') or '')[:200],
+                    'ementa': re.sub(r'<[^>]+>', ' ', str(r.get('content') or ''))[:600].strip(),
                 })
 
     if sucessos == 0:
@@ -339,12 +341,26 @@ def save_state(state):
 
 # ─── Execução ─────────────────────────────────────────────────────────────────
 
-def load_sources():
+def load_config():
     with open(SOURCES_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)['sources']
+        cfg = json.load(f)
+    padroes = [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_sst', [])]
+    return cfg['sources'], padroes
 
 
-def processa_fonte(cfg, state, agora):
+def eh_relevante_sst(texto, padroes):
+    """
+    Classifica, sem descartar. Um ato do DOU que não casa com nenhum termo de SST
+    é marcado como baixa relevância — mas continua registrado, e aparece na seção
+    de descartados do relatório. Filtrar em silêncio criaria o pior modo de falha:
+    a norma que importava sumindo sem ninguém saber.
+    """
+    if not padroes:
+        return True
+    return any(p.search(texto) for p in padroes)
+
+
+def processa_fonte(cfg, state, agora, padroes_sst=()):
     """Roda uma fonte. Devolve (novos_itens, ok)."""
     sid = cfg['id']
     saude = state["sources"].setdefault(sid, {})
@@ -382,6 +398,14 @@ def processa_fonte(cfg, state, agora):
     for it in itens:
         if it['iid'] in conhecidos:
             continue
+        # Fontes do MTE/NR/ABNT já são específicas de SST por construção;
+        # só o DOU, que é uma busca aberta no diário inteiro, precisa de triagem.
+        if cfg.get('kind') == 'dou_search':
+            alvo = ' '.join([it['titulo'], it.get('ementa', ''), it.get('orgao', '')])
+            relevante = eh_relevante_sst(alvo, padroes_sst)
+        else:
+            relevante = True
+
         novos.append({
             'id': f"{sid}_{it['iid']}",
             'titulo': it['titulo'],
@@ -391,6 +415,9 @@ def processa_fonte(cfg, state, agora):
             'data': agora.strftime('%Y-%m-%d'),
             'data_fmt': agora.strftime('%d/%m/%Y'),
             'tipo': cfg.get('tipo', 'MTE'),
+            'orgao': it.get('orgao', ''),
+            'ementa': it.get('ementa', ''),
+            'relevante': relevante,
         })
 
     # Guarda a lista atual como baseline (limitada, para o state não inchar).
@@ -415,7 +442,7 @@ def run_check():
     print("=" * 65)
 
     state = load_state()
-    fontes = load_sources()
+    fontes, padroes_sst = load_config()
 
     vistos = {p.get('id') for p in state.get('history', [])}
     vistos |= {p.get('id') for p in state.get('publicacoes_recentes', [])}
@@ -423,7 +450,7 @@ def run_check():
     novos_total, falhas_criticas, fontes_ok = [], [], 0
 
     for cfg in fontes:
-        novos, ok = processa_fonte(cfg, state, agora)
+        novos, ok = processa_fonte(cfg, state, agora, padroes_sst)
         if ok:
             fontes_ok += 1
         else:
@@ -446,7 +473,7 @@ def run_check():
 
     if falhas_criticas:
         state["status"] = "Falha na verificação"
-    elif novos_total:
+    elif [p for p in novos_total if p.get('relevante', True)]:
         state["status"] = "Nova Publicação"
         state["last_success"] = agora.isoformat()
     else:
@@ -476,9 +503,14 @@ def run_check():
     print(f"  Status           : {state['status']}")
     print(f"  Horário          : {state['last_check']}")
     print(f"  Fontes OK        : {fontes_ok}/{len(fontes)}")
-    print(f"  Novas publicações: {len(novos_total)}")
-    for p in novos_total:
+    relevantes = [p for p in novos_total if p.get('relevante', True)]
+    descartados = [p for p in novos_total if not p.get('relevante', True)]
+    print(f"  Novas publicações: {len(novos_total)}"
+          f" ({len(relevantes)} relevantes, {len(descartados)} baixa relevância)")
+    for p in relevantes:
         print(f"    • [{p['tipo']}] {p['titulo'][:90]}")
+    for p in descartados:
+        print(f"    · (baixa) {p['titulo'][:80]}")
     if falhas_criticas:
         print("  FALHAS:")
         for f in falhas_criticas:
