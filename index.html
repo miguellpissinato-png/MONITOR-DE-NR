@@ -134,6 +134,26 @@
     .src-name { font-size:12px; font-weight:700; color:#fff; }
     .src-meta { font-size:10.5px; color:rgba(255,255,255,0.6); margin-top:4px; line-height:1.5; word-break:break-word; }
 
+    /* Faixas de prioridade */
+    .prio-hdr { display:flex; align-items:center; gap:8px; font-family:var(--font-mono);
+                font-size:11px; font-weight:700; letter-spacing:.4px; margin:16px 0 6px;
+                text-transform:uppercase; }
+    .prio-hdr.alta     { color:#ffa726; }
+    .prio-hdr.possivel { color:#64b5f6; }
+    .prio-hdr .prio-n  { font-weight:400; opacity:.6; text-transform:none; letter-spacing:0; }
+    .prio-nota { font-size:10.5px; color:rgba(255,255,255,0.45); font-family:var(--font-mono);
+                 margin:0 0 8px; line-height:1.5; }
+    details.prio-baixa { margin-top:18px; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px; }
+    details.prio-baixa summary { cursor:pointer; font-family:var(--font-mono); font-size:11px;
+                                 color:rgba(255,255,255,0.5); list-style:none; padding:4px 0; }
+    details.prio-baixa summary::-webkit-details-marker { display:none; }
+    details.prio-baixa summary:hover { color:rgba(255,255,255,0.8); }
+    details.prio-baixa summary::before { content:'▸ '; }
+    details.prio-baixa[open] summary::before { content:'▾ '; }
+    .termo-tag { display:inline-block; font-size:9px; padding:1px 6px; border-radius:4px;
+                 background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.55);
+                 margin-right:4px; font-family:var(--font-mono); }
+
     /* Relatórios em PDF */
     .rel-box { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
                border-radius:12px; padding:16px 20px; margin-top:14px; }
@@ -480,6 +500,13 @@ function monthYear(iso) {
 }
 
 // ─── Renderiza publicação do DOU/MTE ─────────────────────────────────────────
+function tagsTermos(pub) {
+  const t = pub.termos || [];
+  if (!t.length) return '';
+  return `<div style="margin-top:5px">` +
+    t.slice(0,5).map(x => `<span class="termo-tag">${esc(x)}</span>`).join('') + `</div>`;
+}
+
 function renderPub(pub) {
   const tipoCls = pub.tipo === 'DOU' ? 'tipo-dou' : 'tipo-mte';
   const tipoLabel = pub.tipo === 'DOU' ? 'DOU' : 'MTE';
@@ -490,7 +517,7 @@ function renderPub(pub) {
         <div class="pub-titulo">${esc(pub.titulo)}</div>
       </div>
       <div class="pub-meta">
-        <span class="pub-fonte">${esc(pub.fonte || 'Diário Oficial da União')}</span>
+        <span class="pub-fonte">${esc(pub.orgao || pub.fonte || 'Diário Oficial da União')}</span>
         <span class="pub-date">${esc(pub.data_fmt || formatDate(pub.data))}</span>
         <a class="pub-link" href="${esc(pub.link)}" target="_blank" rel="noopener">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -500,6 +527,7 @@ function renderPub(pub) {
           Ver no DOU
         </a>
       </div>
+      ${tagsTermos(pub)}
     </li>`;
 }
 
@@ -715,12 +743,36 @@ function renderUI(state) {
   document.getElementById('metricTotal').textContent = state.total_nrs ?? 38;
 
   // Recentes — usa publicacoes_recentes OU recent_changes por compatibilidade
+  // Agrupa por prioridade. NADA é omitido: a faixa "baixa" fica recolhida no
+  // fim, mas continua na tela e clicável. Um vocabulário de palavras-chave
+  // sempre erra, e esconder o que ele classificou mal seria o pior desfecho.
   const recent = ((state.publicacoes_recentes || state.recent_changes || [])).slice().reverse();
-  document.getElementById('recentCount').textContent = `${recent.length} publicação${recent.length !== 1 ? 'ões' : ''} nos últimos 7 dias`;
+  document.getElementById('recentCount').textContent = `${recent.length} publicaç${recent.length !== 1 ? 'ões' : 'ão'} nos últimos 7 dias`;
   const recentContent = document.getElementById('recentContent');
-  recentContent.innerHTML = recent.length === 0
-    ? `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhuma publicação nos últimos 7 dias</div><div class="empty-sub">O sistema monitora o DOU e o portal MTE diariamente.<br>Qualquer portaria ou alteração de NR aparecerá aqui no mesmo dia.</div></div>`
-    : `<ul class="pub-list">${recent.map(renderPub).join('')}</ul>`;
+
+  const faixa = n => recent.filter(p => (p.prioridade || 'alta') === n);
+  const alta = faixa('alta'), possivel = faixa('possivel'), baixa = faixa('baixa');
+
+  if (recent.length === 0) {
+    recentContent.innerHTML = `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhuma publicação nos últimos 7 dias</div><div class="empty-sub">O sistema monitora o DOU, o portal MTE e as normas técnicas diariamente.<br>Qualquer portaria, NR ou NBR nova aparecerá aqui no mesmo dia.</div></div>`;
+  } else {
+    let html = '';
+    if (alta.length) {
+      html += `<div class="prio-hdr alta">● Prioridade alta <span class="prio-n">— ${alta.length} item(ns), tema direto de SST</span></div>`;
+      html += `<ul class="pub-list">${alta.map(renderPub).join('')}</ul>`;
+    }
+    if (possivel.length) {
+      html += `<div class="prio-hdr possivel">○ Possível relevância <span class="prio-n">— ${possivel.length} item(ns), tema EHS adjacente</span></div>`;
+      html += `<div class="prio-nota">Órgãos como ANVISA, INMETRO, CONTRAN e INSS não publicam NR, mas geram adequação de SST. Vale a olhada.</div>`;
+      html += `<ul class="pub-list">${possivel.map(renderPub).join('')}</ul>`;
+    }
+    if (baixa.length) {
+      html += `<details class="prio-baixa"><summary>Sem correspondência no vocabulário — ${baixa.length} item(ns)</summary>`;
+      html += `<div class="prio-nota">Nada aqui foi descartado: a triagem apenas não achou termo conhecido. Se algo relevante cair nesta lista, acrescente o termo em <code>data/sources.json</code>.</div>`;
+      html += `<ul class="pub-list">${baixa.map(renderPub).join('')}</ul></details>`;
+    }
+    recentContent.innerHTML = html;
+  }
 
   // Histórico
   const history = (state.history || []).slice().reverse();

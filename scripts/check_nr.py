@@ -344,23 +344,53 @@ def save_state(state):
 def load_config():
     with open(SOURCES_FILE, 'r', encoding='utf-8') as f:
         cfg = json.load(f)
-    padroes = [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_sst', [])]
-    return cfg['sources'], padroes
+    vocab = {
+        'alta':     [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_alta', [])],
+        'possivel': [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_possivel', [])],
+    }
+    return cfg['sources'], vocab
 
 
-def eh_relevante_sst(texto, padroes):
+def prioridade_sst(texto, vocab):
     """
-    Classifica, sem descartar. Um ato do DOU que não casa com nenhum termo de SST
-    é marcado como baixa relevância — mas continua registrado, e aparece na seção
-    de descartados do relatório. Filtrar em silêncio criaria o pior modo de falha:
-    a norma que importava sumindo sem ninguém saber.
+    Ordena, não descarta.
+
+    Um vocabulário de palavras-chave sempre vai errar — a versão anterior,
+    montada só com termos do MTE, barrava 10 de 10 atos de ANVISA, INMETRO,
+    CONTRAN e INSS que geram adequação real. Por isso o resultado aqui não
+    esconde nada: define apenas a ordem de leitura.
+
+      alta     — SST direto (NR, PGR, LTCAT, ASO, insalubridade, ergonomia...)
+      possivel — tema EHS adjacente (qualidade do ar, ruído, SPDA, eSocial...)
+      baixa    — sem correspondência; vai recolhido para o fim, ainda clicável
+
+    Falso negativo custa uma não-conformidade; falso positivo custa dez
+    segundos de leitura. A assimetria decide o desenho.
     """
-    if not padroes:
-        return True
-    return any(p.search(texto) for p in padroes)
+    if not vocab or not any(vocab.values()):
+        return 'alta'
+    if any(p.search(texto) for p in vocab.get('alta', [])):
+        return 'alta'
+    if any(p.search(texto) for p in vocab.get('possivel', [])):
+        return 'possivel'
+    return 'baixa'
 
 
-def processa_fonte(cfg, state, agora, padroes_sst=()):
+def termos_encontrados(texto, vocab, limite=6):
+    """Quais termos casaram — mostrado no painel para você poder calibrar."""
+    achados = []
+    for p in vocab.get('alta', []) + vocab.get('possivel', []):
+        m = p.search(texto)
+        if m and m.group(0).strip():
+            t = m.group(0).strip()
+            if t.lower() not in [a.lower() for a in achados]:
+                achados.append(t)
+        if len(achados) >= limite:
+            break
+    return achados
+
+
+def processa_fonte(cfg, state, agora, vocab=None):
     """Roda uma fonte. Devolve (novos_itens, ok)."""
     sid = cfg['id']
     saude = state["sources"].setdefault(sid, {})
@@ -400,11 +430,12 @@ def processa_fonte(cfg, state, agora, padroes_sst=()):
             continue
         # Fontes do MTE/NR/ABNT já são específicas de SST por construção;
         # só o DOU, que é uma busca aberta no diário inteiro, precisa de triagem.
+        alvo = ' '.join([it['titulo'], it.get('ementa', ''), it.get('orgao', '')])
         if cfg.get('kind') == 'dou_search':
-            alvo = ' '.join([it['titulo'], it.get('ementa', ''), it.get('orgao', '')])
-            relevante = eh_relevante_sst(alvo, padroes_sst)
+            prio = prioridade_sst(alvo, vocab or {})
         else:
-            relevante = True
+            prio = 'alta'   # MTE, índice NR e ABNT já são específicos por construção
+        termos = termos_encontrados(alvo, vocab or {})
 
         novos.append({
             'id': f"{sid}_{it['iid']}",
@@ -417,7 +448,9 @@ def processa_fonte(cfg, state, agora, padroes_sst=()):
             'tipo': cfg.get('tipo', 'MTE'),
             'orgao': it.get('orgao', ''),
             'ementa': it.get('ementa', ''),
-            'relevante': relevante,
+            'prioridade': prio,
+            'termos': termos,
+            'relevante': prio != 'baixa',
         })
 
     # Guarda a lista atual como baseline (limitada, para o state não inchar).
@@ -442,7 +475,7 @@ def run_check():
     print("=" * 65)
 
     state = load_state()
-    fontes, padroes_sst = load_config()
+    fontes, vocab = load_config()
 
     vistos = {p.get('id') for p in state.get('history', [])}
     vistos |= {p.get('id') for p in state.get('publicacoes_recentes', [])}
@@ -450,7 +483,7 @@ def run_check():
     novos_total, falhas_criticas, fontes_ok = [], [], 0
 
     for cfg in fontes:
-        novos, ok = processa_fonte(cfg, state, agora, padroes_sst)
+        novos, ok = processa_fonte(cfg, state, agora, vocab)
         if ok:
             fontes_ok += 1
         else:
@@ -473,7 +506,7 @@ def run_check():
 
     if falhas_criticas:
         state["status"] = "Falha na verificação"
-    elif [p for p in novos_total if p.get('relevante', True)]:
+    elif [p for p in novos_total if p.get('prioridade', 'alta') == 'alta']:
         state["status"] = "Nova Publicação"
         state["last_success"] = agora.isoformat()
     else:
@@ -503,14 +536,16 @@ def run_check():
     print(f"  Status           : {state['status']}")
     print(f"  Horário          : {state['last_check']}")
     print(f"  Fontes OK        : {fontes_ok}/{len(fontes)}")
-    relevantes = [p for p in novos_total if p.get('relevante', True)]
-    descartados = [p for p in novos_total if not p.get('relevante', True)]
+    por_prio = {n: [p for p in novos_total if p.get('prioridade', 'alta') == n]
+                for n in ('alta', 'possivel', 'baixa')}
     print(f"  Novas publicações: {len(novos_total)}"
-          f" ({len(relevantes)} relevantes, {len(descartados)} baixa relevância)")
-    for p in relevantes:
-        print(f"    • [{p['tipo']}] {p['titulo'][:90]}")
-    for p in descartados:
-        print(f"    · (baixa) {p['titulo'][:80]}")
+          f"  (alta: {len(por_prio['alta'])},"
+          f" possível: {len(por_prio['possivel'])},"
+          f" baixa: {len(por_prio['baixa'])})")
+    for rot, marca in (('alta', '●'), ('possivel', '○'), ('baixa', '·')):
+        for p in por_prio[rot]:
+            termos = f"  [{', '.join(p.get('termos', [])[:3])}]" if p.get('termos') else ''
+            print(f"    {marca} [{p['tipo']}] {p['titulo'][:78]}{termos}")
     if falhas_criticas:
         print("  FALHAS:")
         for f in falhas_criticas:

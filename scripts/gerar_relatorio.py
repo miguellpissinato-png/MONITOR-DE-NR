@@ -29,7 +29,7 @@ from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from check_nr import (fetch, SourceError, TextExtractor, BRASILIA, now_brasilia,
-                      load_config, eh_relevante_sst)
+                      load_config, prioridade_sst)
 
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR    = os.path.join(BASE_DIR, '..', 'data')
@@ -228,7 +228,7 @@ def monta_pdf(caminho, agora, analisados, descartados, falhas, perfil):
     linhas = [['Publicações analisadas', str(len(analisados))],
               ['Com impacto potencial',  str(len(aplicaveis))],
               ['Sem impacto identificado', str(len(analisados) - len(aplicaveis))],
-              ['Baixa relevância (não analisadas)', str(len(descartados))]]
+              ['Sem correspondência (listadas, não analisadas)', str(len(descartados))]]
     if falhas:
         linhas.append(['Não analisadas por falha', str(len(falhas))])
     t = Table(linhas, colWidths=[95*mm, 25*mm])
@@ -259,7 +259,7 @@ def monta_pdf(caminho, agora, analisados, descartados, falhas, perfil):
                 f"<font color='#64748b'>(confiança: {escapa(an['confianca'])})</font>", est['meta']))
 
     if descartados:
-        el.append(Paragraph("Descartadas na triagem — baixa relevância para SST", est['h2']))
+        el.append(Paragraph("Sem correspondência no vocabulário de triagem", est['h2']))
         el.append(Paragraph(
             "Detectadas pelo monitor, mas sem termos de SST no título, na ementa ou no órgão "
             "emissor. Listadas aqui para que nada saia do radar sem registro.", est['meta']))
@@ -341,15 +341,18 @@ def main():
     # Itens detectados antes do classificador existir não têm o campo
     # 'relevante'. Classificar aqui evita gastar API analisando o ruído
     # histórico (ANVISA, ANTT, CFM...) no primeiro relatório.
-    _, padroes_sst = load_config()
+    _, vocab = load_config()
     for p in pendentes:
-        if 'relevante' not in p:
+        if 'prioridade' not in p:
             alvo = ' '.join([p.get('titulo', ''), p.get('ementa', ''),
                              p.get('orgao', ''), p.get('fonte', '')])
-            p['relevante'] = (p.get('tipo') != 'DOU') or eh_relevante_sst(alvo, padroes_sst)
+            p['prioridade'] = ('alta' if p.get('tipo') != 'DOU'
+                               else prioridade_sst(alvo, vocab))
 
-    relevantes  = [p for p in pendentes if p['relevante']][:MAX_ITENS_POR_EXECUCAO]
-    descartados = [p for p in pendentes if not p['relevante']]
+    # Alta e possível são analisadas; baixa vai listada no fim do PDF, sem
+    # consumir API — mas presente, para que nada saia do radar sem registro.
+    relevantes  = [p for p in pendentes if p['prioridade'] != 'baixa'][:MAX_ITENS_POR_EXECUCAO]
+    descartados = [p for p in pendentes if p['prioridade'] == 'baixa']
 
     print(f"[relatório] {len(pendentes)} pendente(s): "
           f"{len(relevantes)} para análise, {len(descartados)} de baixa relevância.")
