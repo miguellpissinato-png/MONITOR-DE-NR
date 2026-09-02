@@ -532,19 +532,28 @@ function filterNrList(v) { renderNrFullList(v); }
 
 const pad2 = n => String(n).padStart(2, '0');
 
-// Momento em que a verificação MAIS RECENTE deveria ter acontecido:
-// o último dia útil às 09:00 (Brasília), com 2h de tolerância para o atraso
-// normal do agendador — ou seja, se às 11h da manhã ainda não houve execução,
-// a tela fica vermelha. Ignora sábado e domingo, para não dar alarme falso.
+// Devolve o INÍCIO (00:00 de Brasília) do dia útil mais recente cujo prazo de
+// verificação já venceu. O painel exige que a última execução tenha ocorrido em
+// algum momento DESSE dia — não depois de um horário específico.
+//
+// A distinção importa: o agendador roda às 06:00, 08:00 e 10:00 de Brasília.
+// Comparar com um horário fixo de manhã (09:00) marcava como atrasada uma
+// execução das 07:47 que tinha acontecido normalmente. O que interessa é o DIA
+// da execução, não a hora.
+//
+// Sábado e domingo são pulados, para não dar alarme falso no fim de semana.
 // Recebe milissegundos (Date.now()), não um objeto Date.
+const DEADLINE_BRT = 11;   // até as 11:00 de Brasília deve ter havido execução
+
 function lastExpectedRun(nowMs) {
-  const GRACE = 2 * 3600 * 1000;
   for (let i = 0; i < 10; i++) {
     const brt = new Date(nowMs - i * 86400000 - 3 * 3600000);
     const dow = brt.getUTCDay();
     if (dow === 0 || dow === 6) continue;               // sábado/domingo
-    const t = Date.parse(`${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}T09:00:00-03:00`);
-    if (t + GRACE <= nowMs) return t;
+    const dia = `${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}`;
+    if (Date.parse(`${dia}T${pad2(DEADLINE_BRT)}:00:00-03:00`) <= nowMs) {
+      return Date.parse(`${dia}T00:00:00-03:00`);
+    }
   }
   return null;
 }
@@ -579,7 +588,7 @@ function renderHealth(state) {
     cls = 'stale'; icone = '🔴';
     titulo = 'MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA';
     msg = `A última verificação bem-sucedida foi ${last ? `há ${horas}h (${esc(state.last_check)})` : 'nunca'}, `
-        + `mas já deveria ter ocorrido uma hoje pela manhã. `
+        + `mas já deveria ter ocorrido uma até as ${DEADLINE_BRT}h de hoje. `
         + `<strong>Pode haver norma nova publicada e não detectada.</strong> `
         + `Verifique as execuções em GitHub → Actions.`;
   } else if (falhas.length) {
