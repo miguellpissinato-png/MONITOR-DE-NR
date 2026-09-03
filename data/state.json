@@ -1,8 +1,8 @@
 {
   "schema_version": 4,
-  "last_check": "03/09/2026 13:41",
+  "last_check": "03/09/2026 13:52",
   "last_success": "2026-09-03T13:41:35.249822-03:00",
-  "status": "Monitorando",
+  "status": "Falha na verificação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
@@ -10,8 +10,8 @@
       "label": "Portarias SST — MTE",
       "critical": true,
       "last_ok": "03/09/2026 13:41",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
+      "consecutive_failures": 3,
       "degraded": false,
       "item_count": 13,
       "known_ids": [
@@ -35,8 +35,8 @@
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
       "last_ok": "03/09/2026 13:41",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
+      "consecutive_failures": 3,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -83,7 +83,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "03/09/2026 13:41",
+      "last_ok": "03/09/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -118,7 +118,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "03/09/2026 13:41",
+      "last_ok": "03/09/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -691,8 +691,11 @@
       "tipo": "DOU"
     }
   ],
-  "last_check_iso": "2026-09-03T13:41:35.249822-03:00",
-  "sources_ok": 4,
+  "last_check_iso": "2026-09-03T13:52:49.647092-03:00",
+  "sources_ok": 2,
   "sources_total": 4,
-  "failures": []
+  "failures": [
+    "Portarias SST — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
+    "Índice das Normas Regulamentadoras — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
+  ]
 }
