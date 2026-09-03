@@ -1,8 +1,8 @@
 {
   "schema_version": 4,
-  "last_check": "02/09/2026 13:54",
+  "last_check": "03/09/2026 10:16",
   "last_success": "2026-09-02T13:54:17.064580-03:00",
-  "status": "Monitorando",
+  "status": "Falha na verificação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
@@ -10,8 +10,8 @@
       "label": "Portarias SST — MTE",
       "critical": true,
       "last_ok": "02/09/2026 13:54",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
+      "consecutive_failures": 3,
       "degraded": false,
       "item_count": 13,
       "known_ids": [
@@ -35,8 +35,8 @@
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
       "last_ok": "02/09/2026 13:54",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
+      "consecutive_failures": 3,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -83,17 +83,25 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "02/09/2026 13:54",
+      "last_ok": "03/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
       "item_count": 24,
       "known_ids": [
+        "cab0d5711041043f",
         "9ad8586fda97769a",
         "7b15a4b549b3bb54",
         "14bcbbea57635f1b",
         "d238a1e5604448ad",
         "a4e5a42f57d6d18d",
+        "5d20001f35105575",
+        "14088cfc9732cccf",
+        "6d8165ae1a4d21d9",
+        "683375c916d73422",
+        "b7a31dc0db7c9f3c",
+        "86bf0eee86991f42",
+        "61cf1f6b92be134e",
         "ff6329457b4a749d",
         "8cf7c4d5a3ddeaec",
         "c03740597dec9772",
@@ -104,21 +112,13 @@
         "f2daba1e0845d5d5",
         "a1c7931984ec0ae2",
         "e6110a1f9b9b5d40",
-        "f641d78cdd58d193",
-        "e3b1b030758ceabe",
-        "be8b793c7cb42a4c",
-        "4d5755b8dd99305e",
-        "8e1724e2176f71c3",
-        "576c748298fc8fc6",
-        "177d87e5ececc8ed",
-        "778c0be55aad0a49",
-        "1bc546d98f9c270e"
+        "f641d78cdd58d193"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "02/09/2026 13:54",
+      "last_ok": "03/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -245,6 +245,86 @@
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
       "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cab0d5711041043f",
+      "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_5d20001f35105575",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.137, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.137-de-1-de-setembro-de-2026-729951376",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_14088cfc9732cccf",
+      "titulo": "PORTARIA Nº 7.155, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-7.155-de-31-de-agosto-de-2026-729951209",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_6d8165ae1a4d21d9",
+      "titulo": "Portaria SAES/MS Nº 4.809, DE 28 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-saes/ms-n-4.809-de-28-de-agosto-de-2026-729862443",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_683375c916d73422",
+      "titulo": "RESOLUÇÃO GECEX Nº 951, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-951-de-1-de-setembro-de-2026-729852050",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b7a31dc0db7c9f3c",
+      "titulo": "Portaria gm/MMULHERES Nº 126, DE 2 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mmulheres-n-126-de-2-de-setembro-de-2026-729850902",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_86bf0eee86991f42",
+      "titulo": "DECRETO Nº 13.110, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.110-de-2-de-setembro-de-2026-729848010",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_61cf1f6b92be134e",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.124, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.124-de-1-de-setembro-de-2026-729847096",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
     }
   ],
   "recent_changes": [
@@ -346,6 +426,86 @@
       "busca": "\"NR-\"",
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cab0d5711041043f",
+      "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_5d20001f35105575",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.137, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.137-de-1-de-setembro-de-2026-729951376",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_14088cfc9732cccf",
+      "titulo": "PORTARIA Nº 7.155, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-7.155-de-31-de-agosto-de-2026-729951209",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_6d8165ae1a4d21d9",
+      "titulo": "Portaria SAES/MS Nº 4.809, DE 28 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-saes/ms-n-4.809-de-28-de-agosto-de-2026-729862443",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_683375c916d73422",
+      "titulo": "RESOLUÇÃO GECEX Nº 951, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-951-de-1-de-setembro-de-2026-729852050",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b7a31dc0db7c9f3c",
+      "titulo": "Portaria gm/MMULHERES Nº 126, DE 2 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mmulheres-n-126-de-2-de-setembro-de-2026-729850902",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_86bf0eee86991f42",
+      "titulo": "DECRETO Nº 13.110, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.110-de-2-de-setembro-de-2026-729848010",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_61cf1f6b92be134e",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.124, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.124-de-1-de-setembro-de-2026-729847096",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
       "tipo": "DOU"
     }
   ],
@@ -449,10 +609,93 @@
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
       "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cab0d5711041043f",
+      "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_5d20001f35105575",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.137, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.137-de-1-de-setembro-de-2026-729951376",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_14088cfc9732cccf",
+      "titulo": "PORTARIA Nº 7.155, DE 31 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-7.155-de-31-de-agosto-de-2026-729951209",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_6d8165ae1a4d21d9",
+      "titulo": "Portaria SAES/MS Nº 4.809, DE 28 DE agosto DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-saes/ms-n-4.809-de-28-de-agosto-de-2026-729862443",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_683375c916d73422",
+      "titulo": "RESOLUÇÃO GECEX Nº 951, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-951-de-1-de-setembro-de-2026-729852050",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b7a31dc0db7c9f3c",
+      "titulo": "Portaria gm/MMULHERES Nº 126, DE 2 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mmulheres-n-126-de-2-de-setembro-de-2026-729850902",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_86bf0eee86991f42",
+      "titulo": "DECRETO Nº 13.110, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.110-de-2-de-setembro-de-2026-729848010",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_61cf1f6b92be134e",
+      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.124, DE 1º DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.124-de-1-de-setembro-de-2026-729847096",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-03",
+      "data_fmt": "03/09/2026",
+      "tipo": "DOU"
     }
   ],
-  "last_check_iso": "2026-09-02T13:54:17.064580-03:00",
-  "sources_ok": 4,
+  "last_check_iso": "2026-09-03T10:16:59.003793-03:00",
+  "sources_ok": 2,
   "sources_total": 4,
-  "failures": []
+  "failures": [
+    "Portarias SST — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
+    "Índice das Normas Regulamentadoras — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
+  ]
 }
