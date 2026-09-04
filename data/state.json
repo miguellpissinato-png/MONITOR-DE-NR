@@ -1,17 +1,17 @@
 {
   "schema_version": 4,
-  "last_check": "03/09/2026 13:52",
-  "last_success": "2026-09-03T13:41:35.249822-03:00",
-  "status": "Falha na verificação",
+  "last_check": "04/09/2026 10:02",
+  "last_success": "2026-09-04T10:02:22.112170-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "03/09/2026 13:41",
-      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
-      "consecutive_failures": 3,
+      "last_ok": "04/09/2026 10:02",
+      "last_error": null,
+      "consecutive_failures": 0,
       "degraded": false,
       "item_count": 13,
       "known_ids": [
@@ -34,9 +34,9 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "03/09/2026 13:41",
-      "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
-      "consecutive_failures": 3,
+      "last_ok": "04/09/2026 10:02",
+      "last_error": null,
+      "consecutive_failures": 0,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -83,18 +83,24 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "03/09/2026 13:52",
+      "last_ok": "04/09/2026 10:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 24,
+      "item_count": 26,
       "known_ids": [
+        "cc8751a6104e74cf",
         "cab0d5711041043f",
         "9ad8586fda97769a",
         "7b15a4b549b3bb54",
         "14bcbbea57635f1b",
         "d238a1e5604448ad",
         "a4e5a42f57d6d18d",
+        "503fe5f14d7b724d",
+        "04a66e6823f93eb7",
+        "c803336533ee4c5a",
+        "3e1e28fa554214c5",
+        "194eed0af64226e4",
         "5d20001f35105575",
         "14088cfc9732cccf",
         "6d8165ae1a4d21d9",
@@ -108,17 +114,13 @@
         "194c320be89f64f2",
         "2796a6546033aedf",
         "607e1a908b42542b",
-        "68a35f26800d1f54",
-        "f2daba1e0845d5d5",
-        "a1c7931984ec0ae2",
-        "e6110a1f9b9b5d40",
-        "f641d78cdd58d193"
+        "68a35f26800d1f54"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "03/09/2026 13:52",
+      "last_ok": "04/09/2026 10:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -325,6 +327,66 @@
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
       "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cc8751a6104e74cf",
+      "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_503fe5f14d7b724d",
+      "titulo": "PORTARIA MCID Nº 1.155, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.155-de-3-de-setembro-de-2026-730245915",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_04a66e6823f93eb7",
+      "titulo": "Portaria SUFRAMA Nº 2.730, DE 2 DE SETEMBRo DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.730-de-2-de-setembro-de-2026-730234087",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_c803336533ee4c5a",
+      "titulo": "RESOLUÇÃO GECEX Nº 954, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-954-de-2-de-setembro-de-2026-730144070",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3e1e28fa554214c5",
+      "titulo": "PORTARIA DG Nº 208, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dg-n-208-de-3-de-setembro-de-2026-730142779",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194eed0af64226e4",
+      "titulo": "PORTARIA MAPA Nº 948, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-948-de-3-de-setembro-de-2026-730142144",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
     }
   ],
   "recent_changes": [
@@ -506,6 +568,66 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cc8751a6104e74cf",
+      "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_503fe5f14d7b724d",
+      "titulo": "PORTARIA MCID Nº 1.155, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.155-de-3-de-setembro-de-2026-730245915",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_04a66e6823f93eb7",
+      "titulo": "Portaria SUFRAMA Nº 2.730, DE 2 DE SETEMBRo DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.730-de-2-de-setembro-de-2026-730234087",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_c803336533ee4c5a",
+      "titulo": "RESOLUÇÃO GECEX Nº 954, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-954-de-2-de-setembro-de-2026-730144070",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3e1e28fa554214c5",
+      "titulo": "PORTARIA DG Nº 208, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dg-n-208-de-3-de-setembro-de-2026-730142779",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194eed0af64226e4",
+      "titulo": "PORTARIA MAPA Nº 948, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-948-de-3-de-setembro-de-2026-730142144",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
       "tipo": "DOU"
     }
   ],
@@ -689,13 +811,70 @@
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
       "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_cc8751a6104e74cf",
+      "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_503fe5f14d7b724d",
+      "titulo": "PORTARIA MCID Nº 1.155, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.155-de-3-de-setembro-de-2026-730245915",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_04a66e6823f93eb7",
+      "titulo": "Portaria SUFRAMA Nº 2.730, DE 2 DE SETEMBRo DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.730-de-2-de-setembro-de-2026-730234087",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_c803336533ee4c5a",
+      "titulo": "RESOLUÇÃO GECEX Nº 954, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-954-de-2-de-setembro-de-2026-730144070",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3e1e28fa554214c5",
+      "titulo": "PORTARIA DG Nº 208, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-dg-n-208-de-3-de-setembro-de-2026-730142779",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_194eed0af64226e4",
+      "titulo": "PORTARIA MAPA Nº 948, DE 3 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-948-de-3-de-setembro-de-2026-730142144",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-04",
+      "data_fmt": "04/09/2026",
+      "tipo": "DOU"
     }
   ],
-  "last_check_iso": "2026-09-03T13:52:49.647092-03:00",
-  "sources_ok": 2,
+  "last_check_iso": "2026-09-04T10:02:22.112170-03:00",
+  "sources_ok": 4,
   "sources_total": 4,
-  "failures": [
-    "Portarias SST — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias",
-    "Índice das Normas Regulamentadoras — MTE (3x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes"
-  ]
+  "failures": []
 }
