@@ -1,15 +1,15 @@
 {
   "schema_version": 4,
-  "last_check": "04/09/2026 10:02",
-  "last_success": "2026-09-04T10:02:22.112170-03:00",
-  "status": "Nova Publicação",
+  "last_check": "04/09/2026 11:35",
+  "last_success": "2026-09-04T11:35:49.984672-03:00",
+  "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "04/09/2026 10:02",
+      "last_ok": "04/09/2026 11:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "04/09/2026 10:02",
+      "last_ok": "04/09/2026 11:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,7 +83,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "04/09/2026 10:02",
+      "last_ok": "04/09/2026 11:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -120,7 +120,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "04/09/2026 10:02",
+      "last_ok": "04/09/2026 11:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -873,7 +873,7 @@
       "tipo": "DOU"
     }
   ],
-  "last_check_iso": "2026-09-04T10:02:22.112170-03:00",
+  "last_check_iso": "2026-09-04T11:35:49.984672-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
