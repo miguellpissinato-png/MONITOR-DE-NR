@@ -1,15 +1,15 @@
 {
   "schema_version": 4,
-  "last_check": "07/09/2026 14:59",
-  "last_success": "2026-09-07T14:59:05.467176-03:00",
-  "status": "Monitorando",
+  "last_check": "08/09/2026 10:11",
+  "last_success": "2026-09-08T10:11:39.110983-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "07/09/2026 14:59",
+      "last_ok": "08/09/2026 10:11",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "07/09/2026 14:59",
+      "last_ok": "08/09/2026 10:11",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,18 +83,20 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "07/09/2026 14:59",
+      "last_ok": "08/09/2026 10:11",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 25,
+      "item_count": 23,
       "known_ids": [
         "cc8751a6104e74cf",
         "cab0d5711041043f",
         "9ad8586fda97769a",
         "7b15a4b549b3bb54",
-        "14bcbbea57635f1b",
-        "d238a1e5604448ad",
+        "117b570e9070183e",
+        "3f376b04ea4f69a2",
+        "7c171becf9309b0a",
+        "b761baaa48ef1348",
         "503fe5f14d7b724d",
         "04a66e6823f93eb7",
         "c803336533ee4c5a",
@@ -109,17 +111,13 @@
         "61cf1f6b92be134e",
         "ff6329457b4a749d",
         "8cf7c4d5a3ddeaec",
-        "c03740597dec9772",
-        "194c320be89f64f2",
-        "2796a6546033aedf",
-        "607e1a908b42542b",
-        "68a35f26800d1f54"
+        "c03740597dec9772"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "07/09/2026 14:59",
+      "last_ok": "08/09/2026 10:11",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -148,66 +146,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_7b15a4b549b3bb54",
-      "titulo": "Instrução Normativa Seq /MTE nº 8, de 31 de agosto de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-seq-/mte-n-8-de-31-de-agosto-de-2026-729312884",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_194c320be89f64f2",
-      "titulo": "PORTARIA Nº 2.015, DE 28 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-2.015-de-28-de-agosto-de-2026-729408818",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_2796a6546033aedf",
-      "titulo": "RESOLUÇÃO CFM Nº 2.469, DE 13 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.469-de-13-de-agosto-de-2026-729407046",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_607e1a908b42542b",
-      "titulo": "PORTARIA CC/ PR Nº 735, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-cc/-pr-n-735-de-31-de-agosto-de-2026-729403872",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_68a35f26800d1f54",
-      "titulo": "Portaria GM/MS Nº 12.134, DE 31 DE agosto DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.134-de-31-de-agosto-de-2026-729400778",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_f2daba1e0845d5d5",
-      "titulo": "RESOLUÇÃO DA DIRETORIA COLEGIADA ANVISA Nº 1.041, DE 26 DE AGOSTO DE 2026(*)",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-da-diretoria-colegiada-anvisa-n-1.041-de-26-de-agosto-de-2026-*-729400697",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
       "id": "dou_sst_9ad8586fda97769a",
       "titulo": "RESOLUÇÃO CFO nº 302, de 28 de agosto de 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-cfo-n-302-de-28-de-agosto-de-2026-729421395",
@@ -385,71 +323,51 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_117b570e9070183e",
+      "titulo": "PORTARIA SUROC Nº 21, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suroc-n-21-de-2-de-setembro-de-2026-730306520",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3f376b04ea4f69a2",
+      "titulo": "PORTARIA Nº 67 DE 04 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-67-de-04-de-setembro-de-2026-730292032",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_7c171becf9309b0a",
+      "titulo": "Portaria GM/MS Nº 12.142, DE 4 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.142-de-4-de-setembro-de-2026-730285536",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b761baaa48ef1348",
+      "titulo": "LEI Nº 15.497, DE 4 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.497-de-4-de-setembro-de-2026-730260011",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
       "tipo": "DOU"
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_7b15a4b549b3bb54",
-      "titulo": "Instrução Normativa Seq /MTE nº 8, de 31 de agosto de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-seq-/mte-n-8-de-31-de-agosto-de-2026-729312884",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_194c320be89f64f2",
-      "titulo": "PORTARIA Nº 2.015, DE 28 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-2.015-de-28-de-agosto-de-2026-729408818",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_2796a6546033aedf",
-      "titulo": "RESOLUÇÃO CFM Nº 2.469, DE 13 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.469-de-13-de-agosto-de-2026-729407046",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_607e1a908b42542b",
-      "titulo": "PORTARIA CC/ PR Nº 735, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-cc/-pr-n-735-de-31-de-agosto-de-2026-729403872",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_68a35f26800d1f54",
-      "titulo": "Portaria GM/MS Nº 12.134, DE 31 DE agosto DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.134-de-31-de-agosto-de-2026-729400778",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_f2daba1e0845d5d5",
-      "titulo": "RESOLUÇÃO DA DIRETORIA COLEGIADA ANVISA Nº 1.041, DE 26 DE AGOSTO DE 2026(*)",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-da-diretoria-colegiada-anvisa-n-1.041-de-26-de-agosto-de-2026-*-729400697",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-01",
-      "data_fmt": "01/09/2026",
-      "tipo": "DOU"
-    },
-    {
       "id": "dou_sst_9ad8586fda97769a",
       "titulo": "RESOLUÇÃO CFO nº 302, de 28 de agosto de 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-cfo-n-302-de-28-de-agosto-de-2026-729421395",
@@ -627,6 +545,46 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_117b570e9070183e",
+      "titulo": "PORTARIA SUROC Nº 21, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suroc-n-21-de-2-de-setembro-de-2026-730306520",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3f376b04ea4f69a2",
+      "titulo": "PORTARIA Nº 67 DE 04 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-67-de-04-de-setembro-de-2026-730292032",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_7c171becf9309b0a",
+      "titulo": "Portaria GM/MS Nº 12.142, DE 4 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.142-de-4-de-setembro-de-2026-730285536",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b761baaa48ef1348",
+      "titulo": "LEI Nº 15.497, DE 4 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.497-de-4-de-setembro-de-2026-730260011",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
       "tipo": "DOU"
     }
   ],
@@ -870,9 +828,49 @@
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
       "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_117b570e9070183e",
+      "titulo": "PORTARIA SUROC Nº 21, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-suroc-n-21-de-2-de-setembro-de-2026-730306520",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_3f376b04ea4f69a2",
+      "titulo": "PORTARIA Nº 67 DE 04 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-67-de-04-de-setembro-de-2026-730292032",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_7c171becf9309b0a",
+      "titulo": "Portaria GM/MS Nº 12.142, DE 4 DE setembro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.142-de-4-de-setembro-de-2026-730285536",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
+    },
+    {
+      "id": "dou_sst_b761baaa48ef1348",
+      "titulo": "LEI Nº 15.497, DE 4 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.497-de-4-de-setembro-de-2026-730260011",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"NR-\"",
+      "data": "2026-09-08",
+      "data_fmt": "08/09/2026",
+      "tipo": "DOU"
     }
   ],
-  "last_check_iso": "2026-09-07T14:59:05.467176-03:00",
+  "last_check_iso": "2026-09-08T10:11:39.110983-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
