@@ -468,6 +468,39 @@ def processa_fonte(cfg, state, agora, vocab=None):
     return novos, True
 
 
+def classifica_pendentes(state, vocab):
+    """
+    Classifica itens detectados antes da priorização existir.
+
+    Sem isto, publicações antigas caem no padrão conservador ('alta') e o ruído
+    do DOU continua no topo do painel por até sete dias. Roda uma vez por item:
+    quem já tem prioridade não é tocado.
+
+    Itens antigos não têm ementa nem órgão gravados, então a classificação usa
+    só o título — é menos precisa. Por isso o desenho continua o mesmo: quem cai
+    em 'baixa' segue visível na faixa recolhida, nunca sumindo da tela.
+    """
+    ajustados = 0
+    for lista in ('publicacoes_recentes', 'history'):
+        for p in state.get(lista, []):
+            if 'prioridade' in p:
+                continue
+            alvo = ' '.join([p.get('titulo', ''), p.get('ementa', ''),
+                             p.get('orgao', ''), p.get('fonte', '')])
+            p['prioridade'] = ('alta' if p.get('tipo') != 'DOU'
+                               else prioridade_sst(alvo, vocab))
+            p.setdefault('termos', termos_encontrados(alvo, vocab))
+            # Item anterior à coleta de ementa e órgão: só havia o título, e
+            # título de ato do DOU raramente diz o assunto ("PORTARIA Nº 7.155,
+            # DE 31 DE AGOSTO"). A classificação aqui é fraca, e o painel
+            # precisa dizer isso — em vez de exibir como triagem confiável.
+            if not p.get('ementa') and not p.get('orgao'):
+                p['triagem_limitada'] = True
+            ajustados += 1
+    if ajustados:
+        print(f"  [migração] {ajustados} publicação(ões) antiga(s) classificada(s).")
+
+
 def run_check():
     agora = now_brasilia()
     print("\n" + "=" * 65)
@@ -476,6 +509,7 @@ def run_check():
 
     state = load_state()
     fontes, vocab = load_config()
+    classifica_pendentes(state, vocab)
 
     vistos = {p.get('id') for p in state.get('history', [])}
     vistos |= {p.get('id') for p in state.get('publicacoes_recentes', [])}

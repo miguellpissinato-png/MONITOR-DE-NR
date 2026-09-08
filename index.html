@@ -768,7 +768,11 @@ function renderUI(state) {
     }
     if (baixa.length) {
       html += `<details class="prio-baixa"><summary>Sem correspondência no vocabulário — ${baixa.length} item(ns)</summary>`;
+      const limitadas = baixa.filter(p => p.triagem_limitada).length;
       html += `<div class="prio-nota">Nada aqui foi descartado: a triagem apenas não achou termo conhecido. Se algo relevante cair nesta lista, acrescente o termo em <code>data/sources.json</code>.</div>`;
+      if (limitadas) {
+        html += `<div class="prio-nota" style="color:#ffa726">⚠ ${limitadas} destas foram detectadas antes de o monitor passar a coletar a ementa e o órgão emissor. A triagem delas usou <b>só o título</b>, que em ato do DOU quase nunca diz o assunto — então a classificação é pouco confiável. Vale abrir os links. Itens novos não têm essa limitação, e estes saem da janela de 7 dias sozinhos.</div>`;
+      }
       html += `<ul class="pub-list">${baixa.map(renderPub).join('')}</ul></details>`;
     }
     recentContent.innerHTML = html;
