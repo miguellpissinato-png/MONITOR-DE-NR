@@ -278,6 +278,8 @@ def collect_dou(cfg):
                     'link': link,
                     'pub_date': r.get('pubDate') or '',
                     'busca': termo,
+                    'orgao': (r.get('hierarchyStr') or r.get('pubName') or '')[:200],
+                    'ementa': re.sub(r'<[^>]+>', ' ', str(r.get('content') or ''))[:600].strip(),
                 })
 
     if sucessos == 0:
@@ -339,12 +341,56 @@ def save_state(state):
 
 # ─── Execução ─────────────────────────────────────────────────────────────────
 
-def load_sources():
+def load_config():
     with open(SOURCES_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)['sources']
+        cfg = json.load(f)
+    vocab = {
+        'alta':     [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_alta', [])],
+        'possivel': [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_possivel', [])],
+    }
+    return cfg['sources'], vocab
 
 
-def processa_fonte(cfg, state, agora):
+def prioridade_sst(texto, vocab):
+    """
+    Ordena, não descarta.
+
+    Um vocabulário de palavras-chave sempre vai errar — a versão anterior,
+    montada só com termos do MTE, barrava 10 de 10 atos de ANVISA, INMETRO,
+    CONTRAN e INSS que geram adequação real. Por isso o resultado aqui não
+    esconde nada: define apenas a ordem de leitura.
+
+      alta     — SST direto (NR, PGR, LTCAT, ASO, insalubridade, ergonomia...)
+      possivel — tema EHS adjacente (qualidade do ar, ruído, SPDA, eSocial...)
+      baixa    — sem correspondência; vai recolhido para o fim, ainda clicável
+
+    Falso negativo custa uma não-conformidade; falso positivo custa dez
+    segundos de leitura. A assimetria decide o desenho.
+    """
+    if not vocab or not any(vocab.values()):
+        return 'alta'
+    if any(p.search(texto) for p in vocab.get('alta', [])):
+        return 'alta'
+    if any(p.search(texto) for p in vocab.get('possivel', [])):
+        return 'possivel'
+    return 'baixa'
+
+
+def termos_encontrados(texto, vocab, limite=6):
+    """Quais termos casaram — mostrado no painel para você poder calibrar."""
+    achados = []
+    for p in vocab.get('alta', []) + vocab.get('possivel', []):
+        m = p.search(texto)
+        if m and m.group(0).strip():
+            t = m.group(0).strip()
+            if t.lower() not in [a.lower() for a in achados]:
+                achados.append(t)
+        if len(achados) >= limite:
+            break
+    return achados
+
+
+def processa_fonte(cfg, state, agora, vocab=None):
     """Roda uma fonte. Devolve (novos_itens, ok)."""
     sid = cfg['id']
     saude = state["sources"].setdefault(sid, {})
@@ -382,6 +428,15 @@ def processa_fonte(cfg, state, agora):
     for it in itens:
         if it['iid'] in conhecidos:
             continue
+        # Fontes do MTE/NR/ABNT já são específicas de SST por construção;
+        # só o DOU, que é uma busca aberta no diário inteiro, precisa de triagem.
+        alvo = ' '.join([it['titulo'], it.get('ementa', ''), it.get('orgao', '')])
+        if cfg.get('kind') == 'dou_search':
+            prio = prioridade_sst(alvo, vocab or {})
+        else:
+            prio = 'alta'   # MTE, índice NR e ABNT já são específicos por construção
+        termos = termos_encontrados(alvo, vocab or {})
+
         novos.append({
             'id': f"{sid}_{it['iid']}",
             'titulo': it['titulo'],
@@ -391,6 +446,11 @@ def processa_fonte(cfg, state, agora):
             'data': agora.strftime('%Y-%m-%d'),
             'data_fmt': agora.strftime('%d/%m/%Y'),
             'tipo': cfg.get('tipo', 'MTE'),
+            'orgao': it.get('orgao', ''),
+            'ementa': it.get('ementa', ''),
+            'prioridade': prio,
+            'termos': termos,
+            'relevante': prio != 'baixa',
         })
 
     # Guarda a lista atual como baseline (limitada, para o state não inchar).
@@ -415,7 +475,7 @@ def run_check():
     print("=" * 65)
 
     state = load_state()
-    fontes = load_sources()
+    fontes, vocab = load_config()
 
     vistos = {p.get('id') for p in state.get('history', [])}
     vistos |= {p.get('id') for p in state.get('publicacoes_recentes', [])}
@@ -423,7 +483,7 @@ def run_check():
     novos_total, falhas_criticas, fontes_ok = [], [], 0
 
     for cfg in fontes:
-        novos, ok = processa_fonte(cfg, state, agora)
+        novos, ok = processa_fonte(cfg, state, agora, vocab)
         if ok:
             fontes_ok += 1
         else:
@@ -446,7 +506,7 @@ def run_check():
 
     if falhas_criticas:
         state["status"] = "Falha na verificação"
-    elif novos_total:
+    elif [p for p in novos_total if p.get('prioridade', 'alta') == 'alta']:
         state["status"] = "Nova Publicação"
         state["last_success"] = agora.isoformat()
     else:
@@ -476,9 +536,16 @@ def run_check():
     print(f"  Status           : {state['status']}")
     print(f"  Horário          : {state['last_check']}")
     print(f"  Fontes OK        : {fontes_ok}/{len(fontes)}")
-    print(f"  Novas publicações: {len(novos_total)}")
-    for p in novos_total:
-        print(f"    • [{p['tipo']}] {p['titulo'][:90]}")
+    por_prio = {n: [p for p in novos_total if p.get('prioridade', 'alta') == n]
+                for n in ('alta', 'possivel', 'baixa')}
+    print(f"  Novas publicações: {len(novos_total)}"
+          f"  (alta: {len(por_prio['alta'])},"
+          f" possível: {len(por_prio['possivel'])},"
+          f" baixa: {len(por_prio['baixa'])})")
+    for rot, marca in (('alta', '●'), ('possivel', '○'), ('baixa', '·')):
+        for p in por_prio[rot]:
+            termos = f"  [{', '.join(p.get('termos', [])[:3])}]" if p.get('termos') else ''
+            print(f"    {marca} [{p['tipo']}] {p['titulo'][:78]}{termos}")
     if falhas_criticas:
         print("  FALHAS:")
         for f in falhas_criticas:

@@ -1,3 +1,4 @@
 __pycache__/
 *.pyc
 data/state.json.tmp
+relatorios/_teste.pdf
