@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "last_check": "08/09/2026 13:53",
-  "last_success": "2026-09-08T13:53:39.956920-03:00",
+  "last_check": "09/09/2026 10:16",
+  "last_success": "2026-09-09T10:16:57.351961-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "08/09/2026 13:53",
+      "last_ok": "09/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "08/09/2026 13:53",
+      "last_ok": "09/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,41 +83,22 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "08/09/2026 13:53",
+      "last_ok": "09/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 23,
+      "item_count": 4,
       "known_ids": [
         "cc8751a6104e74cf",
         "cab0d5711041043f",
         "9ad8586fda97769a",
-        "7b15a4b549b3bb54",
-        "117b570e9070183e",
-        "3f376b04ea4f69a2",
-        "7c171becf9309b0a",
-        "b761baaa48ef1348",
-        "503fe5f14d7b724d",
-        "04a66e6823f93eb7",
-        "c803336533ee4c5a",
-        "3e1e28fa554214c5",
-        "194eed0af64226e4",
-        "5d20001f35105575",
-        "14088cfc9732cccf",
-        "6d8165ae1a4d21d9",
-        "683375c916d73422",
-        "b7a31dc0db7c9f3c",
-        "86bf0eee86991f42",
-        "61cf1f6b92be134e",
-        "ff6329457b4a749d",
-        "8cf7c4d5a3ddeaec",
-        "c03740597dec9772"
+        "162f366ef9935eb0"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "08/09/2026 13:53",
+      "last_ok": "09/09/2026 10:16",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -146,46 +127,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_9ad8586fda97769a",
-      "titulo": "RESOLUÇÃO CFO nº 302, de 28 de agosto de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfo-n-302-de-28-de-agosto-de-2026-729421395",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_ff6329457b4a749d",
-      "titulo": "PORTARIA NORMATIVA CGAU/AGU Nº 26, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-normativa-cgau/agu-n-26-de-1-de-setembro-de-2026-729421316",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_8cf7c4d5a3ddeaec",
-      "titulo": "Deliberação ANTT Nº 253, DE 28 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/deliberacao-antt-n-253-de-28-de-agosto-de-2026-729420283",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_c03740597dec9772",
-      "titulo": "RESOLUÇÃO CGEFROTA Nº 4, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cgefrota-n-4-de-31-de-agosto-de-2026-729415424",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
       "id": "dou_sst_cab0d5711041043f",
       "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
@@ -193,7 +134,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_5d20001f35105575",
@@ -203,7 +147,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_14088cfc9732cccf",
@@ -213,7 +160,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_6d8165ae1a4d21d9",
@@ -223,7 +173,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_683375c916d73422",
@@ -233,7 +186,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b7a31dc0db7c9f3c",
@@ -243,7 +199,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_86bf0eee86991f42",
@@ -253,7 +212,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_61cf1f6b92be134e",
@@ -263,7 +225,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_cc8751a6104e74cf",
@@ -273,7 +238,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_503fe5f14d7b724d",
@@ -283,7 +251,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_04a66e6823f93eb7",
@@ -293,7 +264,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_c803336533ee4c5a",
@@ -303,7 +277,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3e1e28fa554214c5",
@@ -313,7 +290,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_194eed0af64226e4",
@@ -323,7 +303,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_117b570e9070183e",
@@ -333,7 +316,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3f376b04ea4f69a2",
@@ -343,7 +329,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_7c171becf9309b0a",
@@ -353,7 +342,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b761baaa48ef1348",
@@ -363,51 +355,29 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
+    },
+    {
+      "id": "dou_sst_162f366ef9935eb0",
+      "titulo": "RESOLUÇÃO ANATEL Nº 791, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-791-de-2-de-setembro-de-2026-730155743",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-09",
+      "data_fmt": "09/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério das Comunicações/Agência Nacional de Telecomunicações/Conselho Diretor",
+      "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
+      "prioridade": "baixa",
+      "termos": [],
+      "relevante": false
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_9ad8586fda97769a",
-      "titulo": "RESOLUÇÃO CFO nº 302, de 28 de agosto de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfo-n-302-de-28-de-agosto-de-2026-729421395",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_ff6329457b4a749d",
-      "titulo": "PORTARIA NORMATIVA CGAU/AGU Nº 26, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-normativa-cgau/agu-n-26-de-1-de-setembro-de-2026-729421316",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_8cf7c4d5a3ddeaec",
-      "titulo": "Deliberação ANTT Nº 253, DE 28 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/deliberacao-antt-n-253-de-28-de-agosto-de-2026-729420283",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
-      "id": "dou_sst_c03740597dec9772",
-      "titulo": "RESOLUÇÃO CGEFROTA Nº 4, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cgefrota-n-4-de-31-de-agosto-de-2026-729415424",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-02",
-      "data_fmt": "02/09/2026",
-      "tipo": "DOU"
-    },
-    {
       "id": "dou_sst_cab0d5711041043f",
       "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
@@ -415,7 +385,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_5d20001f35105575",
@@ -425,7 +398,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_14088cfc9732cccf",
@@ -435,7 +411,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_6d8165ae1a4d21d9",
@@ -445,7 +424,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_683375c916d73422",
@@ -455,7 +437,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b7a31dc0db7c9f3c",
@@ -465,7 +450,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_86bf0eee86991f42",
@@ -475,7 +463,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_61cf1f6b92be134e",
@@ -485,7 +476,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_cc8751a6104e74cf",
@@ -495,7 +489,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_503fe5f14d7b724d",
@@ -505,7 +502,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_04a66e6823f93eb7",
@@ -515,7 +515,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_c803336533ee4c5a",
@@ -525,7 +528,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3e1e28fa554214c5",
@@ -535,7 +541,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_194eed0af64226e4",
@@ -545,7 +554,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_117b570e9070183e",
@@ -555,7 +567,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3f376b04ea4f69a2",
@@ -565,7 +580,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_7c171becf9309b0a",
@@ -575,7 +593,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b761baaa48ef1348",
@@ -585,7 +606,25 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
+    },
+    {
+      "id": "dou_sst_162f366ef9935eb0",
+      "titulo": "RESOLUÇÃO ANATEL Nº 791, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-791-de-2-de-setembro-de-2026-730155743",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-09",
+      "data_fmt": "09/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério das Comunicações/Agência Nacional de Telecomunicações/Conselho Diretor",
+      "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
+      "prioridade": "baixa",
+      "termos": [],
+      "relevante": false
     }
   ],
   "history": [
@@ -597,7 +636,12 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "alta",
+      "termos": [
+        "MTE"
+      ],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_194c320be89f64f2",
@@ -607,7 +651,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_2796a6546033aedf",
@@ -617,7 +664,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_607e1a908b42542b",
@@ -627,7 +677,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_68a35f26800d1f54",
@@ -637,7 +690,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_f2daba1e0845d5d5",
@@ -647,7 +703,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-01",
       "data_fmt": "01/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_9ad8586fda97769a",
@@ -657,7 +716,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_ff6329457b4a749d",
@@ -667,7 +729,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_8cf7c4d5a3ddeaec",
@@ -677,7 +742,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_c03740597dec9772",
@@ -687,7 +755,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-02",
       "data_fmt": "02/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_cab0d5711041043f",
@@ -697,7 +768,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_5d20001f35105575",
@@ -707,7 +781,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_14088cfc9732cccf",
@@ -717,7 +794,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_6d8165ae1a4d21d9",
@@ -727,7 +807,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_683375c916d73422",
@@ -737,7 +820,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b7a31dc0db7c9f3c",
@@ -747,7 +833,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_86bf0eee86991f42",
@@ -757,7 +846,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_61cf1f6b92be134e",
@@ -767,7 +859,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-03",
       "data_fmt": "03/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_cc8751a6104e74cf",
@@ -777,7 +872,10 @@
       "busca": "\"norma regulamentadora\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_503fe5f14d7b724d",
@@ -787,7 +885,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_04a66e6823f93eb7",
@@ -797,7 +898,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_c803336533ee4c5a",
@@ -807,7 +911,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3e1e28fa554214c5",
@@ -817,7 +924,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_194eed0af64226e4",
@@ -827,7 +937,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-04",
       "data_fmt": "04/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_117b570e9070183e",
@@ -837,7 +950,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_3f376b04ea4f69a2",
@@ -847,7 +963,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_7c171becf9309b0a",
@@ -857,7 +976,10 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
     },
     {
       "id": "dou_sst_b761baaa48ef1348",
@@ -867,10 +989,28 @@
       "busca": "\"NR-\"",
       "data": "2026-09-08",
       "data_fmt": "08/09/2026",
-      "tipo": "DOU"
+      "tipo": "DOU",
+      "prioridade": "baixa",
+      "termos": [],
+      "triagem_limitada": true
+    },
+    {
+      "id": "dou_sst_162f366ef9935eb0",
+      "titulo": "RESOLUÇÃO ANATEL Nº 791, DE 2 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-791-de-2-de-setembro-de-2026-730155743",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-09",
+      "data_fmt": "09/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério das Comunicações/Agência Nacional de Telecomunicações/Conselho Diretor",
+      "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
+      "prioridade": "baixa",
+      "termos": [],
+      "relevante": false
     }
   ],
-  "last_check_iso": "2026-09-08T13:53:39.956920-03:00",
+  "last_check_iso": "2026-09-09T10:16:57.351961-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
