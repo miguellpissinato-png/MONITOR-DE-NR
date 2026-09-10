@@ -1,15 +1,15 @@
 {
   "schema_version": 4,
-  "last_check": "09/09/2026 13:56",
-  "last_success": "2026-09-09T13:56:02.770795-03:00",
-  "status": "Monitorando",
+  "last_check": "10/09/2026 10:14",
+  "last_success": "2026-09-10T10:14:19.905770-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "09/09/2026 13:56",
+      "last_ok": "10/09/2026 10:14",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "09/09/2026 13:56",
+      "last_ok": "10/09/2026 10:14",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,7 +83,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "09/09/2026 13:56",
+      "last_ok": "10/09/2026 10:14",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -91,14 +91,14 @@
       "known_ids": [
         "cc8751a6104e74cf",
         "cab0d5711041043f",
-        "9ad8586fda97769a",
+        "da15fcfacf1dcfab",
         "162f366ef9935eb0"
       ]
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "09/09/2026 13:56",
+      "last_ok": "10/09/2026 10:14",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -127,110 +127,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_cab0d5711041043f",
-      "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_5d20001f35105575",
-      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.137, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.137-de-1-de-setembro-de-2026-729951376",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_14088cfc9732cccf",
-      "titulo": "PORTARIA Nº 7.155, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-7.155-de-31-de-agosto-de-2026-729951209",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_6d8165ae1a4d21d9",
-      "titulo": "Portaria SAES/MS Nº 4.809, DE 28 DE agosto DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-saes/ms-n-4.809-de-28-de-agosto-de-2026-729862443",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_683375c916d73422",
-      "titulo": "RESOLUÇÃO GECEX Nº 951, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-951-de-1-de-setembro-de-2026-729852050",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_b7a31dc0db7c9f3c",
-      "titulo": "Portaria gm/MMULHERES Nº 126, DE 2 DE setembro DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mmulheres-n-126-de-2-de-setembro-de-2026-729850902",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_86bf0eee86991f42",
-      "titulo": "DECRETO Nº 13.110, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.110-de-2-de-setembro-de-2026-729848010",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_61cf1f6b92be134e",
-      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.124, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.124-de-1-de-setembro-de-2026-729847096",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
       "id": "dou_sst_cc8751a6104e74cf",
       "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
@@ -374,114 +270,28 @@
       "prioridade": "baixa",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_da15fcfacf1dcfab",
+      "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-1.596-de-9-de-setembro-de-2026-731064191",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-10",
+      "data_fmt": "10/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e das obrigações legais aplicáveis às relações de trabalho; V - garantia de condições adequadas de  segurança  ... e  saúde no trabalho ; VI - combate às fraudes trabalhistas; VII - prevenção e erradicação do trabalho ... e programas governamentais de transferência de renda; VI - fomentar a adoção de medidas voltadas à  segurança  ... e  saúde no trabalho  em todas as atividades desenvolvidas em grandes eventos, incluindo as fases de promoção",
+      "prioridade": "alta",
+      "termos": [
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_cab0d5711041043f",
-      "titulo": "RESOLUÇÃO CONTER Nº 9, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-conter-n-9-de-1-de-setembro-de-2026-729858219",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_5d20001f35105575",
-      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.137, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.137-de-1-de-setembro-de-2026-729951376",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_14088cfc9732cccf",
-      "titulo": "PORTARIA Nº 7.155, DE 31 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-7.155-de-31-de-agosto-de-2026-729951209",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_6d8165ae1a4d21d9",
-      "titulo": "Portaria SAES/MS Nº 4.809, DE 28 DE agosto DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-saes/ms-n-4.809-de-28-de-agosto-de-2026-729862443",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_683375c916d73422",
-      "titulo": "RESOLUÇÃO GECEX Nº 951, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-951-de-1-de-setembro-de-2026-729852050",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_b7a31dc0db7c9f3c",
-      "titulo": "Portaria gm/MMULHERES Nº 126, DE 2 DE setembro DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mmulheres-n-126-de-2-de-setembro-de-2026-729850902",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_86bf0eee86991f42",
-      "titulo": "DECRETO Nº 13.110, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.110-de-2-de-setembro-de-2026-729848010",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_61cf1f6b92be134e",
-      "titulo": "PORTARIA DICAT/SE/MGI Nº 7.124, DE 1º DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dicat/se/mgi-n-7.124-de-1-de-setembro-de-2026-729847096",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-03",
-      "data_fmt": "03/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
       "id": "dou_sst_cc8751a6104e74cf",
       "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
@@ -625,6 +435,24 @@
       "prioridade": "baixa",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_da15fcfacf1dcfab",
+      "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-1.596-de-9-de-setembro-de-2026-731064191",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-10",
+      "data_fmt": "10/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e das obrigações legais aplicáveis às relações de trabalho; V - garantia de condições adequadas de  segurança  ... e  saúde no trabalho ; VI - combate às fraudes trabalhistas; VII - prevenção e erradicação do trabalho ... e programas governamentais de transferência de renda; VI - fomentar a adoção de medidas voltadas à  segurança  ... e  saúde no trabalho  em todas as atividades desenvolvidas em grandes eventos, incluindo as fases de promoção",
+      "prioridade": "alta",
+      "termos": [
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
     }
   ],
   "history": [
@@ -1008,9 +836,27 @@
       "prioridade": "baixa",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_da15fcfacf1dcfab",
+      "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-1.596-de-9-de-setembro-de-2026-731064191",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-10",
+      "data_fmt": "10/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e das obrigações legais aplicáveis às relações de trabalho; V - garantia de condições adequadas de  segurança  ... e  saúde no trabalho ; VI - combate às fraudes trabalhistas; VII - prevenção e erradicação do trabalho ... e programas governamentais de transferência de renda; VI - fomentar a adoção de medidas voltadas à  segurança  ... e  saúde no trabalho  em todas as atividades desenvolvidas em grandes eventos, incluindo as fases de promoção",
+      "prioridade": "alta",
+      "termos": [
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-09-09T13:56:02.770795-03:00",
+  "last_check_iso": "2026-09-10T10:14:19.905770-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
