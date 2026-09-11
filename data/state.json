@@ -1,15 +1,15 @@
 {
   "schema_version": 4,
-  "last_check": "10/09/2026 14:03",
-  "last_success": "2026-09-10T14:03:19.404534-03:00",
-  "status": "Monitorando",
+  "last_check": "11/09/2026 10:08",
+  "last_success": "2026-09-11T10:08:19.679747-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "10/09/2026 14:03",
+      "last_ok": "11/09/2026 10:08",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -34,7 +34,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "10/09/2026 14:03",
+      "last_ok": "11/09/2026 10:08",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -83,14 +83,14 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "10/09/2026 14:03",
+      "last_ok": "11/09/2026 10:08",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
       "item_count": 4,
       "known_ids": [
+        "ca7e4ab88bb64044",
         "cc8751a6104e74cf",
-        "cab0d5711041043f",
         "da15fcfacf1dcfab",
         "162f366ef9935eb0"
       ]
@@ -98,7 +98,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "10/09/2026 14:03",
+      "last_ok": "11/09/2026 10:08",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -126,84 +126,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_cc8751a6104e74cf",
-      "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_503fe5f14d7b724d",
-      "titulo": "PORTARIA MCID Nº 1.155, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.155-de-3-de-setembro-de-2026-730245915",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_04a66e6823f93eb7",
-      "titulo": "Portaria SUFRAMA Nº 2.730, DE 2 DE SETEMBRo DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.730-de-2-de-setembro-de-2026-730234087",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_c803336533ee4c5a",
-      "titulo": "RESOLUÇÃO GECEX Nº 954, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-954-de-2-de-setembro-de-2026-730144070",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_3e1e28fa554214c5",
-      "titulo": "PORTARIA DG Nº 208, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dg-n-208-de-3-de-setembro-de-2026-730142779",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_194eed0af64226e4",
-      "titulo": "PORTARIA MAPA Nº 948, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-948-de-3-de-setembro-de-2026-730142144",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
     {
       "id": "dou_sst_117b570e9070183e",
       "titulo": "PORTARIA SUROC Nº 21, DE 2 DE SETEMBRO DE 2026",
@@ -288,87 +210,27 @@
         "MTE"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_ca7e4ab88bb64044",
+      "titulo": "RETIFICAÇÃO",
+      "link": "https://www.in.gov.br/web/dou/-/retificacao-731351966",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-11",
+      "data_fmt": "11/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Desenvolvimento, Indústria, Comércio e Serviços/Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+      "ementa": "Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  nº 13 (NR-13) - Caldeiras, Vasos de Pressão, Tubulações e Tanques Metálicos de Armazenamento ... Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  NR-13 do Mistério do Trabalho e Emprego.\" .......................................... ...  Regulamentadora  NR-13 do Ministério do Trabalho e Emprego.\" ........................................",
+      "prioridade": "alta",
+      "termos": [
+        "NR-13",
+        "Ministério do Trabalho"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_cc8751a6104e74cf",
-      "titulo": "LEI Nº 15.496, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/lei-n-15.496-de-3-de-setembro-de-2026-730142279",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_503fe5f14d7b724d",
-      "titulo": "PORTARIA MCID Nº 1.155, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.155-de-3-de-setembro-de-2026-730245915",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_04a66e6823f93eb7",
-      "titulo": "Portaria SUFRAMA Nº 2.730, DE 2 DE SETEMBRo DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.730-de-2-de-setembro-de-2026-730234087",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_c803336533ee4c5a",
-      "titulo": "RESOLUÇÃO GECEX Nº 954, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-954-de-2-de-setembro-de-2026-730144070",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_3e1e28fa554214c5",
-      "titulo": "PORTARIA DG Nº 208, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-dg-n-208-de-3-de-setembro-de-2026-730142779",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
-    {
-      "id": "dou_sst_194eed0af64226e4",
-      "titulo": "PORTARIA MAPA Nº 948, DE 3 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-948-de-3-de-setembro-de-2026-730142144",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"NR-\"",
-      "data": "2026-09-04",
-      "data_fmt": "04/09/2026",
-      "tipo": "DOU",
-      "prioridade": "baixa",
-      "termos": [],
-      "triagem_limitada": true
-    },
     {
       "id": "dou_sst_117b570e9070183e",
       "titulo": "PORTARIA SUROC Nº 21, DE 2 DE SETEMBRO DE 2026",
@@ -451,6 +313,24 @@
       "termos": [
         "Ministério do Trabalho",
         "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_ca7e4ab88bb64044",
+      "titulo": "RETIFICAÇÃO",
+      "link": "https://www.in.gov.br/web/dou/-/retificacao-731351966",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-11",
+      "data_fmt": "11/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Desenvolvimento, Indústria, Comércio e Serviços/Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+      "ementa": "Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  nº 13 (NR-13) - Caldeiras, Vasos de Pressão, Tubulações e Tanques Metálicos de Armazenamento ... Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  NR-13 do Mistério do Trabalho e Emprego.\" .......................................... ...  Regulamentadora  NR-13 do Ministério do Trabalho e Emprego.\" ........................................",
+      "prioridade": "alta",
+      "termos": [
+        "NR-13",
+        "Ministério do Trabalho"
       ],
       "relevante": true
     }
@@ -854,9 +734,27 @@
         "MTE"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_ca7e4ab88bb64044",
+      "titulo": "RETIFICAÇÃO",
+      "link": "https://www.in.gov.br/web/dou/-/retificacao-731351966",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-09-11",
+      "data_fmt": "11/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Desenvolvimento, Indústria, Comércio e Serviços/Instituto Nacional de Metrologia, Qualidade e Tecnologia",
+      "ementa": "Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  nº 13 (NR-13) - Caldeiras, Vasos de Pressão, Tubulações e Tanques Metálicos de Armazenamento ... Aplicam-se os presentes Requisitos aos Serviços Próprios de Inspeção de Equipamentos abrangidos pela  Norma  ...  Regulamentadora  NR-13 do Mistério do Trabalho e Emprego.\" .......................................... ...  Regulamentadora  NR-13 do Ministério do Trabalho e Emprego.\" ........................................",
+      "prioridade": "alta",
+      "termos": [
+        "NR-13",
+        "Ministério do Trabalho"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-09-10T14:03:19.404534-03:00",
+  "last_check_iso": "2026-09-11T10:08:19.679747-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": []
