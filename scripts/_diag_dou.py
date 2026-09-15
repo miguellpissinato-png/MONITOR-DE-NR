@@ -1,68 +1,64 @@
-"""Diagnóstico temporário: descobre como paginar a busca do DOU.
-Roda só via workflow_dispatch com diag=true. Remover depois."""
+"""Diagnóstico 2: teto do delta e parâmetro real de página (Liferay usa 'cur')."""
 import json, re, sys, os, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import check_nr as m
 
 BASE = 'https://www.in.gov.br/consulta/-/buscar/dou'
+NS = '_br_com_seatecnologia_in_buscadou_BuscaDouPortlet_'
 
-def busca(**extra):
+def titulos(**extra):
     p = {'q': '"portaria"', 's': 'do1', 'exactDate': 'personalizado',
-         'publishFrom': '08-09-2026', 'publishTo': '15-09-2026', 'sortType': '0'}
+         'publishFrom': '01-09-2026', 'publishTo': '15-09-2026', 'sortType': '0'}
     p.update(extra)
-    return BASE + '?' + urllib.parse.urlencode(p)
-
-def params_json(html):
-    mm = re.search(r'<script[^>]+id="[^"]*params"[^>]*>(.*?)</script>', html, re.S | re.I)
-    if not mm:
-        return None
-    try:
-        return json.loads(mm.group(1).strip())
-    except json.JSONDecodeError as e:
-        print("    json inválido:", e)
-        return None
-
-def resume(rotulo, url):
-    print(f"\n--- {rotulo}")
-    print(f"    {url[:150]}")
+    url = BASE + '?' + urllib.parse.urlencode(p)
     try:
         html = m.fetch(url)
     except Exception as e:
-        print("    ERRO:", e); return None
-    d = params_json(html)
-    if d is None:
-        print("    sem bloco params"); return None
-    escalares = {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
-    print("    escalares:", json.dumps(escalares, ensure_ascii=False)[:500])
-    for k, v in d.items():
-        if isinstance(v, list):
-            print(f"    lista '{k}': {len(v)} itens")
-            if v and isinstance(v[0], dict):
-                print(f"      chaves do 1o: {sorted(v[0].keys())}")
-                print(f"      1o titulo   : {str(v[0].get('title',''))[:80]}")
-                print(f"      ultimo      : {str(v[-1].get('title',''))[:80]}")
+        return None, str(e)
+    mm = re.search(r'<script[^>]+id="[^"]*params"[^>]*>(.*?)</script>', html, re.S | re.I)
+    if not mm:
+        return None, 'sem bloco params'
+    try:
+        d = json.loads(mm.group(1).strip())
+    except json.JSONDecodeError as e:
+        return None, f'json inválido: {e}'
     itens = m._walk_for_results(d) or []
-    return [str(r.get('title',''))[:60] for r in itens]
+    return [re.sub(r'<[^>]+>', '', str(r.get('title', '')))[:70] for r in itens], None
 
-print("=" * 70)
-print("  DIAGNÓSTICO DE PAGINAÇÃO DO DOU")
-print("=" * 70)
+print("=" * 72)
+print("  TETO DO delta")
+print("=" * 72)
+base, _ = titulos()
+print(f"  padrão (sem delta): {len(base) if base else '?'} itens")
+anterior = None
+for dv in (50, 100, 200, 500, 1000):
+    t, err = titulos(delta=str(dv))
+    if err:
+        print(f"  delta={dv:<5} ERRO: {err}"); continue
+    marca = ""
+    if anterior is not None and len(t) == anterior:
+        marca = "  <-- não cresceu: TETO ATINGIDO"
+    print(f"  delta={dv:<5} {len(t):>4} itens{marca}")
+    anterior = len(t)
 
-base = resume("BASE (sem paginação)", busca())
-if base is not None:
-    print(f"\n    -> {len(base)} itens na 1a resposta")
-
-# candidatos de paginação
+print()
+print("=" * 72)
+print("  PARÂMETRO DE PÁGINA")
+print("=" * 72)
+p1, _ = titulos(delta='20')
+print(f"  página 1 (delta=20): {len(p1)} itens | 1o: {p1[0][:50] if p1 else '-'}")
 for rotulo, extra in [
-    ("currentPage=2", {'currentPage': '2'}),
-    ("page=2",        {'page': '2'}),
-    ("delta=50",      {'delta': '50'}),
-    ("delta=20&currentPage=2", {'delta': '20', 'currentPage': '2'}),
+    ("cur=2",            {'delta': '20', 'cur': '2'}),
+    (NS + "cur=2",       {'delta': '20', NS + 'cur': '2'}),
+    (NS + "delta+cur",   {NS + 'delta': '20', NS + 'cur': '2'}),
+    ("start=20",         {'delta': '20', 'start': '20'}),
+    ("offset=20",        {'delta': '20', 'offset': '20'}),
 ]:
-    r = resume(rotulo, busca(**extra))
-    if r is None or base is None:
-        continue
-    novos = [t for t in r if t not in base]
-    print(f"    -> {len(r)} itens, {len(novos)} DIFERENTES da 1a página")
+    t, err = titulos(**extra)
+    if err:
+        print(f"  {rotulo:<24} ERRO: {err}"); continue
+    novos = [x for x in t if x not in p1]
+    ok = "SIM — PAGINA!" if novos else "não (mesma página)"
+    print(f"  {rotulo:<24} {len(t):>3} itens, {len(novos):>3} inéditos  -> {ok}")
     if novos:
-        print(f"       exemplo novo: {novos[0]}")
+        print(f"      exemplo: {novos[0][:60]}")
