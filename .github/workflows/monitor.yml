@@ -33,7 +33,7 @@ concurrency:
 jobs:
   monitor-sst:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -54,14 +54,17 @@ jobs:
         id: monitor
         run: |
           set -uo pipefail
-          for tentativa in 1 2 3; do
-            echo "--- Tentativa $tentativa de 3 ---"
+          # O script agora repete cada URL 3x com backoff, então esta camada
+          # existe só para o caso de uma indisponibilidade mais longa. Duas
+          # passadas bastam: três estouravam o limite de tempo do job.
+          for tentativa in 1 2; do
+            echo "--- Passada $tentativa de 2 ---"
             if python scripts/check_nr.py; then
               exit 0
             fi
-            [ "$tentativa" -lt 3 ] && echo "Aguardando 60s..." && sleep 60
+            [ "$tentativa" -lt 2 ] && echo "Aguardando 45s..." && sleep 45
           done
-          echo "::error::As 3 tentativas falharam — ao menos uma fonte crítica está inacessível."
+          echo "::error::As 2 passadas falharam — ao menos uma fonte crítica está inacessível."
           exit 1
 
       # O relatório é uma camada extra: se falhar, não derruba o monitoramento,

@@ -21,7 +21,8 @@
       "tipo": "MTE",
       "critical": true,
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
-      "item_pattern": "nr-?\\s*\\d+|norma regulamentadora"
+      "item_pattern": "nr-?\\s*\\d+|norma regulamentadora",
+      "lista_nrs": true
     },
     {
       "id": "dou_sst",

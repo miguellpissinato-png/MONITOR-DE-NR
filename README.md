@@ -114,6 +114,32 @@ consegue dizer *o quê* — é o aviso de que o `item_pattern` precisa de ajuste
 python3 scripts/check_nr.py   # sai com código != 0 se uma fonte crítica falhar
 ```
 
+### Tolerância a falhas de rede
+
+Cada URL é tentada 3 vezes, com backoff de 3s e 6s. Erros 4xx não são repetidos
+— são resposta definitiva do servidor. Erros 5xx e falhas de rede são, porque
+são transitórios.
+
+Isso existe porque o `gov.br` falhava por timeout de forma intermitente: 6 das
+28 execuções entre 02/09 e 14/09 morreram assim, sempre nas fontes do MTE (o DOU
+e a ABNT nunca falharam). Sem retry no script, a única defesa era repetir tudo
+no workflow — 12 minutos de runner para o que um backoff de 3 segundos resolve.
+
+## Lista de NRs
+
+O painel **não** mantém uma lista própria de Normas Regulamentadoras. Ele exibe
+a lista que o monitor extrai da página índice oficial do MTE — a mesma que já é
+lida todo dia para detectar alterações — gravada em `state.nrs`.
+
+Antes havia uma cópia escrita à mão no `index.html`, e o número 38 aparecia
+fixo em quatro lugares independentes. Se o MTE publicasse uma NR nova, o monitor
+detectaria a mudança e o painel continuaria exibindo a lista antiga: ele mentiria
+justamente no dia em que a informação importasse. Agora contador, rótulo e lista
+derivam todos da mesma fonte oficial.
+
+Enquanto o monitor não tiver gravado a lista, o painel diz isso, em vez de
+exibir uma cópia possivelmente desatualizada.
+
 ## Relatório de análise em PDF
 
 Quando o monitor detecta publicações relevantes, `scripts/gerar_relatorio.py`

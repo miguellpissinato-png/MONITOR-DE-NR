@@ -32,7 +32,7 @@ Diferenças em relação à v3.1 (que falhava em silêncio):
 Sem dependências externas: só biblioteca padrão do Python.
 """
 
-import json, os, re, sys, hashlib
+import json, os, re, sys, time, hashlib
 import urllib.request, urllib.error, urllib.parse
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
@@ -64,25 +64,44 @@ class SourceError(Exception):
     """Falha ao ler uma fonte. Propaga para virar erro visível."""
 
 
-def fetch(url, timeout=45):
+# O gov.br falha por timeout de forma intermitente: 6 das 28 execuções entre
+# 02/09 e 14/09 morreram assim, sempre nas duas fontes do MTE (o DOU e a ABNT
+# nunca falharam). Sem retry aqui, a única defesa era repetir o script inteiro
+# no workflow — 12 minutos de runner para o que um backoff de 3 segundos
+# resolve. Erro de rede é transitório; 404 não é, e não se repete.
+TENTATIVAS = 3
+BACKOFF_S = 3
+TIMEOUT_S = 20
+
+
+def fetch(url, timeout=TIMEOUT_S, tentativas=TENTATIVAS):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                       '(KHTML, like Gecko) Chrome/120.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
         'Accept-Language': 'pt-BR,pt;q=0.9',
     }
-    req = urllib.request.Request(url, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            raw = r.read()
-    except urllib.error.HTTPError as e:
-        raise SourceError(f"HTTP {e.code} em {url}")
-    except Exception as e:
-        raise SourceError(f"{type(e).__name__} em {url}")
-    try:
-        return raw.decode('utf-8')
-    except UnicodeDecodeError:
-        return raw.decode('latin-1', errors='replace')
+    ultimo = None
+    for n in range(1, tentativas + 1):
+        req = urllib.request.Request(url, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                raw = r.read()
+            try:
+                return raw.decode('utf-8')
+            except UnicodeDecodeError:
+                return raw.decode('latin-1', errors='replace')
+        except urllib.error.HTTPError as e:
+            # 4xx é resposta definitiva do servidor: repetir não muda nada.
+            if e.code < 500:
+                raise SourceError(f"HTTP {e.code} em {url}")
+            ultimo = f"HTTP {e.code}"
+        except Exception as e:
+            ultimo = type(e).__name__
+        if n < tentativas:
+            print(f"[{ultimo}, tentativa {n}/{tentativas}]", end=" ", flush=True)
+            time.sleep(BACKOFF_S * n)      # 3s, depois 6s
+    raise SourceError(f"{ultimo} em {url} após {tentativas} tentativas")
 
 
 def fetch_first_available(urls):
@@ -302,7 +321,7 @@ def novo_estado():
         "last_check": None,
         "last_success": None,
         "status": "Monitorando",
-        "total_nrs": 38,
+        "total_nrs": None,   # derivado da página índice do MTE, não fixo
         "sources": {},
         "publicacoes_recentes": [],
         "recent_changes": [],
@@ -390,6 +409,36 @@ def termos_encontrados(texto, vocab, limite=6):
     return achados
 
 
+def extrai_nrs(itens):
+    """
+    Normaliza os links da página índice numa lista de NRs.
+
+    Ordena pelo número da norma (NR-1, NR-2, ... NR-38), não alfabeticamente,
+    senão NR-10 apareceria antes de NR-2. Itens sem número identificável são
+    mantidos ao final, para nunca sumirem da tela.
+    """
+    vistos, nrs = set(), []
+    for it in itens:
+        titulo = re.sub(r'\s+', ' ', it.get('titulo', '')).strip()
+        m = re.search(r'\bNR[\s\-–]?0*(\d{1,2})\b', titulo, re.IGNORECASE)
+        num = int(m.group(1)) if m else None
+        chave = num if num is not None else titulo.lower()
+        if chave in vistos:
+            continue
+        vistos.add(chave)
+        # "NR-06 — Equipamento de Proteção Individual" -> nome sem o prefixo
+        nome = re.sub(r'^\s*NR[\s\-–]?0*\d{1,2}\s*[—–\-:.]*\s*', '', titulo,
+                      flags=re.IGNORECASE).strip() or titulo
+        nrs.append({
+            'nr': f"NR-{num:02d}" if num is not None else titulo[:12],
+            'num': num if num is not None else 999,
+            'nome': nome[:160],
+            'link': it.get('link', ''),
+        })
+    nrs.sort(key=lambda x: (x['num'], x['nr']))
+    return nrs
+
+
 def processa_fonte(cfg, state, agora, vocab=None):
     """Roda uma fonte. Devolve (novos_itens, ok)."""
     sid = cfg['id']
@@ -455,6 +504,14 @@ def processa_fonte(cfg, state, agora, vocab=None):
 
     # Guarda a lista atual como baseline (limitada, para o state não inchar).
     saude["known_ids"] = [it['iid'] for it in itens][-800:]
+
+    # A página índice do MTE é a fonte oficial de QUAIS NRs existem. Guardamos a
+    # lista para o painel exibir, em vez de manter uma cópia escrita à mão no
+    # HTML: duas listas que não derivam uma da outra acabam divergindo, e o
+    # painel mentiria justamente no dia em que uma NR nova aparecesse.
+    if cfg.get('lista_nrs'):
+        state["nrs"] = extrai_nrs(itens)
+        state["total_nrs"] = len(state["nrs"])
 
     if primeira_vez:
         print(f"baseline registrado ({len(itens)} itens).")
