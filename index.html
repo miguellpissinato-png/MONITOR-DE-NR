@@ -589,15 +589,39 @@ const pad2 = n => String(n).padStart(2, '0');
 //
 // Sábado e domingo são pulados, para não dar alarme falso no fim de semana.
 // Recebe milissegundos (Date.now()), não um objeto Date.
-const DEADLINE_BRT = 11;   // até as 11:00 de Brasília deve ter havido execução
+// DOIS prazos, não um.
+//
+// O prazo único de 11:00 produzia alarme falso quase diário: o agendador do
+// GitHub atrasa de 4 a 5 horas, e a primeira execução do dia chega entre 10:00
+// e 12:30 de Brasília. Em 14/09 chegou 12:30 e a tela ficou vermelha das 11:00
+// às 12:30 dizendo "não confie" — com o monitoramento perfeito.
+//
+// Alarme falso diário é pior que alarme nenhum: ensina a ignorar justamente o
+// aviso que precisa ser levado a sério. Mas simplesmente empurrar o prazo para
+// a tarde deixaria você cego a manhã inteira. A saída é distinguir as duas
+// situações, que são mesmo diferentes:
+//
+//   ATENÇÃO (13:00, âmbar) — a verificação de hoje ainda não chegou. Costuma
+//     ser só atraso do agendador. Informa sem alarmar.
+//   CRÍTICO (16:00, vermelho) — passou o dia todo e não houve execução. Aí é
+//     problema real, e a tela deve dizer para não confiar nela.
+//
+// Os números vêm da observação, não de palpite: a execução mais tardia já
+// registrada como PRIMEIRA do dia foi 12:30, e a mais tardia de qualquer tipo
+// foi 15:14. 13:00 fica acima da primeira; 16:00 acima de todas.
+const PRAZO_ATENCAO_BRT = 13;
+const PRAZO_CRITICO_BRT = 16;
 
-function lastExpectedRun(nowMs) {
+// Início (00:00 de Brasília) do dia útil mais recente cujo prazo já venceu.
+// Exige-se execução em algum momento DESSE dia — não depois de uma hora fixa.
+// Sábado e domingo são pulados, para não alarmar no fim de semana.
+function lastExpectedRun(nowMs, prazoHora) {
   for (let i = 0; i < 10; i++) {
     const brt = new Date(nowMs - i * 86400000 - 3 * 3600000);
     const dow = brt.getUTCDay();
     if (dow === 0 || dow === 6) continue;               // sábado/domingo
     const dia = `${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}`;
-    if (Date.parse(`${dia}T${pad2(DEADLINE_BRT)}:00:00-03:00`) <= nowMs) {
+    if (Date.parse(`${dia}T${pad2(prazoHora)}:00:00-03:00`) <= nowMs) {
       return Date.parse(`${dia}T00:00:00-03:00`);
     }
   }
@@ -619,13 +643,18 @@ function renderHealth(state) {
   const banner = document.getElementById('healthBanner');
   const now = Date.now();
   const last = lastCheckTime(state);
-  const expected = lastExpectedRun(now);
 
   const falhas = state.failures || [];
   const fontes = state.sources || {};
   const degradadas = Object.values(fontes).filter(f => f.degraded);
   const comFalha  = Object.values(fontes).filter(f => (f.consecutive_failures || 0) > 0);
-  const atrasado  = expected !== null && (last === null || last < expected);
+
+  const venceu = prazo => {
+    const inicio = lastExpectedRun(now, prazo);
+    return inicio !== null && (last === null || last < inicio);
+  };
+  const atrasado = venceu(PRAZO_CRITICO_BRT);    // nenhuma execução o dia todo
+  const atencao  = venceu(PRAZO_ATENCAO_BRT);    // a de hoje ainda não chegou
 
   let cls = '', icone = '', titulo = '', msg = '';
 
@@ -634,7 +663,7 @@ function renderHealth(state) {
     cls = 'stale'; icone = '🔴';
     titulo = 'MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA';
     msg = `A última verificação bem-sucedida foi ${last ? `há ${horas}h (${esc(state.last_check)})` : 'nunca'}, `
-        + `mas já deveria ter ocorrido uma até as ${DEADLINE_BRT}h de hoje. `
+        + `e já passou das ${PRAZO_CRITICO_BRT}h sem nenhuma execução hoje. `
         + `<strong>Pode haver norma nova publicada e não detectada.</strong> `
         + `Verifique as execuções em GitHub → Actions.`;
   } else if (falhas.length) {
@@ -648,7 +677,18 @@ function renderHealth(state) {
     const partes = [];
     if (degradadas.length) partes.push(`${degradadas.length} fonte(s) em modo degradado: o site oficial mudou de estrutura e a extração detalhada parou de funcionar (ainda detecta que <em>algo</em> mudou, mas não diz o quê).`);
     if (comFalha.length)  partes.push(`${comFalha.length} fonte(s) com falha recente.`);
+    if (atencao) partes.push(`A verificação de hoje também ainda não chegou.`);
     msg = partes.join(' ');
+  } else if (atencao) {
+    // Atraso, não falha. O agendador do GitHub costuma entregar entre 10h e
+    // 12h30; passou das 13h e nada. Informa sem dizer "não confie": os dados
+    // exibidos continuam válidos, só não incluem o que saiu hoje.
+    cls = 'degraded'; icone = '🟡';
+    titulo = 'VERIFICAÇÃO DE HOJE AINDA NÃO CHEGOU';
+    msg = `Última verificação: <strong>${esc(state.last_check)}</strong>. `
+        + `O agendador do GitHub atrasa com frequência, então isso costuma se resolver sozinho. `
+        + `O que está na tela continua válido — apenas não inclui publicações de hoje. `
+        + `Se passar das ${PRAZO_CRITICO_BRT}h sem execução, este aviso vira alerta vermelho.`;
   }
 
   if (cls) {

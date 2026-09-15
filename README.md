@@ -20,11 +20,29 @@ verde mesmo sem ter lido nada. Agora, qualquer fonte crítica que falhe:
 2. é registrada em `data/state.json`, com o erro e há quantas execuções falha;
 3. faz o painel exibir um **banner vermelho** no topo.
 
-O painel também compara a última verificação com o último dia útil às 09:00
-(Brasília, 2h de tolerância). Se nenhuma execução ocorreu, aparece
-**"MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA"**, mesmo que o
-`state.json` esteja intacto. É isso que cobre o caso em que o agendador
-simplesmente não roda.
+O painel também vigia a **ausência** de execução, comparando a última
+verificação com o dia útil corrente. São dois prazos, não um:
+
+| Prazo | Sinal | Significado |
+|---|---|---|
+| 13:00 (Brasília) | 🟡 âmbar | A verificação de hoje ainda não chegou. Costuma ser só atraso do agendador; os dados na tela seguem válidos. |
+| 16:00 (Brasília) | 🔴 vermelho | Passou o dia sem nenhuma execução. **"NÃO CONFIE NESTA TELA"** — pode haver norma nova não detectada. |
+
+Sábados e domingos não disparam alerta.
+
+**Por que dois prazos.** A versão anterior usava um só, às 11:00, e produzia
+alarme falso quase diário: o agendador do GitHub atrasa de 4 a 5 horas, e a
+primeira execução do dia chega entre 10:00 e 12:30. Em 14/09/2026 chegou 12:30
+e a tela ficou vermelha das 11:00 às 12:30 com o monitoramento perfeito.
+
+Alarme falso diário é pior que alarme nenhum — ensina a ignorar justamente o
+aviso que precisa ser levado a sério. Mas empurrar o prazo único para a tarde
+deixaria a manhã cega. Separar "atrasado" de "não rodou" resolve os dois lados.
+
+Os horários vêm da observação, não de palpite: a execução mais tardia já
+registrada como primeira do dia foi 12:30, e a mais tardia de qualquer tipo foi
+15:14. Se você configurar o agendador externo (abaixo), pode baixar os dois
+prazos em `index.html` (`PRAZO_ATENCAO_BRT` e `PRAZO_CRITICO_BRT`).
 
 ## Agendamento
 
