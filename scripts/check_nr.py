@@ -219,14 +219,14 @@ def collect_page_items(cfg):
         itens.append({'iid': iid, 'titulo': texto[:300], 'link': link})
 
     if itens:
-        return itens, False
+        return itens, False, []
 
     # Nada extraído: o HTML provavelmente mudou de estrutura. Não fingimos que
     # está tudo bem — voltamos ao hash e sinalizamos modo degradado.
     h = page_hash(html)
     return [{'iid': 'pagehash_' + h[:12],
              'titulo': f"Alteração detectada em: {cfg['label']}",
-             'link': url_usada}], True
+             'link': url_usada}], True, []
 
 
 def _walk_for_results(obj):
@@ -246,65 +246,124 @@ def _walk_for_results(obj):
     return None
 
 
+# A busca do in.gov.br NÃO pagina. Testado em 15/09/2026: currentPage, page,
+# cur, o cur com namespace do portlet, start e offset — todos devolvem a mesma
+# primeira página. O único controle que funciona é `delta`, e ele é uma lista
+# branca: 50 devolve 50, mas 100, 200, 500 e 1000 caem de volta para o padrão
+# de 20. Não há totalCount na resposta para saber quantos resultados existem.
+#
+# Portanto o teto é 50 por consulta, e é um teto SILENCIOSO: se uma semana
+# tiver 60 publicações, as 10 últimas simplesmente não aparecem, sem erro.
+#
+# A saída não é paginar (não dá), é evitar que a consulta chegue ao teto:
+# quando uma busca volta com 50 itens, ela é refeita dia a dia dentro da
+# janela, porque um único dia dificilmente satura. E se nem assim couber, o
+# fato é REGISTRADO em vez de engolido — falso negativo silencioso é o pior
+# desfecho possível aqui.
+DELTA_DOU = 50                 # maior valor aceito pelo portlet
+MAX_CONSULTAS_DOU = 24         # trava de tempo: limita o desdobramento
+FALHAS_SEGUIDAS_ABORTA = 3     # se o site caiu, não insiste 24 vezes
+
+
+def _url_dou(termo, secao, de, ate):
+    params = {
+        'q': termo, 's': secao, 'exactDate': 'personalizado',
+        'publishFrom': de.strftime('%d-%m-%Y'),
+        'publishTo': ate.strftime('%d-%m-%Y'),
+        'sortType': '0', 'delta': str(DELTA_DOU),
+    }
+    return 'https://www.in.gov.br/consulta/-/buscar/dou?' + urllib.parse.urlencode(params)
+
+
+def _resultados_dou(html):
+    """Extrai a lista de resultados do bloco JSON do portlet."""
+    m = re.search(r'<script[^>]+id="[^"]*params"[^>]*>(.*?)</script>', html, re.S | re.I)
+    if not m:
+        return []
+    try:
+        dados = json.loads(m.group(1).strip())
+    except json.JSONDecodeError:
+        return []
+    return _walk_for_results(dados) or []
+
+
 def collect_dou(cfg):
-    """Busca no DOU (in.gov.br) os termos configurados numa janela de dias."""
+    """Busca no DOU os termos configurados, sem deixar o teto de 50 cortar."""
     hoje = now_brasilia()
-    inicio = hoje - timedelta(days=int(cfg.get('window_days', 7)))
-    itens, vistos, falhas, sucessos = [], set(), [], 0
+    dias = int(cfg.get('window_days', 7))
+    inicio = hoje - timedelta(days=dias)
+
+    itens, vistos = [], set()
+    falhas, sucessos, consultas, seguidas = [], 0, 0, 0
+    saturadas = []
+
+    def consulta(termo, secao, de, ate):
+        """Devolve (n_itens, saturou) e acumula em `itens`."""
+        nonlocal sucessos, consultas, seguidas
+        consultas += 1
+        try:
+            html = fetch(_url_dou(termo, secao, de, ate))
+            seguidas = 0
+        except SourceError as e:
+            falhas.append(str(e))
+            seguidas += 1
+            return 0, False
+        sucessos += 1
+        brutos = _resultados_dou(html)
+        for r in brutos:
+            titulo = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', str(r.get('title', '')))).strip()
+            if not titulo:
+                continue
+            url_titulo = r.get('urlTitle') or ''
+            link = ('https://www.in.gov.br/web/dou/-/' + url_titulo) if url_titulo \
+                   else _url_dou(termo, secao, de, ate)
+            iid = item_id(titulo, link)
+            if iid in vistos:
+                continue
+            vistos.add(iid)
+            itens.append({
+                'iid': iid,
+                'titulo': titulo[:300],
+                'link': link,
+                'pub_date': r.get('pubDate') or '',
+                'busca': termo,
+                'orgao': (r.get('hierarchyStr') or r.get('pubName') or '')[:200],
+                'ementa': re.sub(r'<[^>]+>', ' ', str(r.get('content') or ''))[:600].strip(),
+            })
+        return len(brutos), len(brutos) >= DELTA_DOU
 
     for secao in cfg.get('sections', ['do1']):
         for termo in cfg.get('queries', []):
-            params = {
-                'q': termo,
-                's': secao,
-                'exactDate': 'personalizado',
-                'publishFrom': inicio.strftime('%d-%m-%Y'),
-                'publishTo': hoje.strftime('%d-%m-%Y'),
-                'sortType': '0',
-            }
-            url = 'https://www.in.gov.br/consulta/-/buscar/dou?' + urllib.parse.urlencode(params)
-            try:
-                html = fetch(url)
-            except SourceError as e:
-                falhas.append(str(e))
+            if seguidas >= FALHAS_SEGUIDAS_ABORTA:
+                break
+            n, saturou = consulta(termo, secao, inicio, hoje)
+            if not saturou:
                 continue
 
-            sucessos += 1
-            # O portlet do in.gov.br prefixa o id do script com o nome da
-            # classe Java (…_BuscaDouPortlet_params), então casamos pelo sufixo.
-            m = re.search(
-                r'<script[^>]+id="[^"]*params"[^>]*>(.*?)</script>', html, re.S | re.I)
-            if not m:
-                continue
-            try:
-                dados = json.loads(m.group(1).strip())
-            except json.JSONDecodeError:
-                continue
-
-            for r in (_walk_for_results(dados) or []):
-                titulo = re.sub(r'\s+', ' ', str(r.get('title', ''))).strip()
-                if not titulo:
-                    continue
-                url_titulo = r.get('urlTitle') or ''
-                link = ('https://www.in.gov.br/web/dou/-/' + url_titulo) if url_titulo else url
-                iid = item_id(titulo, link)
-                if iid in vistos:
-                    continue
-                vistos.add(iid)
-                itens.append({
-                    'iid': iid,
-                    'titulo': titulo[:300],
-                    'link': link,
-                    'pub_date': r.get('pubDate') or '',
-                    'busca': termo,
-                    'orgao': (r.get('hierarchyStr') or r.get('pubName') or '')[:200],
-                    'ementa': re.sub(r'<[^>]+>', ' ', str(r.get('content') or ''))[:600].strip(),
-                })
+            # Bateu no teto: a janela inteira não cabe. Refaz dia a dia.
+            print(f"\n    [teto de {DELTA_DOU} atingido em {termo} — refazendo dia a dia]",
+                  end=" ", flush=True)
+            ainda_saturado = []
+            for d in range(dias + 1):
+                if consultas >= MAX_CONSULTAS_DOU or seguidas >= FALHAS_SEGUIDAS_ABORTA:
+                    break
+                dia = inicio + timedelta(days=d)
+                _, sat_dia = consulta(termo, secao, dia, dia)
+                if sat_dia:
+                    ainda_saturado.append(dia.strftime('%d/%m'))
+            if ainda_saturado:
+                saturadas.append(f"{termo} em {', '.join(ainda_saturado)}")
 
     if sucessos == 0:
         raise SourceError("nenhuma consulta ao DOU respondeu: " +
-                          (" | ".join(falhas) or "sem detalhes"))
-    return itens, False
+                          (" | ".join(falhas[:3]) or "sem detalhes"))
+
+    # Um dia inteiro saturado significa que pode haver publicação não vista.
+    # Isso vai para o estado e aparece no painel: nunca some em silêncio.
+    if saturadas:
+        print(f"\n    [AVISO: teto atingido mesmo por dia em {'; '.join(saturadas)}]",
+              end=" ", flush=True)
+    return itens, False, saturadas
 
 
 COLLECTORS = {
@@ -457,7 +516,7 @@ def processa_fonte(cfg, state, agora, vocab=None):
         return [], False
 
     try:
-        itens, degradado = coletor(cfg)
+        itens, degradado, avisos = coletor(cfg)
     except SourceError as e:
         print(f"FALHA — {e}")
         saude["last_error"] = str(e)
@@ -469,6 +528,10 @@ def processa_fonte(cfg, state, agora, vocab=None):
     saude["consecutive_failures"] = 0
     saude["degraded"] = degradado
     saude["item_count"] = len(itens)
+    # Teto da busca atingido: pode haver publicação que o monitor não viu.
+    # Fica no estado para o painel mostrar — um limite silencioso seria a
+    # pior forma de falhar numa ferramenta de compliance.
+    saude["truncado"] = avisos or None
 
     conhecidos = set(saude.get("known_ids", []))
     primeira_vez = not conhecidos

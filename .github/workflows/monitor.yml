@@ -21,11 +21,6 @@ on:
         required: false
         type: boolean
         default: false
-      diag:
-        description: 'Diagnóstico de paginação do DOU (temporário)'
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -54,10 +49,6 @@ jobs:
       - name: Instalar dependências do relatório
         if: ${{ !inputs.dry_run }}
         run: pip install --quiet anthropic reportlab
-
-      - name: Diagnóstico de paginação do DOU (temporário)
-        if: inputs.diag
-        run: python scripts/_diag_dou.py
 
       - name: Executar monitoramento
         id: monitor

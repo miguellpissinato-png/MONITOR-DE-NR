@@ -114,6 +114,27 @@ consegue dizer *o quê* — é o aviso de que o `item_pattern` precisa de ajuste
 python3 scripts/check_nr.py   # sai com código != 0 se uma fonte crítica falhar
 ```
 
+### Teto da busca do DOU
+
+A busca do `in.gov.br` **não pagina**. Verificado em 15/09/2026: `currentPage`,
+`page`, `cur`, o `cur` com o namespace do portlet, `start` e `offset` devolvem
+todos a mesma primeira página. O único controle que funciona é `delta`, e ele é
+uma lista branca — `50` devolve 50 itens, mas `100`, `200`, `500` e `1000` caem
+de volta para o padrão de 20. Também não há `totalCount` na resposta.
+
+O teto de 50 é portanto **silencioso**: numa semana com 60 publicações, as 10
+últimas simplesmente não apareceriam, sem erro algum.
+
+Como não dá para paginar, o coletor evita chegar ao teto: quando uma consulta
+volta com 50 itens, ela é **refeita dia a dia** dentro da janela — um único dia
+dificilmente satura. Se nem assim couber, o fato é gravado em
+`sources.dou_sst.truncado` e o painel exibe **"Busca truncada — pode haver
+publicação não detectada"**. Um limite silencioso seria a pior forma de falhar
+numa ferramenta de compliance.
+
+Há duas travas de tempo: no máximo 24 consultas por execução, e o coletor
+aborta após 3 falhas seguidas em vez de insistir com o site fora do ar.
+
 ### Tolerância a falhas de rede
 
 Cada URL é tentada 3 vezes, com backoff de 3s e 6s. Erros 4xx não são repetidos
