@@ -20,11 +20,29 @@ verde mesmo sem ter lido nada. Agora, qualquer fonte crítica que falhe:
 2. é registrada em `data/state.json`, com o erro e há quantas execuções falha;
 3. faz o painel exibir um **banner vermelho** no topo.
 
-O painel também compara a última verificação com o último dia útil às 09:00
-(Brasília, 2h de tolerância). Se nenhuma execução ocorreu, aparece
-**"MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA"**, mesmo que o
-`state.json` esteja intacto. É isso que cobre o caso em que o agendador
-simplesmente não roda.
+O painel também vigia a **ausência** de execução, comparando a última
+verificação com o dia útil corrente. São dois prazos, não um:
+
+| Prazo | Sinal | Significado |
+|---|---|---|
+| 13:00 (Brasília) | 🟡 âmbar | A verificação de hoje ainda não chegou. Costuma ser só atraso do agendador; os dados na tela seguem válidos. |
+| 16:00 (Brasília) | 🔴 vermelho | Passou o dia sem nenhuma execução. **"NÃO CONFIE NESTA TELA"** — pode haver norma nova não detectada. |
+
+Sábados e domingos não disparam alerta.
+
+**Por que dois prazos.** A versão anterior usava um só, às 11:00, e produzia
+alarme falso quase diário: o agendador do GitHub atrasa de 4 a 5 horas, e a
+primeira execução do dia chega entre 10:00 e 12:30. Em 14/09/2026 chegou 12:30
+e a tela ficou vermelha das 11:00 às 12:30 com o monitoramento perfeito.
+
+Alarme falso diário é pior que alarme nenhum — ensina a ignorar justamente o
+aviso que precisa ser levado a sério. Mas empurrar o prazo único para a tarde
+deixaria a manhã cega. Separar "atrasado" de "não rodou" resolve os dois lados.
+
+Os horários vêm da observação, não de palpite: a execução mais tardia já
+registrada como primeira do dia foi 12:30, e a mais tardia de qualquer tipo foi
+15:14. Se você configurar o agendador externo (abaixo), pode baixar os dois
+prazos em `index.html` (`PRAZO_ATENCAO_BRT` e `PRAZO_CRITICO_BRT`).
 
 ## Agendamento
 
@@ -95,6 +113,32 @@ consegue dizer *o quê* — é o aviso de que o `item_pattern` precisa de ajuste
 ```bash
 python3 scripts/check_nr.py   # sai com código != 0 se uma fonte crítica falhar
 ```
+
+### Tolerância a falhas de rede
+
+Cada URL é tentada 3 vezes, com backoff de 3s e 6s. Erros 4xx não são repetidos
+— são resposta definitiva do servidor. Erros 5xx e falhas de rede são, porque
+são transitórios.
+
+Isso existe porque o `gov.br` falhava por timeout de forma intermitente: 6 das
+28 execuções entre 02/09 e 14/09 morreram assim, sempre nas fontes do MTE (o DOU
+e a ABNT nunca falharam). Sem retry no script, a única defesa era repetir tudo
+no workflow — 12 minutos de runner para o que um backoff de 3 segundos resolve.
+
+## Lista de NRs
+
+O painel **não** mantém uma lista própria de Normas Regulamentadoras. Ele exibe
+a lista que o monitor extrai da página índice oficial do MTE — a mesma que já é
+lida todo dia para detectar alterações — gravada em `state.nrs`.
+
+Antes havia uma cópia escrita à mão no `index.html`, e o número 38 aparecia
+fixo em quatro lugares independentes. Se o MTE publicasse uma NR nova, o monitor
+detectaria a mudança e o painel continuaria exibindo a lista antiga: ele mentiria
+justamente no dia em que a informação importasse. Agora contador, rótulo e lista
+derivam todos da mesma fonte oficial.
+
+Enquanto o monitor não tiver gravado a lista, o painel diz isso, em vez de
+exibir uma cópia possivelmente desatualizada.
 
 ## Relatório de análise em PDF
 

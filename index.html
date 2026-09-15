@@ -331,7 +331,7 @@
     </div>
     <div class="metric-card">
       <div class="metric-label">NR Monitoradas</div>
-      <div class="metric-value" id="metricTotal">38</div>
+      <div class="metric-value" id="metricTotal">—</div>
       <div class="metric-sub">via DOU + Portal MTE</div>
     </div>
   </div>
@@ -375,7 +375,7 @@
     <div class="glass-panel">
       <div class="panel-header">
         <span class="panel-title">Todas as Normas Regulamentadoras</span>
-        <span class="panel-count">38 normas</span>
+        <span class="panel-count" id="nrPanelCount">— normas</span>
       </div>
       <div class="search-wrap">
         <div class="search-inner">
@@ -418,7 +418,7 @@
         </div>
         <div style="background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.15);border-radius:12px;padding:20px;margin:20px 0">
           <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px">O que é monitorado</p>
-          <p>Portarias MTE/MTP/SEFIT • Instruções Normativas SST • Alterações em NR (NR-1 a NR-38) • Resoluções relacionadas à segurança do trabalho • Publicações sobre EPI, CIPA, PCMSO, PGR, PPRA, LTCAT • Atos sobre insalubridade, periculosidade, espaços confinados, trabalho em altura, ergonomia e muito mais.</p>
+          <p>Portarias MTE/MTP/SEFIT • Instruções Normativas SST • Alterações em qualquer NR vigente • Resoluções relacionadas à segurança do trabalho • Publicações sobre EPI, CIPA, PCMSO, PGR, PPRA, LTCAT • Atos sobre insalubridade, periculosidade, espaços confinados, trabalho em altura, ergonomia e muito mais.</p>
         </div>
         <p style="font-size:12px;color:var(--white-40);margin-top:20px">Sistema hospedado gratuitamente no GitHub Pages. Automatização via GitHub Actions. Nenhum servidor pago necessário.</p>
       </div>
@@ -441,48 +441,13 @@
 <script>
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-// ─── Lista das 38 NR ─────────────────────────────────────────────────────────
+// ─── Lista das NR (vinda do state.json) ─────────────────────────────────────────────────────────
 const BASE_NR = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes';
-const ALL_NRS = [
-  { nr:'NR-1',  nome:'Disposições Gerais e Gerenciamento de Riscos Ocupacionais',                                                url:`${BASE_NR}/nr-1` },
-  { nr:'NR-2',  nome:'Inspeção Prévia (Revogada)',                                                                               url:`${BASE_NR}/norma-regulamentadora-no-2-nr-2` },
-  { nr:'NR-3',  nome:'Embargo e Interdição',                                                                                     url:`${BASE_NR}/norma-regulamentadora-no-3-nr-3` },
-  { nr:'NR-4',  nome:'Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho',                             url:`${BASE_NR}/norma-regulamentadora-no-4-nr-4` },
-  { nr:'NR-5',  nome:'Comissão Interna de Prevenção de Acidentes e de Assédio',                                                 url:`${BASE_NR}/norma-regulamentadora-no-5-nr-5` },
-  { nr:'NR-6',  nome:'Equipamentos de Proteção Individual',                                                                      url:`${BASE_NR}/norma-regulamentadora-no-6-nr-6` },
-  { nr:'NR-7',  nome:'Programa de Controle Médico de Saúde Ocupacional',                                                        url:`${BASE_NR}/norma-regulamentadora-no-7-nr-7` },
-  { nr:'NR-8',  nome:'Edificações',                                                                                              url:`${BASE_NR}/norma-regulamentadora-no-8-nr-8` },
-  { nr:'NR-9',  nome:'Avaliação e Controle das Exposições Ocupacionais a Agentes Físicos, Químicos e Biológicos',               url:`${BASE_NR}/norma-regulamentadora-no-9-nr-9` },
-  { nr:'NR-10', nome:'Segurança em Instalações e Serviços em Eletricidade',                                                     url:`${BASE_NR}/norma-regulamentadora-no-10-nr-10` },
-  { nr:'NR-11', nome:'Transporte, Movimentação, Armazenagem e Manuseio de Materiais',                                           url:`${BASE_NR}/norma-regulamentadora-no-11-nr-11` },
-  { nr:'NR-12', nome:'Segurança no Trabalho em Máquinas e Equipamentos',                                                        url:`${BASE_NR}/norma-regulamentadora-no-12-nr-12` },
-  { nr:'NR-13', nome:'Caldeiras, Vasos de Pressão, Tubulações e Reservatórios Metálicos de Pressão',                           url:`${BASE_NR}/norma-regulamentadora-no-13-nr-13` },
-  { nr:'NR-14', nome:'Fornos',                                                                                                   url:`${BASE_NR}/norma-regulamentadora-no-14-nr-14` },
-  { nr:'NR-15', nome:'Atividades e Operações Insalubres',                                                                       url:`${BASE_NR}/norma-regulamentadora-no-15-nr-15` },
-  { nr:'NR-16', nome:'Atividades e Operações Perigosas',                                                                        url:`${BASE_NR}/norma-regulamentadora-no-16-nr-16` },
-  { nr:'NR-17', nome:'Ergonomia',                                                                                                url:`${BASE_NR}/norma-regulamentadora-no-17-nr-17` },
-  { nr:'NR-18', nome:'Segurança e Saúde no Trabalho na Indústria da Construção',                                                url:`${BASE_NR}/norma-regulamentadora-no-18-nr-18` },
-  { nr:'NR-19', nome:'Explosivos',                                                                                               url:`${BASE_NR}/norma-regulamentadora-no-19-nr-19` },
-  { nr:'NR-20', nome:'Segurança e Saúde no Trabalho com Inflamáveis e Combustíveis',                                           url:`${BASE_NR}/norma-regulamentadora-no-20-nr-20` },
-  { nr:'NR-21', nome:'Trabalho a Céu Aberto',                                                                                   url:`${BASE_NR}/norma-regulamentadora-no-21-nr-21` },
-  { nr:'NR-22', nome:'Segurança e Saúde Ocupacional na Mineração',                                                              url:`${BASE_NR}/norma-regulamentadora-no-22-nr-22` },
-  { nr:'NR-23', nome:'Proteção Contra Incêndios',                                                                               url:`${BASE_NR}/norma-regulamentadora-no-23-nr-23` },
-  { nr:'NR-24', nome:'Condições Sanitárias e de Conforto nos Locais de Trabalho',                                               url:`${BASE_NR}/norma-regulamentadora-no-24-nr-24` },
-  { nr:'NR-25', nome:'Resíduos Industriais',                                                                                    url:`${BASE_NR}/norma-regulamentadora-no-25-nr-25` },
-  { nr:'NR-26', nome:'Sinalização de Segurança',                                                                                url:`${BASE_NR}/norma-regulamentadora-no-26-nr-26` },
-  { nr:'NR-27', nome:'Registro Profissional do Técnico de Segurança do Trabalho (Revogada)',                                    url:`${BASE_NR}/norma-regulamentadora-no-27-nr-27` },
-  { nr:'NR-28', nome:'Fiscalização e Penalidades',                                                                              url:`${BASE_NR}/norma-regulamentadora-no-28-nr-28` },
-  { nr:'NR-29', nome:'Segurança e Saúde no Trabalho Portuário',                                                                 url:`${BASE_NR}/norma-regulamentadora-no-29-nr-29` },
-  { nr:'NR-30', nome:'Segurança e Saúde no Trabalho Aquaviário',                                                                url:`${BASE_NR}/norma-regulamentadora-no-30-nr-30` },
-  { nr:'NR-31', nome:'Segurança e Saúde no Trabalho na Agricultura, Pecuária, Silvicultura, Exploração Florestal e Aquicultura', url:`${BASE_NR}/norma-regulamentadora-no-31-nr-31` },
-  { nr:'NR-32', nome:'Segurança e Saúde no Trabalho em Estabelecimentos de Saúde',                                              url:`${BASE_NR}/norma-regulamentadora-no-32-nr-32` },
-  { nr:'NR-33', nome:'Segurança e Saúde nos Trabalhos em Espaços Confinados',                                                   url:`${BASE_NR}/norma-regulamentadora-no-33-nr-33` },
-  { nr:'NR-34', nome:'Condições e Meio Ambiente de Trabalho na Indústria da Construção, Reparação e Desmonte Naval',            url:`${BASE_NR}/norma-regulamentadora-no-34-nr-34` },
-  { nr:'NR-35', nome:'Trabalho em Altura',                                                                                      url:`${BASE_NR}/norma-regulamentadora-no-35-nr-35` },
-  { nr:'NR-36', nome:'Segurança e Saúde no Trabalho em Empresas de Abate e Processamento de Carnes e Derivados',               url:`${BASE_NR}/norma-regulamentadora-no-36-nr-36` },
-  { nr:'NR-37', nome:'Segurança e Saúde em Plataformas de Petróleo',                                                           url:'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/norma-regulamentadora-no-37-nr-37' },
-  { nr:'NR-38', nome:'Segurança e Saúde no Trabalho nas Atividades de Limpeza Urbana e Manejo de Resíduos Sólidos',            url:`${BASE_NR}/norma-regulamentadora-no-38-nr-38` },
-];
+// A lista de NRs vem do state.json, preenchida pelo monitor a partir da página
+// índice oficial do MTE — a mesma que ele já lê todo dia. Antes havia uma cópia
+// fixa aqui, que não derivava da oficial: se o MTE publicasse uma NR nova, o
+// monitor detectaria a mudança e o painel continuaria listando as antigas.
+let ALL_NRS = [];
 
 // ─── Utilitários ─────────────────────────────────────────────────────────────
 function esc(s) {
@@ -548,10 +513,21 @@ function renderNrFullList(filter = '') {
   const filtered = q ? ALL_NRS.filter(n => n.nr.toLowerCase().includes(q) || n.nome.toLowerCase().includes(q)) : ALL_NRS;
   const list = document.getElementById('nrFullList');
   if (!list) return;
+  if (ALL_NRS.length === 0) {
+    // Nunca exibir uma lista possivelmente desatualizada: se o monitor ainda
+    // não gravou a lista oficial, dizemos isso em vez de mostrar uma cópia.
+    const n = (window.__ultimoEstado && window.__ultimoEstado.total_nrs) || 0;
+    list.innerHTML = `<li style="padding:40px 24px;text-align:center;color:var(--white-40);font-size:13px;">`
+      + (n ? `O monitor acompanha <strong style="color:var(--white-70)">${n} NRs</strong>, mas a lista detalhada ainda não foi coletada.<br>` : `A lista oficial de NRs ainda não foi coletada.<br>`)
+      + `Ela é preenchida na próxima execução do monitor.</li>`;
+    return;
+  }
   if (filtered.length === 0) {
     list.innerHTML = `<li style="padding:40px 24px;text-align:center;color:var(--white-40);font-size:13px;">Nenhuma NR encontrada para "<strong style="color:var(--white-70)">${esc(filter)}</strong>"</li>`;
     return;
   }
+  const rotulo = document.getElementById('nrPanelCount');
+  if (rotulo) rotulo.textContent = `${ALL_NRS.length} norma${ALL_NRS.length === 1 ? '' : 's'}`;
   list.innerHTML = filtered.map(n => `
     <li class="nr-item">
       <div><span class="nr-badge">${esc(n.nr)}</span></div>
@@ -560,7 +536,7 @@ function renderNrFullList(filter = '') {
         <div class="nr-source">gov.br / MTE</div>
       </div>
       <div>
-        <a class="nr-link" href="${esc(n.url)}" target="_blank" rel="noopener">
+        <a class="nr-link" href="${esc(n.link || n.url || BASE_NR)}" target="_blank" rel="noopener">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
             <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
@@ -589,15 +565,39 @@ const pad2 = n => String(n).padStart(2, '0');
 //
 // Sábado e domingo são pulados, para não dar alarme falso no fim de semana.
 // Recebe milissegundos (Date.now()), não um objeto Date.
-const DEADLINE_BRT = 11;   // até as 11:00 de Brasília deve ter havido execução
+// DOIS prazos, não um.
+//
+// O prazo único de 11:00 produzia alarme falso quase diário: o agendador do
+// GitHub atrasa de 4 a 5 horas, e a primeira execução do dia chega entre 10:00
+// e 12:30 de Brasília. Em 14/09 chegou 12:30 e a tela ficou vermelha das 11:00
+// às 12:30 dizendo "não confie" — com o monitoramento perfeito.
+//
+// Alarme falso diário é pior que alarme nenhum: ensina a ignorar justamente o
+// aviso que precisa ser levado a sério. Mas simplesmente empurrar o prazo para
+// a tarde deixaria você cego a manhã inteira. A saída é distinguir as duas
+// situações, que são mesmo diferentes:
+//
+//   ATENÇÃO (13:00, âmbar) — a verificação de hoje ainda não chegou. Costuma
+//     ser só atraso do agendador. Informa sem alarmar.
+//   CRÍTICO (16:00, vermelho) — passou o dia todo e não houve execução. Aí é
+//     problema real, e a tela deve dizer para não confiar nela.
+//
+// Os números vêm da observação, não de palpite: a execução mais tardia já
+// registrada como PRIMEIRA do dia foi 12:30, e a mais tardia de qualquer tipo
+// foi 15:14. 13:00 fica acima da primeira; 16:00 acima de todas.
+const PRAZO_ATENCAO_BRT = 13;
+const PRAZO_CRITICO_BRT = 16;
 
-function lastExpectedRun(nowMs) {
+// Início (00:00 de Brasília) do dia útil mais recente cujo prazo já venceu.
+// Exige-se execução em algum momento DESSE dia — não depois de uma hora fixa.
+// Sábado e domingo são pulados, para não alarmar no fim de semana.
+function lastExpectedRun(nowMs, prazoHora) {
   for (let i = 0; i < 10; i++) {
     const brt = new Date(nowMs - i * 86400000 - 3 * 3600000);
     const dow = brt.getUTCDay();
     if (dow === 0 || dow === 6) continue;               // sábado/domingo
     const dia = `${brt.getUTCFullYear()}-${pad2(brt.getUTCMonth() + 1)}-${pad2(brt.getUTCDate())}`;
-    if (Date.parse(`${dia}T${pad2(DEADLINE_BRT)}:00:00-03:00`) <= nowMs) {
+    if (Date.parse(`${dia}T${pad2(prazoHora)}:00:00-03:00`) <= nowMs) {
       return Date.parse(`${dia}T00:00:00-03:00`);
     }
   }
@@ -619,13 +619,18 @@ function renderHealth(state) {
   const banner = document.getElementById('healthBanner');
   const now = Date.now();
   const last = lastCheckTime(state);
-  const expected = lastExpectedRun(now);
 
   const falhas = state.failures || [];
   const fontes = state.sources || {};
   const degradadas = Object.values(fontes).filter(f => f.degraded);
   const comFalha  = Object.values(fontes).filter(f => (f.consecutive_failures || 0) > 0);
-  const atrasado  = expected !== null && (last === null || last < expected);
+
+  const venceu = prazo => {
+    const inicio = lastExpectedRun(now, prazo);
+    return inicio !== null && (last === null || last < inicio);
+  };
+  const atrasado = venceu(PRAZO_CRITICO_BRT);    // nenhuma execução o dia todo
+  const atencao  = venceu(PRAZO_ATENCAO_BRT);    // a de hoje ainda não chegou
 
   let cls = '', icone = '', titulo = '', msg = '';
 
@@ -634,7 +639,7 @@ function renderHealth(state) {
     cls = 'stale'; icone = '🔴';
     titulo = 'MONITORAMENTO DESATUALIZADO — NÃO CONFIE NESTA TELA';
     msg = `A última verificação bem-sucedida foi ${last ? `há ${horas}h (${esc(state.last_check)})` : 'nunca'}, `
-        + `mas já deveria ter ocorrido uma até as ${DEADLINE_BRT}h de hoje. `
+        + `e já passou das ${PRAZO_CRITICO_BRT}h sem nenhuma execução hoje. `
         + `<strong>Pode haver norma nova publicada e não detectada.</strong> `
         + `Verifique as execuções em GitHub → Actions.`;
   } else if (falhas.length) {
@@ -648,7 +653,18 @@ function renderHealth(state) {
     const partes = [];
     if (degradadas.length) partes.push(`${degradadas.length} fonte(s) em modo degradado: o site oficial mudou de estrutura e a extração detalhada parou de funcionar (ainda detecta que <em>algo</em> mudou, mas não diz o quê).`);
     if (comFalha.length)  partes.push(`${comFalha.length} fonte(s) com falha recente.`);
+    if (atencao) partes.push(`A verificação de hoje também ainda não chegou.`);
     msg = partes.join(' ');
+  } else if (atencao) {
+    // Atraso, não falha. O agendador do GitHub costuma entregar entre 10h e
+    // 12h30; passou das 13h e nada. Informa sem dizer "não confie": os dados
+    // exibidos continuam válidos, só não incluem o que saiu hoje.
+    cls = 'degraded'; icone = '🟡';
+    titulo = 'VERIFICAÇÃO DE HOJE AINDA NÃO CHEGOU';
+    msg = `Última verificação: <strong>${esc(state.last_check)}</strong>. `
+        + `O agendador do GitHub atrasa com frequência, então isso costuma se resolver sozinho. `
+        + `O que está na tela continua válido — apenas não inclui publicações de hoje. `
+        + `Se passar das ${PRAZO_CRITICO_BRT}h sem execução, este aviso vira alerta vermelho.`;
   }
 
   if (cls) {
@@ -707,8 +723,15 @@ function renderRelatorios(state) {
 
 // ─── Render UI ────────────────────────────────────────────────────────────────
 function renderUI(state) {
+  window.__ultimoEstado = state;
   const saude = renderHealth(state);
   renderRelatorios(state);
+
+  // A lista oficial manda: o painel nunca inventa quantas NRs existem.
+  if (Array.isArray(state.nrs) && state.nrs.length) {
+    ALL_NRS = state.nrs;
+    renderNrFullList(document.getElementById('nrSearch')?.value || '');
+  }
   const problema = saude.atrasado || saude.falhou;
   const hasNew = state.status && (state.status.includes('Publicação') || state.status.includes('Alteração'));
   const dot = document.getElementById('activityDot');
@@ -740,7 +763,7 @@ function renderUI(state) {
   }
 
   document.getElementById('metricLastCheck').textContent = state.last_check ? state.last_check.split(' ')[0] : 'Pendente';
-  document.getElementById('metricTotal').textContent = state.total_nrs ?? 38;
+  document.getElementById('metricTotal').textContent = state.total_nrs || ALL_NRS.length || '—';
 
   // Recentes — usa publicacoes_recentes OU recent_changes por compatibilidade
   // Agrupa por prioridade. NADA é omitido: a faixa "baixa" fica recolhida no
