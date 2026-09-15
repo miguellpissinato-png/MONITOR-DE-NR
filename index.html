@@ -624,6 +624,7 @@ function renderHealth(state) {
   const fontes = state.sources || {};
   const degradadas = Object.values(fontes).filter(f => f.degraded);
   const comFalha  = Object.values(fontes).filter(f => (f.consecutive_failures || 0) > 0);
+  const truncadas = Object.values(fontes).filter(f => f.truncado && f.truncado.length);
 
   const venceu = prazo => {
     const inicio = lastExpectedRun(now, prazo);
@@ -647,12 +648,13 @@ function renderHealth(state) {
     titulo = 'FALHA NA ÚLTIMA VERIFICAÇÃO';
     msg = 'Estas fontes não puderam ser lidas — o que aparece abaixo pode estar incompleto:<ul>'
         + falhas.map(f => `<li>${esc(f)}</li>`).join('') + '</ul>';
-  } else if (degradadas.length || comFalha.length) {
+  } else if (degradadas.length || comFalha.length || truncadas.length) {
     cls = 'degraded'; icone = '🟡';
     titulo = 'ATENÇÃO — MONITORAMENTO PARCIAL';
     const partes = [];
     if (degradadas.length) partes.push(`${degradadas.length} fonte(s) em modo degradado: o site oficial mudou de estrutura e a extração detalhada parou de funcionar (ainda detecta que <em>algo</em> mudou, mas não diz o quê).`);
     if (comFalha.length)  partes.push(`${comFalha.length} fonte(s) com falha recente.`);
+    if (truncadas.length) partes.push(`<strong>Busca truncada:</strong> o Diário Oficial devolveu o máximo de resultados que a consulta permite, mesmo dividida por dia. <strong>Pode haver publicação não detectada</strong> — vale conferir o diário direto na fonte.`);
     if (atencao) partes.push(`A verificação de hoje também ainda não chegou.`);
     msg = partes.join(' ');
   } else if (atencao) {
@@ -682,11 +684,13 @@ function renderHealth(state) {
   grid.innerHTML = ids.map(id => {
     const f = fontes[id];
     const falhando = (f.consecutive_failures || 0) > 0;
-    const estado = falhando ? 'bad' : (f.degraded ? 'warn' : 'ok');
-    const marca = falhando ? '🔴' : (f.degraded ? '🟡' : '🟢');
+    const truncado = !!(f.truncado && f.truncado.length);
+    const estado = falhando ? 'bad' : ((f.degraded || truncado) ? 'warn' : 'ok');
+    const marca = falhando ? '🔴' : ((f.degraded || truncado) ? '🟡' : '🟢');
     let meta;
     if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s)<br>${esc(f.last_error || 'erro desconhecido')}`;
     else if (f.degraded) meta = `Modo degradado — extração vazia<br>OK em ${esc(f.last_ok || '—')}`;
+    else if (f.truncado && f.truncado.length) meta = `${f.item_count ?? 0} itens — <b>busca truncada</b><br>${esc(f.truncado.join('; ')).slice(0,90)}`;
     else               meta = `${f.item_count ?? 0} itens acompanhados<br>OK em ${esc(f.last_ok || '—')}`;
     return `<div class="src-card ${estado}"><div class="src-name">${marca} ${esc(f.label || id)}</div><div class="src-meta">${meta}</div></div>`;
   }).join('');
