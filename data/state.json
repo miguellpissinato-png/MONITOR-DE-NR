@@ -1,7 +1,7 @@
 {
-  "schema_version": 4,
-  "last_check": "16/09/2026 14:21",
-  "last_success": "2026-09-16T14:21:56.399743-03:00",
+  "schema_version": 5,
+  "last_check": "16/09/2026 14:49",
+  "last_success": "2026-09-16T14:49:37.093093-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "16/09/2026 14:21",
+      "last_ok": "16/09/2026 14:49",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -35,7 +35,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "16/09/2026 14:21",
+      "last_ok": "16/09/2026 14:49",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -85,7 +85,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "16/09/2026 14:21",
+      "last_ok": "16/09/2026 14:49",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -100,7 +100,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "16/09/2026 14:21",
+      "last_ok": "16/09/2026 14:49",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -126,6 +126,91 @@
         "1c379f89860275fd"
       ],
       "truncado": null
+    },
+    "dou_ambiental": {
+      "label": "Diário Oficial da União — ambiental",
+      "critical": true,
+      "last_ok": "16/09/2026 14:49",
+      "last_error": null,
+      "consecutive_failures": 0,
+      "degraded": false,
+      "item_count": 5,
+      "truncado": null,
+      "known_ids": [
+        "3db450fd53c3c80e",
+        "9ac216c17d2cb7cd",
+        "017b2afddb1844d1",
+        "aa719b7a3213b67b",
+        "5b097dfa820e1171"
+      ]
+    },
+    "mma_legislacao": {
+      "label": "Legislação ambiental — MMA",
+      "critical": false,
+      "last_ok": "16/09/2026 14:49",
+      "last_error": null,
+      "consecutive_failures": 0,
+      "degraded": true,
+      "item_count": 1,
+      "truncado": null,
+      "known_ids": [
+        "pagehash_506727c05037"
+      ]
+    },
+    "conama_atos": {
+      "label": "Atos normativos — CONAMA",
+      "critical": false,
+      "last_ok": "16/09/2026 14:49",
+      "last_error": null,
+      "consecutive_failures": 0,
+      "degraded": false,
+      "item_count": 6,
+      "truncado": null,
+      "known_ids": [
+        "57b7330c3c14b555",
+        "df15f80505337ef9",
+        "f5b0e50999e2f67a",
+        "c073e02c608b68af",
+        "1690110d22170251",
+        "5b8d62823422b24c"
+      ]
+    },
+    "ipaam_legislacao": {
+      "label": "Legislação ambiental — IPAAM (AM)",
+      "critical": false,
+      "last_ok": "16/09/2026 14:49",
+      "last_error": null,
+      "consecutive_failures": 0,
+      "degraded": false,
+      "item_count": 25,
+      "truncado": null,
+      "known_ids": [
+        "0d0a1ad28ed84bf4",
+        "c88a283ace516724",
+        "040596df158837fc",
+        "bf6d3ad6dabd466d",
+        "3cdc560bc8faf00f",
+        "15561555ea7e885a",
+        "d027eae6ddcb669b",
+        "f486692c1cc2beec",
+        "2ef5388134e0a533",
+        "24421843abdf3fe8",
+        "e2e81f75b67bf420",
+        "9e50464d1b0e95ed",
+        "b1f6cee5f777250b",
+        "1f4d5f864556f560",
+        "e9f5a4a82002d136",
+        "83c20da7eebf0255",
+        "7a374ac7acd938e7",
+        "8979060896076a23",
+        "cb29de31e368c397",
+        "7c27a22ac2196ca7",
+        "4051e34df311abc6",
+        "2c2273c93d65982b",
+        "6f1b97d7a88fdae4",
+        "1f7997b4c0dd6d59",
+        "32d174d2fa32be26"
+      ]
     }
   },
   "publicacoes_recentes": [
@@ -145,7 +230,8 @@
         "Ministério do Trabalho",
         "MTE"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_ca7e4ab88bb64044",
@@ -163,7 +249,8 @@
         "NR-13",
         "Ministério do Trabalho"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_2673c1d26519d13c",
@@ -178,7 +265,8 @@
       "ementa": "com as seguintes alterações: \"Estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento para aquisição dos itens de que trata o art. ... \"Art. 1º Esta Resolução estabelece as definições, os encargos financeiros, as condições e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento reembolsável a profissionais de transporte remunerado",
       "prioridade": "baixa",
       "termos": [],
-      "relevante": false
+      "relevante": false,
+      "eixo": "sst"
     }
   ],
   "recent_changes": [
@@ -198,7 +286,8 @@
         "Ministério do Trabalho",
         "MTE"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_ca7e4ab88bb64044",
@@ -216,7 +305,8 @@
         "NR-13",
         "Ministério do Trabalho"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_2673c1d26519d13c",
@@ -231,7 +321,8 @@
       "ementa": "com as seguintes alterações: \"Estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento para aquisição dos itens de que trata o art. ... \"Art. 1º Esta Resolução estabelece as definições, os encargos financeiros, as condições e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento reembolsável a profissionais de transporte remunerado",
       "prioridade": "baixa",
       "termos": [],
-      "relevante": false
+      "relevante": false,
+      "eixo": "sst"
     }
   ],
   "history": [
@@ -248,7 +339,8 @@
       "termos": [
         "MTE"
       ],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_194c320be89f64f2",
@@ -261,7 +353,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_2796a6546033aedf",
@@ -274,7 +367,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_607e1a908b42542b",
@@ -287,7 +381,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_68a35f26800d1f54",
@@ -300,7 +395,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_f2daba1e0845d5d5",
@@ -313,7 +409,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_9ad8586fda97769a",
@@ -326,7 +423,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_ff6329457b4a749d",
@@ -339,7 +437,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_8cf7c4d5a3ddeaec",
@@ -352,7 +451,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "ambiental"
     },
     {
       "id": "dou_sst_c03740597dec9772",
@@ -365,7 +465,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_cab0d5711041043f",
@@ -378,7 +479,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_5d20001f35105575",
@@ -391,7 +493,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_14088cfc9732cccf",
@@ -404,7 +507,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_6d8165ae1a4d21d9",
@@ -417,7 +521,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_683375c916d73422",
@@ -430,7 +535,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_b7a31dc0db7c9f3c",
@@ -443,7 +549,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_86bf0eee86991f42",
@@ -456,7 +563,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_61cf1f6b92be134e",
@@ -469,7 +577,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_cc8751a6104e74cf",
@@ -482,7 +591,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_503fe5f14d7b724d",
@@ -495,7 +605,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_04a66e6823f93eb7",
@@ -508,7 +619,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "ambiental"
     },
     {
       "id": "dou_sst_c803336533ee4c5a",
@@ -521,7 +633,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_3e1e28fa554214c5",
@@ -534,7 +647,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_194eed0af64226e4",
@@ -547,7 +661,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_117b570e9070183e",
@@ -560,7 +675,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_3f376b04ea4f69a2",
@@ -573,7 +689,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_7c171becf9309b0a",
@@ -586,7 +703,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_b761baaa48ef1348",
@@ -599,7 +717,8 @@
       "tipo": "DOU",
       "prioridade": "baixa",
       "termos": [],
-      "triagem_limitada": true
+      "triagem_limitada": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_162f366ef9935eb0",
@@ -614,7 +733,8 @@
       "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
       "prioridade": "baixa",
       "termos": [],
-      "relevante": false
+      "relevante": false,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_da15fcfacf1dcfab",
@@ -632,7 +752,8 @@
         "Ministério do Trabalho",
         "MTE"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_ca7e4ab88bb64044",
@@ -650,7 +771,8 @@
         "NR-13",
         "Ministério do Trabalho"
       ],
-      "relevante": true
+      "relevante": true,
+      "eixo": "sst"
     },
     {
       "id": "dou_sst_2673c1d26519d13c",
@@ -665,12 +787,13 @@
       "ementa": "com as seguintes alterações: \"Estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento para aquisição dos itens de que trata o art. ... \"Art. 1º Esta Resolução estabelece as definições, os encargos financeiros, as condições e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento reembolsável a profissionais de transporte remunerado",
       "prioridade": "baixa",
       "termos": [],
-      "relevante": false
+      "relevante": false,
+      "eixo": "sst"
     }
   ],
-  "last_check_iso": "2026-09-16T14:21:56.399743-03:00",
-  "sources_ok": 4,
-  "sources_total": 4,
+  "last_check_iso": "2026-09-16T14:49:37.093093-03:00",
+  "sources_ok": 8,
+  "sources_total": 8,
   "failures": [],
   "nrs": [
     {
