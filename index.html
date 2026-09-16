@@ -150,6 +150,28 @@
     details.prio-baixa summary:hover { color:rgba(255,255,255,0.8); }
     details.prio-baixa summary::before { content:'▸ '; }
     details.prio-baixa[open] summary::before { content:'▾ '; }
+    .prio-hdr.ambiental { color:#66bb6a; }
+
+    /* Eixo temático: SST x Ambiental. É ortogonal à prioridade — diz a
+       disciplina, não a ordem de leitura. */
+    .pub-eixo { display:inline-block; font-size:8.5px; font-weight:700; padding:2px 6px;
+                border-radius:4px; font-family:var(--font-mono); letter-spacing:.5px;
+                text-transform:uppercase; white-space:nowrap; }
+    .eixo-ambiental { background:rgba(102,187,106,0.15); color:#66bb6a;
+                      border:1px solid rgba(102,187,106,0.35); }
+    .eixo-ambos     { background:rgba(171,71,188,0.15); color:#ce93d8;
+                      border:1px solid rgba(171,71,188,0.35); }
+    .tipo-ambiental { background:rgba(102,187,106,0.15); color:#66bb6a;
+                      border:1px solid rgba(102,187,106,0.3); }
+    .eixo-filtro { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 12px; }
+    .eixo-chip { font-family:var(--font-mono); font-size:10.5px; padding:4px 10px;
+                 border-radius:99px; cursor:pointer; background:rgba(255,255,255,0.06);
+                 border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.65); }
+    .eixo-chip:hover  { color:#fff; border-color:rgba(255,255,255,0.3); }
+    .eixo-chip.active { background:rgba(255,255,255,0.16); color:#fff;
+                        border-color:rgba(255,255,255,0.4); }
+    .eixo-vazio { font-family:var(--font-mono); font-size:11px; line-height:1.6;
+                  color:rgba(255,255,255,0.5); padding:10px 0; }
     .termo-tag { display:inline-block; font-size:9px; padding:1px 6px; border-radius:4px;
                  background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.55);
                  margin-right:4px; font-family:var(--font-mono); }
@@ -448,6 +470,13 @@ const BASE_NR = 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao
 // fixa aqui, que não derivava da oficial: se o MTE publicasse uma NR nova, o
 // monitor detectaria a mudança e o painel continuaria listando as antigas.
 let ALL_NRS = [];
+// Filtro de eixo do painel de recentes. Vive no cliente: é preferência de
+// leitura, não estado do monitoramento.
+let EIXO_FILTRO = 'todos';
+function setEixoFiltro(v) {
+  EIXO_FILTRO = v;
+  if (window.__ultimoEstado) renderUI(window.__ultimoEstado);
+}
 
 // ─── Utilitários ─────────────────────────────────────────────────────────────
 function esc(s) {
@@ -472,13 +501,27 @@ function tagsTermos(pub) {
     t.slice(0,5).map(x => `<span class="termo-tag">${esc(x)}</span>`).join('') + `</div>`;
 }
 
+// Rótulo do tipo. 'AMBIENTAL' nasceu com as fontes de meio ambiente; os demais
+// continuam como antes para não reescrever o histórico já gravado.
+const TIPOS = {
+  DOU:       ['tipo-dou', 'DOU'],
+  AMBIENTAL: ['tipo-ambiental', 'AMB'],
+  NBR:       ['tipo-mte', 'NBR'],
+};
+
 function renderPub(pub) {
-  const tipoCls = pub.tipo === 'DOU' ? 'tipo-dou' : 'tipo-mte';
-  const tipoLabel = pub.tipo === 'DOU' ? 'DOU' : 'MTE';
+  const [tipoCls, tipoLabel] = TIPOS[pub.tipo] || ['tipo-mte', 'MTE'];
+  // O eixo é selo à parte: um ato pode ser DOU e ambiental ao mesmo tempo, e
+  // colapsar as duas coisas num rótulo só esconderia uma delas.
+  const eixo = pub.eixo === 'ambiental'
+    ? '<span class="pub-eixo eixo-ambiental">Ambiental</span>'
+    : (pub.eixo === 'ambos'
+        ? '<span class="pub-eixo eixo-ambos">SST + Ambiental</span>' : '');
   return `
     <li class="pub-item">
       <div class="pub-header">
         <span class="pub-tipo ${tipoCls}">${tipoLabel}</span>
+        ${eixo}
         <div class="pub-titulo">${esc(pub.titulo)}</div>
       </div>
       <div class="pub-meta">
@@ -489,7 +532,7 @@ function renderPub(pub) {
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
             <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-          Ver no DOU
+          ${pub.tipo === 'DOU' ? 'Ver no DOU' : 'Abrir publicação'}
         </a>
       </div>
       ${tagsTermos(pub)}
@@ -777,16 +820,46 @@ function renderUI(state) {
   document.getElementById('recentCount').textContent = `${recent.length} publicaç${recent.length !== 1 ? 'ões' : 'ão'} nos últimos 7 dias`;
   const recentContent = document.getElementById('recentContent');
 
-  const faixa = n => recent.filter(p => (p.prioridade || 'alta') === n);
+  // Filtro por eixo. Um item 'ambos' conta nas DUAS frentes de propósito: ele é
+  // mesmo as duas coisas, e deixá-lo fora de uma delas seria esconder de quem
+  // filtrou justamente por aquela disciplina.
+  const noEixo = p => {
+    if (EIXO_FILTRO === 'todos') return true;
+    const e = p.eixo || 'sst';
+    return e === EIXO_FILTRO || e === 'ambos';
+  };
+  const nSst = recent.filter(p => (p.eixo || 'sst') !== 'ambiental').length;
+  const nAmb = recent.filter(p => ['ambiental', 'ambos'].includes(p.eixo)).length;
+  const visiveis = recent.filter(noEixo);
+
+  const faixa = n => visiveis.filter(p => (p.prioridade || 'alta') === n);
   const alta = faixa('alta'), possivel = faixa('possivel'), baixa = faixa('baixa');
 
+  const chip = (id, rot, n) =>
+    `<button class="eixo-chip${EIXO_FILTRO === id ? ' active' : ''}" onclick="setEixoFiltro('${id}')">${rot} (${n})</button>`;
+  const chips = `<div class="eixo-filtro">${chip('todos', 'Tudo', recent.length)}${chip('sst', 'SST', nSst)}${chip('ambiental', 'Ambiental', nAmb)}</div>`;
+
   if (recent.length === 0) {
-    recentContent.innerHTML = `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhuma publicação nos últimos 7 dias</div><div class="empty-sub">O sistema monitora o DOU, o portal MTE e as normas técnicas diariamente.<br>Qualquer portaria, NR ou NBR nova aparecerá aqui no mesmo dia.</div></div>`;
+    recentContent.innerHTML = `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Nenhuma publicação nos últimos 7 dias</div><div class="empty-sub">O sistema monitora o DOU, o portal MTE, as normas técnicas e as fontes ambientais diariamente.<br>Qualquer portaria, NR, NBR ou resolução ambiental nova aparecerá aqui no mesmo dia.</div></div>`;
+  } else if (visiveis.length === 0) {
+    // "Nada neste eixo" e "nada detectado" são coisas diferentes, e o painel
+    // precisa dizer qual das duas é — o contrário é o falso negativo silencioso.
+    recentContent.innerHTML = chips + `<div class="eixo-vazio">Nenhuma das ${recent.length} publicação(ões) desta janela é deste eixo.<br>Isso não quer dizer que nada foi detectado — troque o filtro para ver as demais.</div>`;
   } else {
-    let html = '';
+    let html = chips;
     if (alta.length) {
-      html += `<div class="prio-hdr alta">● Prioridade alta <span class="prio-n">— ${alta.length} item(ns), tema direto de SST</span></div>`;
-      html += `<ul class="pub-list">${alta.map(renderPub).join('')}</ul>`;
+      // Dentro da prioridade alta, SST e ambiental ganham faixas próprias: são
+      // disciplinas distintas, com responsáveis e prazos distintos.
+      const altaSst = alta.filter(p => (p.eixo || 'sst') !== 'ambiental');
+      const altaAmb = alta.filter(p => p.eixo === 'ambiental');
+      if (altaSst.length) {
+        html += `<div class="prio-hdr alta">● Prioridade alta — SST <span class="prio-n">— ${altaSst.length} item(ns), tema direto de segurança e saúde</span></div>`;
+        html += `<ul class="pub-list">${altaSst.map(renderPub).join('')}</ul>`;
+      }
+      if (altaAmb.length) {
+        html += `<div class="prio-hdr ambiental">● Prioridade alta — Ambiental <span class="prio-n">— ${altaAmb.length} item(ns), licenciamento, resíduos, efluentes, emissões</span></div>`;
+        html += `<ul class="pub-list">${altaAmb.map(renderPub).join('')}</ul>`;
+      }
     }
     if (possivel.length) {
       html += `<div class="prio-hdr possivel">○ Possível relevância <span class="prio-n">— ${possivel.length} item(ns), tema EHS adjacente</span></div>`;

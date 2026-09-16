@@ -1,8 +1,9 @@
-# Monitor de NR — Segurança e Saúde no Trabalho
+# Monitor de NR — Segurança, Saúde no Trabalho e Meio Ambiente
 
-Monitora fontes oficiais e avisa, no painel, quando algo que a área de SST
+Monitora fontes oficiais e avisa, no painel, quando algo que a área de EHS
 precisa cumprir muda: portarias do MTE, Normas Regulamentadoras, publicações
-do Diário Oficial da União e normas técnicas.
+do Diário Oficial da União, normas técnicas e normas ambientais (CONAMA,
+MMA, IBAMA e o licenciamento estadual do Amazonas).
 
 - **Painel:** `index.html` (HTML estático, servido pelo GitHub Pages)
 - **Coletor:** `scripts/check_nr.py` (Python 3.11, só biblioteca padrão)
@@ -77,6 +78,24 @@ curl -X POST \
 Mesmo que o agendador externo falhe, o banner de "desatualizado" avisa. As duas
 proteções são independentes de propósito.
 
+## Eixos: SST e ambiental
+
+Cada publicação recebe **prioridade** (`alta` / `possivel` / `baixa`, que define a
+ordem de leitura) e **eixo** (`sst`, `ambiental` ou `ambos`, que diz a disciplina).
+São coisas independentes de propósito: assim uma resolução CONAMA sobre efluente
+pode ser prioridade alta sem precisar entrar no vocabulário de SST, e as duas
+frentes convivem no painel sem uma rebaixar a outra.
+
+O eixo vem de dois vocabulários separados em `data/sources.json`
+(`termos_ambiental_alta` / `termos_ambiental_possivel`). Uma fonte pode declarar
+`"eixo": "ambiental"`; nesse caso a própria consulta conta como evidência, mas
+**soma** à evidência do texto em vez de substituí-la — um ato que fala de NR e EPI
+encontrado por uma busca ambiental vira `ambos`, nunca perde o lado de SST.
+
+Quando o mesmo ato do DOU é encontrado pela busca de SST **e** pela ambiental,
+as duas detecções são fundidas numa linha só, com o eixo promovido a `ambos` —
+em vez de aparecerem como duas publicações diferentes.
+
 ## Acrescentar uma fonte
 
 Edite `data/sources.json`:
@@ -97,6 +116,11 @@ Edite `data/sources.json`:
 - `item_pattern`: regex; só links cujo texto casar viram itens monitorados.
 - `critical`: `true` faz a execução falhar imediatamente se a fonte cair.
   `false` tolera até 3 falhas seguidas antes de alarmar.
+- `eixo`: `sst` (padrão) ou `ambiental`. Define o selo no painel e o filtro.
+
+Fonte nova cujo HTML você não conseguiu inspecionar deve nascer
+`critical: false`: enquanto a extração não for confirmada, um erro dela não
+pode derrubar o status do monitoramento inteiro.
 
 Na primeira execução a fonte registra um *baseline* e não gera alertas — a
 comparação começa da segunda em diante.
@@ -212,9 +236,15 @@ mudar; não acrescente dados identificáveis enquanto o repositório for públic
 
 - **Feriados nacionais** não são tratados: em feriado que caia em dia útil, o
   banner de desatualizado pode aparecer indevidamente.
-- **O botão "Verificar agora"** pede um token do GitHub e o guarda no
-  `localStorage` do navegador. Em um site público, use um token de escopo
-  mínimo (apenas este repositório) e evite usá-lo em computador compartilhado.
+- **Fontes ambientais em páginas HTML não foram validadas contra o site real.**
+  `mma_legislacao`, `conama_atos` e `ipaam_legislacao` nasceram `critical: false`
+  de propósito: o ambiente onde foram escritas não alcança esses domínios, então
+  a estrutura da página é suposição até a primeira execução real. Confira no log
+  quantos itens cada uma devolveu; zero item significa que o `item_pattern` ou a
+  URL precisam de ajuste, e a fonte cai em *modo degradado* em vez de mentir.
+- **O DOU é federal.** Resolução do CEMAAM ou norma municipal de Manaus **não**
+  saem no DOU — só chegam pelas fontes estaduais em página HTML, que são as menos
+  confiáveis do conjunto. O diário oficial do Amazonas não é monitorado.
 - **Relatórios são públicos** enquanto o repositório for público. Por isso o
   perfil das unidades não identifica a empresa. Para análises nomeando unidades
   e locais reais, o repositório precisa ser privado (GitHub Pages em repositório

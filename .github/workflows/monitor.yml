@@ -33,7 +33,13 @@ concurrency:
 jobs:
   monitor-sst:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Pior caso (toda fonte esgotando as 3 tentativas com backoff): 69s por
+    # fetch x 14 fetches = 16,1 min por passada, x2 passadas + 45s = 33 min.
+    # Execução normal leva ~1 min; a folga existe só para o dia em que o gov.br
+    # estiver fora do ar. Se o job for MORTO pelo timeout, o passo de gravação
+    # não roda e o painel congela com dado velho — por isso a margem.
+    # AO ACRESCENTAR FONTE, REFAÇA ESTA CONTA.
+    timeout-minutes: 40
 
     steps:
       - name: Checkout

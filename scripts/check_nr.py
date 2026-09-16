@@ -37,7 +37,7 @@ import urllib.request, urllib.error, urllib.parse
 from datetime import datetime, timezone, timedelta
 from html.parser import HTMLParser
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 BRASILIA = timezone(timedelta(hours=-3))
 
 def now_brasilia():
@@ -53,6 +53,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 # Uma falha isolada da ABNT não deve apagar o monitoramento do MTE, mas uma
 # fonte quebrada há dias precisa aparecer.
 NONCRITICAL_FAILURE_LIMIT = 3
+ORDEM_PRIO = {'alta': 2, 'possivel': 1, 'baixa': 0, None: 0}
 
 MAX_HISTORY = 500          # itens guardados no histórico do painel
 RECENT_WINDOW_DAYS = 7     # janela de "publicações recentes"
@@ -422,42 +423,80 @@ def save_state(state):
 def load_config():
     with open(SOURCES_FILE, 'r', encoding='utf-8') as f:
         cfg = json.load(f)
+    def compila(chave):
+        return [re.compile(t, re.IGNORECASE) for t in cfg.get(chave, [])]
     vocab = {
-        'alta':     [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_alta', [])],
-        'possivel': [re.compile(t, re.IGNORECASE) for t in cfg.get('termos_possivel', [])],
+        'alta':         compila('termos_alta'),
+        'possivel':     compila('termos_possivel'),
+        'amb_alta':     compila('termos_ambiental_alta'),
+        'amb_possivel': compila('termos_ambiental_possivel'),
     }
     return cfg['sources'], vocab
 
 
-def prioridade_sst(texto, vocab):
+def _grau(texto, fortes, fracos):
+    """'alta' | 'possivel' | None para um único eixo temático."""
+    if any(p.search(texto) for p in fortes):
+        return 'alta'
+    if any(p.search(texto) for p in fracos):
+        return 'possivel'
+    return None
+
+
+def classifica_item(texto, vocab):
     """
-    Ordena, não descarta.
+    Ordena, não descarta. Devolve (prioridade, eixo).
 
     Um vocabulário de palavras-chave sempre vai errar — a versão anterior,
     montada só com termos do MTE, barrava 10 de 10 atos de ANVISA, INMETRO,
     CONTRAN e INSS que geram adequação real. Por isso o resultado aqui não
     esconde nada: define apenas a ordem de leitura.
 
-      alta     — SST direto (NR, PGR, LTCAT, ASO, insalubridade, ergonomia...)
-      possivel — tema EHS adjacente (qualidade do ar, ruído, SPDA, eSocial...)
+      alta     — assunto direto do eixo (NR, PGR, ASO / CONAMA, efluente, licença)
+      possivel — tema adjacente que costuma gerar adequação
       baixa    — sem correspondência; vai recolhido para o fim, ainda clicável
+
+    O EIXO é ortogonal à prioridade e só diz de que disciplina o item trata:
+    'sst', 'ambiental' ou 'ambos'. Serve para o painel separar visualmente as
+    duas frentes sem rebaixar nenhuma — uma resolução CONAMA sobre efluente é
+    tão 'alta' quanto uma portaria de NR, apenas de outra natureza. Sem esse
+    eixo, o único jeito de destacar o ambiental seria empurrá-lo para dentro do
+    vocabulário de SST, e aí as duas listas se misturariam sem remédio.
 
     Falso negativo custa uma não-conformidade; falso positivo custa dez
     segundos de leitura. A assimetria decide o desenho.
     """
     if not vocab or not any(vocab.values()):
-        return 'alta'
-    if any(p.search(texto) for p in vocab.get('alta', [])):
-        return 'alta'
-    if any(p.search(texto) for p in vocab.get('possivel', [])):
-        return 'possivel'
-    return 'baixa'
+        return 'alta', 'sst'
+
+    g_sst = _grau(texto, vocab.get('alta', []), vocab.get('possivel', []))
+    g_amb = _grau(texto, vocab.get('amb_alta', []), vocab.get('amb_possivel', []))
+
+    if g_sst and g_amb:
+        eixo = 'ambos'
+    elif g_amb:
+        eixo = 'ambiental'
+    else:
+        eixo = 'sst'
+
+    # Prioridade = o mais forte entre os dois eixos. Um ato que é 'possivel' em
+    # SST e 'alta' em ambiental sobe como 'alta': rebaixá-lo pela média seria
+    # justamente esconder o que motivou incluir o eixo ambiental.
+    ordem = {'alta': 2, 'possivel': 1, None: 0}
+    prio = g_sst if ordem[g_sst] >= ordem[g_amb] else g_amb
+    return (prio or 'baixa'), eixo
+
+
+def prioridade_sst(texto, vocab):
+    """Compatibilidade: só a prioridade, sem o eixo."""
+    return classifica_item(texto, vocab)[0]
 
 
 def termos_encontrados(texto, vocab, limite=6):
     """Quais termos casaram — mostrado no painel para você poder calibrar."""
     achados = []
-    for p in vocab.get('alta', []) + vocab.get('possivel', []):
+    for p in (vocab.get('alta', []) + vocab.get('amb_alta', [])
+              + vocab.get('possivel', []) + vocab.get('amb_possivel', [])):
         m = p.search(texto)
         if m and m.group(0).strip():
             t = m.group(0).strip()
@@ -540,13 +579,25 @@ def processa_fonte(cfg, state, agora, vocab=None):
     for it in itens:
         if it['iid'] in conhecidos:
             continue
+        # O iid identifica o ato, independente de qual busca o achou — é o que
+        # permite reconhecê-lo quando duas fontes devolvem a mesma publicação.
+
         # Fontes do MTE/NR/ABNT já são específicas de SST por construção;
         # só o DOU, que é uma busca aberta no diário inteiro, precisa de triagem.
         alvo = ' '.join([it['titulo'], it.get('ementa', ''), it.get('orgao', '')])
         if cfg.get('kind') == 'dou_search':
-            prio = prioridade_sst(alvo, vocab or {})
+            prio, eixo = classifica_item(alvo, vocab or {})
+            # Numa busca declarada ambiental, a própria consulta é evidência do
+            # eixo. Mas ela SOMA à evidência do texto, não a substitui: um ato
+            # que fala de NR e EPI achado por "resíduos perigosos" é das duas
+            # disciplinas, e forçá-lo a 'ambiental' apagaria o lado de SST —
+            # exatamente o falso negativo que o eixo deveria evitar.
+            if cfg.get('eixo') == 'ambiental':
+                eixo = 'ambos' if eixo == 'sst' and prio != 'baixa' else \
+                       ('ambiental' if prio == 'baixa' else eixo)
         else:
-            prio = 'alta'   # MTE, índice NR e ABNT já são específicos por construção
+            prio = 'alta'   # MTE, índice NR, ABNT e páginas oficiais já são
+            eixo = cfg.get('eixo', 'sst')   # específicas por construção
         termos = termos_encontrados(alvo, vocab or {})
 
         novos.append({
@@ -560,7 +611,9 @@ def processa_fonte(cfg, state, agora, vocab=None):
             'tipo': cfg.get('tipo', 'MTE'),
             'orgao': it.get('orgao', ''),
             'ementa': it.get('ementa', ''),
+            'iid': it['iid'],
             'prioridade': prio,
+            'eixo': eixo,
             'termos': termos,
             'relevante': prio != 'baixa',
         })
@@ -603,12 +656,21 @@ def classifica_pendentes(state, vocab):
     ajustados = 0
     for lista in ('publicacoes_recentes', 'history'):
         for p in state.get(lista, []):
-            if 'prioridade' in p:
+            se_falta_prio = 'prioridade' not in p
+            # O eixo nasceu depois da prioridade. Preenchê-lo tem de ser uma
+            # condição separada, senão todo item já classificado ficaria para
+            # sempre sem eixo e o painel exibiria uma faixa ambiental vazia
+            # mesmo tendo itens ambientais no histórico.
+            se_falta_eixo = 'eixo' not in p
+            if not (se_falta_prio or se_falta_eixo):
                 continue
             alvo = ' '.join([p.get('titulo', ''), p.get('ementa', ''),
                              p.get('orgao', ''), p.get('fonte', '')])
-            p['prioridade'] = ('alta' if p.get('tipo') != 'DOU'
-                               else prioridade_sst(alvo, vocab))
+            prio, eixo = classifica_item(alvo, vocab)
+            if se_falta_prio:
+                p['prioridade'] = 'alta' if p.get('tipo') != 'DOU' else prio
+            if se_falta_eixo:
+                p['eixo'] = 'ambiental' if p.get('tipo') == 'AMBIENTAL' else eixo
             p.setdefault('termos', termos_encontrados(alvo, vocab))
             # Item anterior à coleta de ementa e órgão: só havia o título, e
             # título de ato do DOU raramente diz o assunto ("PORTARIA Nº 7.155,
@@ -624,7 +686,7 @@ def classifica_pendentes(state, vocab):
 def run_check():
     agora = now_brasilia()
     print("\n" + "=" * 65)
-    print(f"  Monitor SST v4 — {agora.strftime('%d/%m/%Y %H:%M')} (Brasília)")
+    print(f"  Monitor SST + Ambiental v5 — {agora.strftime('%d/%m/%Y %H:%M')} (Brasília)")
     print("=" * 65)
 
     state = load_state()
@@ -635,6 +697,7 @@ def run_check():
     vistos |= {p.get('id') for p in state.get('publicacoes_recentes', [])}
 
     novos_total, falhas_criticas, fontes_ok = [], [], 0
+    por_iid = {}   # ato do DOU -> entrada já criada, para fundir achados repetidos
 
     for cfg in fontes:
         novos, ok = processa_fonte(cfg, state, agora, vocab)
@@ -648,9 +711,28 @@ def run_check():
                     f"{cfg.get('label', cfg['id'])} ({seguidas}x seguidas): "
                     f"{saude.get('last_error')}")
         for p in novos:
-            if p['id'] not in vistos:
-                vistos.add(p['id'])
-                novos_total.append(p)
+            if p['id'] in vistos:
+                continue
+            # Um mesmo ato do DOU pode ser achado pela busca de SST E pela
+            # ambiental. Sem isto ele vira duas linhas no painel, e o leitor
+            # não tem como saber que é a mesma publicação. Em vez de descartar
+            # a segunda, FUNDE: a publicação passa a valer pelos dois eixos.
+            gemeo = por_iid.get(p.get('iid'))
+            if gemeo is not None:
+                if gemeo.get('eixo') != p.get('eixo'):
+                    gemeo['eixo'] = 'ambos'
+                if ORDEM_PRIO[p.get('prioridade')] > ORDEM_PRIO[gemeo.get('prioridade')]:
+                    gemeo['prioridade'] = p['prioridade']
+                    gemeo['relevante'] = p['prioridade'] != 'baixa'
+                for t in p.get('termos', []):
+                    if t not in gemeo.setdefault('termos', []):
+                        gemeo['termos'].append(t)
+                gemeo['fonte'] = f"{gemeo['fonte']} + {p['fonte']}"
+                continue
+            vistos.add(p['id'])
+            if p.get('iid'):
+                por_iid[p['iid']] = p
+            novos_total.append(p)
 
     state["last_check"] = agora.strftime('%d/%m/%Y %H:%M')
     state["last_check_iso"] = agora.isoformat()
@@ -696,10 +778,14 @@ def run_check():
           f"  (alta: {len(por_prio['alta'])},"
           f" possível: {len(por_prio['possivel'])},"
           f" baixa: {len(por_prio['baixa'])})")
+    amb = [p for p in novos_total if p.get('eixo') in ('ambiental', 'ambos')]
+    if amb:
+        print(f"  Destes, ambiental: {len(amb)}")
     for rot, marca in (('alta', '●'), ('possivel', '○'), ('baixa', '·')):
         for p in por_prio[rot]:
             termos = f"  [{', '.join(p.get('termos', [])[:3])}]" if p.get('termos') else ''
-            print(f"    {marca} [{p['tipo']}] {p['titulo'][:78]}{termos}")
+            selo = {'ambiental': ' {AMB}', 'ambos': ' {SST+AMB}'}.get(p.get('eixo'), '')
+            print(f"    {marca} [{p['tipo']}]{selo} {p['titulo'][:72]}{termos}")
     if falhas_criticas:
         print("  FALHAS:")
         for f in falhas_criticas:
