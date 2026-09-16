@@ -1,7 +1,7 @@
 {
   "schema_version": 4,
-  "last_check": "15/09/2026 14:23",
-  "last_success": "2026-09-15T14:23:04.587974-03:00",
+  "last_check": "16/09/2026 10:12",
+  "last_success": "2026-09-16T10:12:39.057960-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "15/09/2026 14:23",
+      "last_ok": "16/09/2026 10:12",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -35,7 +35,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "15/09/2026 14:23",
+      "last_ok": "16/09/2026 10:12",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -85,7 +85,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "15/09/2026 14:23",
+      "last_ok": "16/09/2026 10:12",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -100,7 +100,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "15/09/2026 14:23",
+      "last_ok": "16/09/2026 10:12",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -129,21 +129,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_162f366ef9935eb0",
-      "titulo": "RESOLUÇÃO ANATEL Nº 791, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-791-de-2-de-setembro-de-2026-730155743",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e medicina do trabalho\"",
-      "data": "2026-09-09",
-      "data_fmt": "09/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério das Comunicações/Agência Nacional de Telecomunicações/Conselho Diretor",
-      "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
-      "prioridade": "baixa",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_sst_da15fcfacf1dcfab",
       "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
@@ -197,21 +182,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_162f366ef9935eb0",
-      "titulo": "RESOLUÇÃO ANATEL Nº 791, DE 2 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-791-de-2-de-setembro-de-2026-730155743",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e medicina do trabalho\"",
-      "data": "2026-09-09",
-      "data_fmt": "09/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério das Comunicações/Agência Nacional de Telecomunicações/Conselho Diretor",
-      "ementa": "- aprovar propostas de Plano de Cargos e Salários, de Plano de Benefícios e Vantagens, de Plano de  Segurança  ... e  Medicina  do  Trabalho  e de Plano de Desenvolvimento de Recursos Humanos; LXI - aprovar o quadro degimento Interno da A...",
-      "prioridade": "baixa",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_sst_da15fcfacf1dcfab",
       "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
@@ -698,7 +668,7 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-09-15T14:23:04.587974-03:00",
+  "last_check_iso": "2026-09-16T10:12:39.057960-03:00",
   "sources_ok": 4,
   "sources_total": 4,
   "failures": [],
