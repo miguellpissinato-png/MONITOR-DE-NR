@@ -1,24 +1,27 @@
 {
   "schema_version": 5,
-  "last_check": "16/09/2026 14:49",
-  "last_success": "2026-09-16T14:49:37.093093-03:00",
-  "status": "Monitorando",
+  "last_check": "17/09/2026 10:59",
+  "last_success": "2026-09-17T10:59:28.132092-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 13,
+      "item_count": 16,
       "known_ids": [
         "e43535d5889ee599",
         "9c0bc1bd54d5dc79",
         "9330a3e631f14af5",
         "52c1c93b1f20b4f8",
+        "3cc875ab07d02cdc",
+        "83b0a24eac33015d",
+        "f75e18dd8b5408b2",
         "eb09e24d70fe00b2",
         "52347d4df9d87773",
         "8519191c69bf4fb3",
@@ -35,7 +38,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -85,14 +88,15 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 3,
+      "item_count": 4,
       "known_ids": [
         "2673c1d26519d13c",
         "ca7e4ab88bb64044",
+        "eb947b365ac1486c",
         "da15fcfacf1dcfab"
       ],
       "truncado": null
@@ -100,7 +104,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -130,37 +134,38 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 5,
+      "item_count": 6,
       "truncado": null,
       "known_ids": [
         "3db450fd53c3c80e",
         "9ac216c17d2cb7cd",
         "017b2afddb1844d1",
         "aa719b7a3213b67b",
-        "5b097dfa820e1171"
+        "5b097dfa820e1171",
+        "976696818fb944c7"
       ]
     },
     "mma_legislacao": {
       "label": "Legislação ambiental — MMA",
       "critical": false,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": true,
       "item_count": 1,
       "truncado": null,
       "known_ids": [
-        "pagehash_506727c05037"
+        "pagehash_1d312baf1716"
       ]
     },
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -178,7 +183,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "16/09/2026 14:49",
+      "last_ok": "17/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -215,25 +220,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_da15fcfacf1dcfab",
-      "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-1.596-de-9-de-setembro-de-2026-731064191",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-09-10",
-      "data_fmt": "10/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
-      "ementa": "e das obrigações legais aplicáveis às relações de trabalho; V - garantia de condições adequadas de  segurança  ... e  saúde no trabalho ; VI - combate às fraudes trabalhistas; VII - prevenção e erradicação do trabalho ... e programas governamentais de transferência de renda; VI - fomentar a adoção de medidas voltadas à  segurança  ... e  saúde no trabalho  em todas as atividades desenvolvidas em grandes eventos, incluindo as fases de promoção",
-      "prioridade": "alta",
-      "termos": [
-        "Ministério do Trabalho",
-        "MTE"
-      ],
-      "relevante": true,
-      "eixo": "sst"
-    },
-    {
       "id": "dou_sst_ca7e4ab88bb64044",
       "titulo": "RETIFICAÇÃO",
       "link": "https://www.in.gov.br/web/dou/-/retificacao-731351966",
@@ -267,29 +253,123 @@
       "termos": [],
       "relevante": false,
       "eixo": "sst"
+    },
+    {
+      "id": "mte_portarias_3cc875ab07d02cdc",
+      "titulo": "Portaria MTE nº 1.564 (Atualiza representantes SIT, FUNDACENTRO, CNC, CTB e CUT).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-564-atualiza-representantes-sit-fundacentro-cnc-ctb-e-cut.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "3cc875ab07d02cdc",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "MTE",
+        "SIT"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_83b0a24eac33015d",
+      "titulo": "Portaria MTE nº 1.590 (Alteração 24.2 - Instalações Sanitárias NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-590-alteracao-24-2-instalacoes-sanitarias-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "83b0a24eac33015d",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_f75e18dd8b5408b2",
+      "titulo": "Portaria MTE nº 1.591 (Anexo - Contêineres - NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-591-anexo-conteineres-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "f75e18dd8b5408b2",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_eb947b365ac1486c",
+      "titulo": "ATA Nº 153, DE 27 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-153-de-27-de-agosto-de-2026-732310706",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Defesa/Comando da Marinha/Amazônia Azul Tecnologias de Defesa S.A./Conselho de Administração",
+      "ementa": "contribuição da força de trabalho para os resultados institucionais, considerando aspectos como capacitação,  segurança  ... e  saúde no trabalho , clima organizacional e retenção de profissionais estratégicos.ATA Nº 153, DE 27 DE AGOSTO DE 2026 Aos vinte e sete dias do mês de agosto do ano ...",
+      "iid": "eb947b365ac1486c",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_976696818fb944c7",
+      "titulo": "PORTARIA MRE Nº 689, DE 16 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mre-n-689-de-16-de-setembro-de-2026-732326298",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos perigosos\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério das Relações Exteriores/Gabinete do Ministro",
+      "ementa": "para os seguintes foros: a) Convenção de Basileia sobre o Controle de Movimentos Transfronteiriços de  Resíduos  ...  Perigosos  e seu Depósito, bem como seus órgãos subsidiários; b) Convenção de Roterdã sobre o Procedimentova o Regimento Interno da Secretaria de Estado das Relações Exterior...",
+      "iid": "976696818fb944c7",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "mma_legislacao_pagehash_1d312baf1716",
+      "titulo": "Alteração detectada em: Legislação ambiental — MMA",
+      "link": "https://www.gov.br/mma/pt-br/centrais-de-conteudo/legislacao",
+      "fonte": "Legislação ambiental — MMA",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "",
+      "ementa": "",
+      "iid": "pagehash_1d312baf1716",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_da15fcfacf1dcfab",
-      "titulo": "PORTARIA MTE Nº 1.596, DE 9 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-1.596-de-9-de-setembro-de-2026-731064191",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-09-10",
-      "data_fmt": "10/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
-      "ementa": "e das obrigações legais aplicáveis às relações de trabalho; V - garantia de condições adequadas de  segurança  ... e  saúde no trabalho ; VI - combate às fraudes trabalhistas; VII - prevenção e erradicação do trabalho ... e programas governamentais de transferência de renda; VI - fomentar a adoção de medidas voltadas à  segurança  ... e  saúde no trabalho  em todas as atividades desenvolvidas em grandes eventos, incluindo as fases de promoção",
-      "prioridade": "alta",
-      "termos": [
-        "Ministério do Trabalho",
-        "MTE"
-      ],
-      "relevante": true,
-      "eixo": "sst"
-    },
-    {
       "id": "dou_sst_ca7e4ab88bb64044",
       "titulo": "RETIFICAÇÃO",
       "link": "https://www.in.gov.br/web/dou/-/retificacao-731351966",
@@ -323,6 +403,119 @@
       "termos": [],
       "relevante": false,
       "eixo": "sst"
+    },
+    {
+      "id": "mte_portarias_3cc875ab07d02cdc",
+      "titulo": "Portaria MTE nº 1.564 (Atualiza representantes SIT, FUNDACENTRO, CNC, CTB e CUT).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-564-atualiza-representantes-sit-fundacentro-cnc-ctb-e-cut.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "3cc875ab07d02cdc",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "MTE",
+        "SIT"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_83b0a24eac33015d",
+      "titulo": "Portaria MTE nº 1.590 (Alteração 24.2 - Instalações Sanitárias NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-590-alteracao-24-2-instalacoes-sanitarias-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "83b0a24eac33015d",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_f75e18dd8b5408b2",
+      "titulo": "Portaria MTE nº 1.591 (Anexo - Contêineres - NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-591-anexo-conteineres-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "f75e18dd8b5408b2",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_eb947b365ac1486c",
+      "titulo": "ATA Nº 153, DE 27 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-153-de-27-de-agosto-de-2026-732310706",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Defesa/Comando da Marinha/Amazônia Azul Tecnologias de Defesa S.A./Conselho de Administração",
+      "ementa": "contribuição da força de trabalho para os resultados institucionais, considerando aspectos como capacitação,  segurança  ... e  saúde no trabalho , clima organizacional e retenção de profissionais estratégicos.ATA Nº 153, DE 27 DE AGOSTO DE 2026 Aos vinte e sete dias do mês de agosto do ano ...",
+      "iid": "eb947b365ac1486c",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_976696818fb944c7",
+      "titulo": "PORTARIA MRE Nº 689, DE 16 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mre-n-689-de-16-de-setembro-de-2026-732326298",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos perigosos\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério das Relações Exteriores/Gabinete do Ministro",
+      "ementa": "para os seguintes foros: a) Convenção de Basileia sobre o Controle de Movimentos Transfronteiriços de  Resíduos  ...  Perigosos  e seu Depósito, bem como seus órgãos subsidiários; b) Convenção de Roterdã sobre o Procedimentova o Regimento Interno da Secretaria de Estado das Relações Exterior...",
+      "iid": "976696818fb944c7",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "mma_legislacao_pagehash_1d312baf1716",
+      "titulo": "Alteração detectada em: Legislação ambiental — MMA",
+      "link": "https://www.gov.br/mma/pt-br/centrais-de-conteudo/legislacao",
+      "fonte": "Legislação ambiental — MMA",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "",
+      "ementa": "",
+      "iid": "pagehash_1d312baf1716",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
   "history": [
@@ -789,9 +982,122 @@
       "termos": [],
       "relevante": false,
       "eixo": "sst"
+    },
+    {
+      "id": "mte_portarias_3cc875ab07d02cdc",
+      "titulo": "Portaria MTE nº 1.564 (Atualiza representantes SIT, FUNDACENTRO, CNC, CTB e CUT).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-564-atualiza-representantes-sit-fundacentro-cnc-ctb-e-cut.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "3cc875ab07d02cdc",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "MTE",
+        "SIT"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_83b0a24eac33015d",
+      "titulo": "Portaria MTE nº 1.590 (Alteração 24.2 - Instalações Sanitárias NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-590-alteracao-24-2-instalacoes-sanitarias-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "83b0a24eac33015d",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "mte_portarias_f75e18dd8b5408b2",
+      "titulo": "Portaria MTE nº 1.591 (Anexo - Contêineres - NR-24).pdf",
+      "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1/portaria-mte-no-1-591-anexo-conteineres-nr-24.pdf/view",
+      "fonte": "Portarias SST — MTE",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "MTE",
+      "orgao": "",
+      "ementa": "",
+      "iid": "f75e18dd8b5408b2",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "NR-24",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_eb947b365ac1486c",
+      "titulo": "ATA Nº 153, DE 27 DE AGOSTO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-153-de-27-de-agosto-de-2026-732310706",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Defesa/Comando da Marinha/Amazônia Azul Tecnologias de Defesa S.A./Conselho de Administração",
+      "ementa": "contribuição da força de trabalho para os resultados institucionais, considerando aspectos como capacitação,  segurança  ... e  saúde no trabalho , clima organizacional e retenção de profissionais estratégicos.ATA Nº 153, DE 27 DE AGOSTO DE 2026 Aos vinte e sete dias do mês de agosto do ano ...",
+      "iid": "eb947b365ac1486c",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_976696818fb944c7",
+      "titulo": "PORTARIA MRE Nº 689, DE 16 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mre-n-689-de-16-de-setembro-de-2026-732326298",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos perigosos\"",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério das Relações Exteriores/Gabinete do Ministro",
+      "ementa": "para os seguintes foros: a) Convenção de Basileia sobre o Controle de Movimentos Transfronteiriços de  Resíduos  ...  Perigosos  e seu Depósito, bem como seus órgãos subsidiários; b) Convenção de Roterdã sobre o Procedimentova o Regimento Interno da Secretaria de Estado das Relações Exterior...",
+      "iid": "976696818fb944c7",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "mma_legislacao_pagehash_1d312baf1716",
+      "titulo": "Alteração detectada em: Legislação ambiental — MMA",
+      "link": "https://www.gov.br/mma/pt-br/centrais-de-conteudo/legislacao",
+      "fonte": "Legislação ambiental — MMA",
+      "busca": "monitoramento estruturado",
+      "data": "2026-09-17",
+      "data_fmt": "17/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "",
+      "ementa": "",
+      "iid": "pagehash_1d312baf1716",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-09-16T14:49:37.093093-03:00",
+  "last_check_iso": "2026-09-17T10:59:28.132092-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
