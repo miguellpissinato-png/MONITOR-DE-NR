@@ -86,7 +86,8 @@
       "dataset": "legislacao-ambiental-brasileira",
       "formatos": [
         "CSV"
-      ]
+      ],
+      "baseline_reset": "2026-09-22-ckan"
     },
     {
       "id": "conama_atos",

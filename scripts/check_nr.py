@@ -648,13 +648,29 @@ def processa_fonte(cfg, state, agora, vocab=None):
     # encheria o painel de alarme falso justamente no dia do conserto. Detectar
     # a troca e registrar baseline de novo é o comportamento correto — e some
     # sozinho, porque o tipo passa a ficar gravado no estado.
+    #
+    # Detecção automática (rede de segurança para MUDANÇAS FUTURAS).
     kind_anterior = saude.get("kind")
-    trocou_de_coletor = kind_anterior is not None and kind_anterior != cfg.get('kind')
-    if trocou_de_coletor:
-        print(f"[coletor mudou: {kind_anterior} -> {cfg.get('kind')}; "
-              f"registrando baseline novo] ", end="", flush=True)
+    trocou = kind_anterior is not None and kind_anterior != cfg.get('kind')
+    #
+    # Marcador explícito. Ele existe porque a detecção automática acima NÃO
+    # pega a própria migração que a introduz: no estado gravado antes dela o
+    # campo "kind" simplesmente não existe, então kind_anterior é None e o
+    # desvio não dispara. Foi exatamente o que aconteceu na troca do MMA —
+    # os 6 arquivos entraram como publicações novas. Declarar o marcador na
+    # fonte é o jeito de dizer "eu mudei como esta fonte funciona; refaça o
+    # baseline uma vez", e vale para qualquer mudança futura de extração,
+    # não só de tipo de coletor.
+    marcador = cfg.get('baseline_reset')
+    if marcador and marcador != saude.get("baseline_reset"):
+        trocou = True
+    if trocou:
+        print(f"[extração mudou ({kind_anterior or 'sem registro'} -> "
+              f"{cfg.get('kind')}); registrando baseline novo] ", end="", flush=True)
         conhecidos = set()
     saude["kind"] = cfg.get('kind')
+    if marcador:
+        saude["baseline_reset"] = marcador
     primeira_vez = not conhecidos
 
     novos = []
