@@ -367,9 +367,73 @@ def collect_dou(cfg):
     return itens, False, saturadas
 
 
+def collect_ckan(cfg):
+    """
+    Lê um conjunto do portal de dados abertos (CKAN) em vez de raspar página.
+
+    Existe porque a página de legislação do MMA é um relatório do Power BI
+    embutido: o HTML tem 609 links e nenhum deles é uma norma — os dados só
+    aparecem depois que o JavaScript roda. Nenhum ajuste de padrão conserta
+    isso. O portal de dados abertos publica a MESMA base em CSV, com API
+    estável, e é dele que passamos a ler.
+
+    O evento monitorado é a publicação de uma nova versão da base. Isso é
+    ANUAL, não diário, e o painel precisa dizer isso: meses de silêncio aqui
+    são o comportamento correto da fonte, não falha do monitor. A defasagem
+    vai para `extra` e aparece no cartão — uma base velha exibida como "ok"
+    seria a mesma falsa garantia que estamos consertando.
+    """
+    base = cfg['ckan_base'].rstrip('/')
+    url = f"{base}/api/3/action/package_show?id={urllib.parse.quote(cfg['dataset'])}"
+    dados = json.loads(fetch(url))
+    if not dados.get('success'):
+        raise SourceError(f"CKAN respondeu success=false para {cfg['dataset']}")
+
+    pkg = dados['result']
+    recursos = [r for r in pkg.get('resources', [])
+                if not cfg.get('formatos')
+                or str(r.get('format', '')).upper() in
+                   [f.upper() for f in cfg['formatos']]]
+
+    itens = []
+    for r in recursos:
+        # A versão do recurso entra no id: substituir o arquivo de um ano sem
+        # renomeá-lo é uma atualização de verdade e precisa ser detectada.
+        versao = r.get('last_modified') or r.get('created') or ''
+        nome = str(r.get('name') or r.get('id') or '').strip()
+        if not nome:
+            continue
+        itens.append({
+            'iid': item_id(nome, f"{r.get('id','')}|{versao}"),
+            'titulo': nome[:300],
+            'link': r.get('url') or f"{base}/dataset/{cfg['dataset']}",
+            'ementa': (f"{r.get('format','?')} — versão de "
+                       f"{str(versao)[:10] or 'data não informada'}"),
+            'orgao': pkg.get('title', '')[:200],
+        })
+
+    if not itens:
+        # Sem recurso nenhum: o conjunto existe mas está vazio. Não fingimos
+        # que está tudo bem; cai em degradado como qualquer extração vazia.
+        return [], True, [], {}
+
+    atualizado = pkg.get('metadata_modified') or ''
+    extra = {'tipo': 'base_consolidada',
+             'cadencia': cfg.get('cadencia', 'irregular'),
+             'atualizado_em': atualizado[:10],
+             'recursos': len(itens)}
+    try:
+        quando = datetime.fromisoformat(atualizado.split('.')[0]).replace(tzinfo=BRASILIA)
+        extra['dias_desde_atualizacao'] = (now_brasilia() - quando).days
+    except (ValueError, TypeError):
+        pass
+    return itens, False, [], extra
+
+
 COLLECTORS = {
     'page_items': collect_page_items,
     'dou_search': collect_dou,
+    'ckan_dataset': collect_ckan,
 }
 
 
@@ -555,7 +619,12 @@ def processa_fonte(cfg, state, agora, vocab=None):
         return [], False
 
     try:
-        itens, degradado, avisos = coletor(cfg)
+        resultado = coletor(cfg)
+        # Coletores antigos devolvem 3 elementos; o de CKAN acrescenta um 4o
+        # com informação de saúde própria. Desempacotar tolerante evita ter
+        # de reescrever os outros coletores só por causa deste campo.
+        itens, degradado, avisos = resultado[:3]
+        extra = resultado[3] if len(resultado) > 3 else {}
     except SourceError as e:
         print(f"FALHA — {e}")
         saude["last_error"] = str(e)
@@ -571,8 +640,21 @@ def processa_fonte(cfg, state, agora, vocab=None):
     # Fica no estado para o painel mostrar — um limite silencioso seria a
     # pior forma de falhar numa ferramenta de compliance.
     saude["truncado"] = avisos or None
+    saude["extra"] = extra or None
 
     conhecidos = set(saude.get("known_ids", []))
+    # Trocar o tipo de coletor de uma fonte muda o formato dos identificadores:
+    # o baseline antigo não descreve mais nada e TODO item pareceria novo. Isso
+    # encheria o painel de alarme falso justamente no dia do conserto. Detectar
+    # a troca e registrar baseline de novo é o comportamento correto — e some
+    # sozinho, porque o tipo passa a ficar gravado no estado.
+    kind_anterior = saude.get("kind")
+    trocou_de_coletor = kind_anterior is not None and kind_anterior != cfg.get('kind')
+    if trocou_de_coletor:
+        print(f"[coletor mudou: {kind_anterior} -> {cfg.get('kind')}; "
+              f"registrando baseline novo] ", end="", flush=True)
+        conhecidos = set()
+    saude["kind"] = cfg.get('kind')
     primeira_vez = not conhecidos
 
     novos = []

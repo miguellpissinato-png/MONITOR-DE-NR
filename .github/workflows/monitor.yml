@@ -56,6 +56,10 @@ jobs:
         if: ${{ !inputs.dry_run }}
         run: pip install --quiet anthropic reportlab
 
+      # TEMPORÁRIO — amostra do cadastro do MMA. Remover depois.
+      - name: Amostra MMA
+        run: python scripts/_amostra_mma.py
+
       - name: Executar monitoramento
         id: monitor
         run: |

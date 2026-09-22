@@ -75,14 +75,18 @@
     },
     {
       "id": "mma_legislacao",
-      "label": "Legislação ambiental — MMA",
-      "kind": "page_items",
+      "label": "Legislação ambiental — base do MMA",
+      "kind": "ckan_dataset",
       "tipo": "AMBIENTAL",
       "eixo": "ambiental",
       "critical": false,
-      "_comment": "Painel de legislação do MMA. Estrutura NÃO verificada (o ambiente de desenvolvimento não alcança gov.br). Entra como não-crítica até a primeira execução real confirmar que a extração devolve itens.",
-      "url": "https://www.gov.br/mma/pt-br/centrais-de-conteudo/legislacao",
-      "item_pattern": "resolu\\u00e7\\u00e3o|portaria|instru\\u00e7\\u00e3o normativa|decreto|lei n"
+      "cadencia": "anual",
+      "_comment": "A página https://www.gov.br/mma/pt-br/centrais-de-conteudo/legislacao NÃO é raspável: o conteúdo vive num iframe do Power BI (app.powerbi.com/view?r=...) montado por JavaScript. Verificado em 22/09/2026: 609 links no HTML, ZERO normas. Lemos o portal de dados abertos, que publica a mesma base em CSV. Cadência ANUAL: silêncio de meses aqui é o comportamento certo da fonte, não falha — o painel mostra a defasagem para isso ficar explícito.",
+      "ckan_base": "https://dados.mma.gov.br",
+      "dataset": "legislacao-ambiental-brasileira",
+      "formatos": [
+        "CSV"
+      ]
     },
     {
       "id": "conama_atos",

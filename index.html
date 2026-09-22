@@ -734,6 +734,25 @@ function renderHealth(state) {
     if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s)<br>${esc(f.last_error || 'erro desconhecido')}`;
     else if (f.degraded) meta = `Modo degradado — extração vazia<br>OK em ${esc(f.last_ok || '—')}`;
     else if (f.truncado && f.truncado.length) meta = `${f.item_count ?? 0} itens — <b>busca truncada</b><br>${esc(f.truncado.join('; ')).slice(0,90)}`;
+    else if (f.extra && f.extra.tipo === 'base_consolidada') {
+      // Base consolidada não é fonte de alerta diário: ela é republicada de
+      // tempos em tempos. Silêncio aqui é o comportamento certo da fonte, mas
+      // o painel tem de dizer DE QUANDO é o dado — uma base de um ano atrás
+      // exibida apenas como "ok" seria a mesma falsa garantia de sempre.
+      // Duas perguntas diferentes, e antes elas estavam coladas numa só:
+      // "que idade tem o dado" (sempre mostrar) e "a fonte furou o ciclo de
+      // publicação" (sinalizar). Uma base anual com 364 dias está no prazo e
+      // não deve alarmar; com 500, um ciclo inteiro foi pulado.
+      const d = f.extra.dias_desde_atualizacao;
+      const limite = { anual: 450, semestral: 240, mensal: 45 }[f.extra.cadencia];
+      const atrasada = limite != null && d != null && d > limite;
+      const quanto = (d == null) ? '' : (d >= 60 ? `há ${Math.floor(d/30)} meses` : `há ${d} dia(s)`);
+      const idade = !quanto ? '' :
+        (atrasada ? ` — <b style="color:#ffa726">${quanto}, ciclo de publicação vencido</b>`
+                  : ` — ${quanto}`);
+      meta = `Base consolidada, atualização ${esc(f.extra.cadencia || 'irregular')}`
+           + `<br>${f.extra.recursos ?? 0} arquivo(s) · versão de ${esc(f.extra.atualizado_em || '—')}${idade}`;
+    }
     else               meta = `${f.item_count ?? 0} itens acompanhados<br>OK em ${esc(f.last_ok || '—')}`;
     return `<div class="src-card ${estado}"><div class="src-name">${marca} ${esc(f.label || id)}</div><div class="src-meta">${meta}</div></div>`;
   }).join('');
