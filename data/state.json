@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "22/09/2026 14:25",
-  "last_success": "2026-09-22T14:25:01.701995-03:00",
-  "status": "Monitorando",
+  "last_check": "23/09/2026 10:59",
+  "last_success": "2026-09-23T10:59:25.172325-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -38,7 +38,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -88,21 +88,21 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
       "item_count": 2,
       "known_ids": [
-        "2673c1d26519d13c",
-        "eb947b365ac1486c"
+        "eb947b365ac1486c",
+        "6f778ba164386b7b"
       ],
       "truncado": null
     },
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -132,7 +132,7 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -141,7 +141,7 @@
       "known_ids": [
         "227221e6453913a3",
         "9100c777766685b6",
-        "3db450fd53c3c80e",
+        "a1376de82accede2",
         "fb134fb714d6d00f",
         "017b2afddb1844d1",
         "976696818fb944c7"
@@ -150,7 +150,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — MMA",
       "critical": false,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": true,
@@ -163,7 +163,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -181,7 +181,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "22/09/2026 14:25",
+      "last_ok": "23/09/2026 10:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -406,6 +406,42 @@
         "ambiental"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_6f778ba164386b7b",
+      "titulo": "PORTARIA SOF/MPO Nº 420, DE 22 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sof/mpo-n-420-de-22-de-setembro-de-2026-733484242",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Planejamento e Orçamento/Secretaria de Orçamento Federal/Subsecretaria de Gestão Orçamentária",
+      "ementa": "ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO I Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( ACRÉSCIMO ) Recurso ... ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO II Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( REDUÇÃO ) Recurso",
+      "iid": "6f778ba164386b7b",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Ministério do Trabalho"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_a1376de82accede2",
+      "titulo": "ATA Nº 31, DE 15 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-31-de-15-de-setembro-de-2026-733475372",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "a Funasa e o Município de Tanguá/RJ, e que tinha por objeto o instrumento descrito como \"SISTEMA DE  RESÍDUOS  ...  SÓLIDOS ; Os Ministros do Tribunal de Contas da União, reunidos em Sessão da Primeira Câmara, ACORDAMBRO DE 2026 (Sessão Ordinária da Primeira Câmara) Presidente: Ministro Walt...",
+      "iid": "a1376de82accede2",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
     }
   ],
   "recent_changes": [
@@ -598,6 +634,42 @@
         "ambiental"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_6f778ba164386b7b",
+      "titulo": "PORTARIA SOF/MPO Nº 420, DE 22 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sof/mpo-n-420-de-22-de-setembro-de-2026-733484242",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Planejamento e Orçamento/Secretaria de Orçamento Federal/Subsecretaria de Gestão Orçamentária",
+      "ementa": "ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO I Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( ACRÉSCIMO ) Recurso ... ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO II Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( REDUÇÃO ) Recurso",
+      "iid": "6f778ba164386b7b",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Ministério do Trabalho"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_a1376de82accede2",
+      "titulo": "ATA Nº 31, DE 15 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-31-de-15-de-setembro-de-2026-733475372",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "a Funasa e o Município de Tanguá/RJ, e que tinha por objeto o instrumento descrito como \"SISTEMA DE  RESÍDUOS  ...  SÓLIDOS ; Os Ministros do Tribunal de Contas da União, reunidos em Sessão da Primeira Câmara, ACORDAMBRO DE 2026 (Sessão Ordinária da Primeira Câmara) Presidente: Ministro Walt...",
+      "iid": "a1376de82accede2",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
     }
   ],
   "history": [
@@ -1254,9 +1326,45 @@
         "ambiental"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_6f778ba164386b7b",
+      "titulo": "PORTARIA SOF/MPO Nº 420, DE 22 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sof/mpo-n-420-de-22-de-setembro-de-2026-733484242",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Planejamento e Orçamento/Secretaria de Orçamento Federal/Subsecretaria de Gestão Orçamentária",
+      "ementa": "ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO I Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( ACRÉSCIMO ) Recurso ... ÓRGÃO: 40000 - Ministério do Trabalho e Emprego UNIDADE: 40203 - Fundação Jorge Duprat Figueiredo de  Segurança  ... e  Medicina  do  Trabalho  ANEXO II Outras Alterações Orçamentárias PROGRAMA DE TRABALHO ( REDUÇÃO ) Recurso",
+      "iid": "6f778ba164386b7b",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Ministério do Trabalho"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_a1376de82accede2",
+      "titulo": "ATA Nº 31, DE 15 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-31-de-15-de-setembro-de-2026-733475372",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-09-23",
+      "data_fmt": "23/09/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "a Funasa e o Município de Tanguá/RJ, e que tinha por objeto o instrumento descrito como \"SISTEMA DE  RESÍDUOS  ...  SÓLIDOS ; Os Ministros do Tribunal de Contas da União, reunidos em Sessão da Primeira Câmara, ACORDAMBRO DE 2026 (Sessão Ordinária da Primeira Câmara) Presidente: Ministro Walt...",
+      "iid": "a1376de82accede2",
+      "prioridade": "baixa",
+      "eixo": "ambiental",
+      "termos": [],
+      "relevante": false
     }
   ],
-  "last_check_iso": "2026-09-22T14:25:01.701995-03:00",
+  "last_check_iso": "2026-09-23T10:59:25.172325-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
