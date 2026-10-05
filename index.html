@@ -3,37 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitor SST — Segurança e Saúde no Trabalho</title>
+  <title>Monitor de Normas — SST e Meio Ambiente</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Sistema visual herdado do SESMT ELSYS Hub (direção "dark high-tech
+       corporate"): preto #070809, grafite #15171A, azul elétrico #2F9BFF,
+       texto #F4F7FA, Sora nos títulos e Manrope no corpo. Cantos retos,
+       bordas de 1px e malha técnica no fundo.
+       Os nomes --white-90/70/40/20 e --glow-2 foram mantidos porque o HTML e o
+       JavaScript já os referenciam inline; trocar o nome quebraria a tela. */
     :root {
-      --bg-deep:      #020c1b;
-      --glow-2:       #2196f3;
-      --glass-bg:     rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.10);
-      --glass-hover:  rgba(255,255,255,0.07);
-      --white:        #ffffff;
-      --white-90:     rgba(255,255,255,0.90);
-      --white-70:     rgba(255,255,255,0.70);
-      --white-40:     rgba(255,255,255,0.40);
-      --white-20:     rgba(255,255,255,0.20);
-      --green:        #00e676;
-      --green-dim:    rgba(0,230,118,0.15);
+      --bg-deep:      #070809;
+      --surface:      #15171A;
+      --surface-2:    #101215;
+      --glow-2:       #2F9BFF;
+      --glow-deep:    #1366c4;
+      --glass-bg:     rgba(21,23,26,0.72);
+      --glass-border: rgba(244,247,250,0.11);
+      --glass-hover:  rgba(47,155,255,0.07);
+      --white:        #F4F7FA;
+      --white-90:     rgba(244,247,250,0.92);
+      --white-70:     rgba(244,247,250,0.70);
+      --white-40:     rgba(244,247,250,0.46);
+      --white-20:     rgba(244,247,250,0.24);
+      --green:        #35d08a;
+      --green-dim:    rgba(53,208,138,0.14);
       --amber:        #ffa726;
-      --amber-dim:    rgba(255,167,38,0.15);
+      --amber-dim:    rgba(255,167,38,0.14);
       --red:          #ef5350;
-      --red-dim:      rgba(239,83,80,0.15);
-      --font-sans:    'Inter', system-ui, sans-serif;
-      --font-mono:    'JetBrains Mono', monospace;
-      --radius-sm:    8px;
-      --radius-md:    14px;
-      --radius-lg:    20px;
-      --transition:   0.25s cubic-bezier(0.4,0,0.2,1);
+      --red-dim:      rgba(239,83,80,0.14);
+      --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+      --font-sans:    'Manrope', ui-sans-serif, system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+      /* Cantos retos são parte da identidade: o raio existe só para os
+         elementos que precisam de pílula (chips, selos). */
+      --radius-sm:    2px;
+      --radius-md:    2px;
+      --radius-lg:    2px;
+      --grid-line:    rgba(244,247,250,0.035);
+      --grid-glow:    rgba(47,155,255,0.42);
+      --transition:   0.3s cubic-bezier(0.22,1,0.36,1);
+      --eyebrow:      600 11px/1 var(--font-sans);
     }
 
     html { scroll-behavior: smooth; }
@@ -44,275 +59,400 @@
       color: var(--white-90);
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(13,59,140,0.55) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 70% at 90% 80%, rgba(26,90,173,0.45) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(10,42,94,0.40) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
+    h1, h2, h3 { font-family: var(--font-display); }
 
-    body::after {
-      content: '';
-      position: fixed; inset: 0;
+    /* Fundo técnico: malha fixa discreta + realce azul localizado que segue o
+       cursor (a camada .grid-spot recebe --mx/--my do script no fim da página). */
+    .bg-tech { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--bg-deep); }
+    .bg-tech > div { position: absolute; inset: 0; }
+    .grid-base {
       background-image:
-        linear-gradient(rgba(33,150,243,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(33,150,243,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none; z-index: 0;
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .grid-spot {
+      background-image:
+        linear-gradient(to right, var(--grid-glow) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-glow) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity: var(--spot, 0);
+      transition: opacity 0.5s ease;
+      -webkit-mask-image: radial-gradient(320px circle at var(--mx,-999px) var(--my,-999px), #000 0%, rgba(0,0,0,0.32) 50%, transparent 100%);
+      mask-image: radial-gradient(320px circle at var(--mx,-999px) var(--my,-999px), #000 0%, rgba(0,0,0,0.32) 50%, transparent 100%);
+    }
+    .grid-vignette { background: radial-gradient(ellipse at 50% 18%, transparent 24%, var(--bg-deep) 80%); }
+
+    .app { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px 96px; }
+
+    /* Cabeçalho fixo, no formato do app: marca à esquerda, selos à direita */
+    .topbar {
+      position:sticky; top:0; z-index:30;
+      display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+      padding:16px 0; margin-bottom:56px;
+      border-bottom:1px solid var(--glass-border);
+      background:rgba(7,8,9,0.93);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    }
+    .topbar-brand {
+      font-family:var(--font-display); font-size:15px; font-weight:600;
+      letter-spacing:0.22em; text-transform:uppercase; color:var(--white);
+    }
+    .topbar-spacer { flex:1; }
+    /* No celular a barra fixa ocupa altura demais se os selos quebrarem para
+       uma segunda linha; eles reaparecem logo abaixo do título, no corpo. */
+    @media(max-width:700px) {
+      .topbar { padding:12px 0; margin-bottom:32px; }
+      .topbar .sources-badge { display:none; }
     }
 
-    .glow-orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); }
-    .glow-1 { width:400px; height:400px; background:rgba(13,59,140,0.35); top:-100px; left:-100px; }
-    .glow-2 { width:350px; height:350px; background:rgba(26,90,173,0.30); bottom:100px; right:-80px; }
-
-    .app { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:40px 24px 80px; }
-
-    /* Header */
-    .header { text-align:center; margin-bottom:48px; }
-    .header-eyebrow { font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--glow-2); margin-bottom:12px; }
-    .header-title { font-size:clamp(28px,5vw,46px); font-weight:700; letter-spacing:-0.02em; line-height:1.1; color:var(--white); }
-    .header-title span { background:linear-gradient(135deg,var(--glow-2),#64b5f6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .header-sub { margin-top:12px; font-size:14px; color:var(--white-40); }
-
-    /* Sources badge */
-    .sources-badge {
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px; margin-top: 16px; flex-wrap: wrap;
+    /* Header editorial: faixa azul à esquerda, eyebrow, título em grande escala */
+    .header { position:relative; padding:40px 0 8px; }
+    .header-glow { position:absolute; left:50%; top:0; width:70%; height:280px; transform:translateX(-50%);
+                   background:rgba(47,155,255,0.10); filter:blur(120px); pointer-events:none; }
+    .header-inner { position:relative; border-left:1px solid rgba(47,155,255,0.7); padding-left:20px; }
+    .header-eyebrow {
+      display:flex; align-items:center; gap:12px;
+      font:var(--eyebrow); letter-spacing:0.2em; text-transform:uppercase;
+      color:var(--glow-2); margin-bottom:26px;
     }
+    .header-eyebrow::before { content:''; width:6px; height:6px; background:var(--glow-2); flex-shrink:0; }
+    .header-title {
+      font-family:var(--font-display);
+      font-size:clamp(34px,6vw,76px); font-weight:600;
+      letter-spacing:-0.02em; line-height:1.04; color:var(--white);
+    }
+    .header-title span { display:block; color:var(--glow-2); -webkit-text-fill-color:currentColor; }
+    .header-sub { margin-top:26px; max-width:46rem; font-size:16px; line-height:1.65; color:var(--white-70); }
+
+    /* Selos de fonte: retângulos de contorno fino, não pílulas */
+    .sources-badge { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
     .source-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600; padding: 4px 12px;
-      border-radius: 20px; letter-spacing: 0.05em;
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:10px; font-weight:600; padding:5px 10px;
+      letter-spacing:0.14em; text-transform:uppercase;
+      border:1px solid var(--glass-border); color:var(--white-70);
+      background:rgba(244,247,250,0.03);
     }
-    .source-dou  { background: rgba(255,167,38,0.15); color: #ffa726; border: 1px solid rgba(255,167,38,0.3); }
-    .source-mte  { background: rgba(33,150,243,0.15); color: #2196f3; border: 1px solid rgba(33,150,243,0.3); }
+    .source-dou  { border-color:rgba(255,167,38,0.34); color:var(--amber); }
+    .source-mte  { border-color:rgba(47,155,255,0.34); color:var(--glow-2); }
 
-    /* Activity Bar */
+    /* Barra de atividade — agora escura, alinhada ao resto do sistema */
     .activity-bar {
-      background: rgba(255,255,255,0.97);
-      border-radius: var(--radius-lg);
-      padding: 14px 24px;
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 36px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.15);
+      background:var(--surface); border:1px solid var(--glass-border);
+      padding:14px 20px; display:flex; align-items:center; gap:10px;
+      margin:40px 0 20px;
     }
-    .activity-dot { width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2s infinite; flex-shrink:0; }
+    .activity-dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 2s infinite; flex-shrink:0; }
     .activity-dot.warning { background:var(--amber); box-shadow:0 0 0 3px var(--amber-dim); }
-    .activity-dot.bad { background:#ef4444; box-shadow:0 0 0 3px rgba(239,68,68,0.25); }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.2)} }
-    .activity-text { font-size:13px; font-weight:600; color:#1a2a4a; font-family:var(--font-mono); }
-    .activity-text .highlight { color:#1565c0; }
+    .activity-dot.bad { background:var(--red); box-shadow:0 0 0 3px var(--red-dim); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.55;transform:scale(1.25)} }
+    .activity-text { font-size:12px; font-weight:500; color:var(--white-90); font-family:var(--font-mono); }
+    .activity-text .highlight { color:var(--glow-2); }
     .activity-spacer { flex:1; }
-    .activity-time { font-size:11px; color:#8899aa; font-family:var(--font-mono); }
+    .activity-time { font-size:10.5px; color:var(--white-40); font-family:var(--font-mono); letter-spacing:0.04em; }
 
     /* Banner de saúde do monitoramento */
     .health-banner {
       display:none; align-items:flex-start; gap:12px;
-      border-radius:var(--radius-lg); padding:16px 22px; margin-bottom:18px;
-      font-family:var(--font-mono); box-shadow:0 4px 24px rgba(0,0,0,0.3);
+      padding:16px 20px; margin-bottom:16px;
+      font-family:var(--font-mono); border-left-width:3px; border-left-style:solid;
     }
     .health-banner.show { display:flex; }
-    .health-banner.stale  { background:#7f1d1d; border:1px solid #ef4444; }
-    .health-banner.degraded { background:#78350f; border:1px solid #f59e0b; }
-    .health-icon { font-size:20px; line-height:1.2; flex-shrink:0; }
-    .health-title { font-size:14px; font-weight:800; color:#fff; letter-spacing:.3px; }
-    .health-msg { font-size:12px; color:rgba(255,255,255,0.88); margin-top:5px; line-height:1.55; }
+    .health-banner.stale    { background:rgba(239,83,80,0.10);  border:1px solid rgba(239,83,80,0.4);  border-left:3px solid var(--red); }
+    .health-banner.degraded { background:rgba(255,167,38,0.09); border:1px solid rgba(255,167,38,0.4); border-left:3px solid var(--amber); }
+    .health-icon { font-size:18px; line-height:1.2; flex-shrink:0; }
+    .health-title { font-size:12px; font-weight:700; color:var(--white); letter-spacing:0.08em; text-transform:uppercase; }
+    .health-msg { font-size:11.5px; color:var(--white-70); margin-top:6px; line-height:1.6; }
     .health-msg li { margin-top:3px; }
 
-    /* Saúde por fonte */
-    .src-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-top:14px; }
-    .src-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px; padding:12px 14px; font-family:var(--font-mono); }
-    .src-card.ok   { border-left:3px solid var(--green); }
-    .src-card.warn { border-left:3px solid var(--amber); }
-    .src-card.bad  { border-left:3px solid #ef4444; }
-    .src-name { font-size:12px; font-weight:700; color:#fff; }
-    .src-meta { font-size:10.5px; color:rgba(255,255,255,0.6); margin-top:4px; line-height:1.5; word-break:break-word; }
+    /* Saúde por fonte: grade de filetes, sem cantos */
+    .src-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px;
+                margin-top:16px; background:var(--glass-border); border:1px solid var(--glass-border); }
+    .src-card { background:var(--surface-2); padding:14px 16px; font-family:var(--font-mono);
+                border-left:2px solid transparent; transition:background var(--transition); }
+    .src-card:hover { background:var(--surface); }
+    .src-card.ok   { border-left-color:var(--green); }
+    .src-card.warn { border-left-color:var(--amber); }
+    .src-card.bad  { border-left-color:var(--red); }
+    .src-name { font-size:11px; font-weight:700; color:var(--white); letter-spacing:0.04em; }
+    .src-meta { font-size:10.5px; color:var(--white-40); margin-top:5px; line-height:1.55; word-break:break-word; }
 
     /* Faixas de prioridade */
-    .prio-hdr { display:flex; align-items:center; gap:8px; font-family:var(--font-mono);
-                font-size:11px; font-weight:700; letter-spacing:.4px; margin:16px 0 6px;
+    .prio-hdr { display:flex; align-items:center; gap:8px; font-family:var(--font-sans);
+                font-size:10.5px; font-weight:700; letter-spacing:0.18em; margin:22px 0 8px;
                 text-transform:uppercase; }
-    .prio-hdr.alta     { color:#ffa726; }
-    .prio-hdr.possivel { color:#64b5f6; }
-    .prio-hdr .prio-n  { font-weight:400; opacity:.6; text-transform:none; letter-spacing:0; }
-    .prio-nota { font-size:10.5px; color:rgba(255,255,255,0.45); font-family:var(--font-mono);
-                 margin:0 0 8px; line-height:1.5; }
-    details.prio-baixa { margin-top:18px; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px; }
-    details.prio-baixa summary { cursor:pointer; font-family:var(--font-mono); font-size:11px;
-                                 color:rgba(255,255,255,0.5); list-style:none; padding:4px 0; }
+    .prio-hdr.alta     { color:var(--amber); }
+    .prio-hdr.possivel { color:var(--glow-2); }
+    .prio-hdr.ambiental { color:var(--green); }
+    .prio-hdr .prio-n  { font-weight:500; opacity:.55; text-transform:none; letter-spacing:0; }
+    .prio-nota { font-size:10.5px; color:var(--white-40); font-family:var(--font-mono);
+                 margin:0 0 10px; line-height:1.6; }
+    details.prio-baixa { margin-top:20px; border-top:1px solid var(--glass-border); padding-top:14px; }
+    details.prio-baixa summary { cursor:pointer; font-family:var(--font-sans); font-size:10.5px;
+                                 font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+                                 color:var(--white-40); list-style:none; padding:4px 0;
+                                 transition:color var(--transition); }
     details.prio-baixa summary::-webkit-details-marker { display:none; }
-    details.prio-baixa summary:hover { color:rgba(255,255,255,0.8); }
+    details.prio-baixa summary:hover { color:var(--white-90); }
     details.prio-baixa summary::before { content:'▸ '; }
     details.prio-baixa[open] summary::before { content:'▾ '; }
-    .prio-hdr.ambiental { color:#66bb6a; }
 
     /* Eixo temático: SST x Ambiental. É ortogonal à prioridade — diz a
        disciplina, não a ordem de leitura. */
-    .pub-eixo { display:inline-block; font-size:8.5px; font-weight:700; padding:2px 6px;
-                border-radius:4px; font-family:var(--font-mono); letter-spacing:.5px;
+    .pub-eixo { display:inline-block; font-size:8.5px; font-weight:700; padding:3px 6px;
+                font-family:var(--font-sans); letter-spacing:0.12em;
                 text-transform:uppercase; white-space:nowrap; }
-    .eixo-ambiental { background:rgba(102,187,106,0.15); color:#66bb6a;
-                      border:1px solid rgba(102,187,106,0.35); }
-    .eixo-ambos     { background:rgba(171,71,188,0.15); color:#ce93d8;
-                      border:1px solid rgba(171,71,188,0.35); }
-    .tipo-ambiental { background:rgba(102,187,106,0.15); color:#66bb6a;
-                      border:1px solid rgba(102,187,106,0.3); }
-    .eixo-filtro { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 12px; }
-    .eixo-chip { font-family:var(--font-mono); font-size:10.5px; padding:4px 10px;
-                 border-radius:99px; cursor:pointer; background:rgba(255,255,255,0.06);
-                 border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.65); }
-    .eixo-chip:hover  { color:#fff; border-color:rgba(255,255,255,0.3); }
-    .eixo-chip.active { background:rgba(255,255,255,0.16); color:#fff;
-                        border-color:rgba(255,255,255,0.4); }
-    .eixo-vazio { font-family:var(--font-mono); font-size:11px; line-height:1.6;
-                  color:rgba(255,255,255,0.5); padding:10px 0; }
-    .termo-tag { display:inline-block; font-size:9px; padding:1px 6px; border-radius:4px;
-                 background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.55);
+    .eixo-ambiental { background:rgba(53,208,138,0.12); color:var(--green);
+                      border:1px solid rgba(53,208,138,0.35); }
+    .eixo-ambos     { background:rgba(171,113,255,0.12); color:#b48cff;
+                      border:1px solid rgba(171,113,255,0.35); }
+    .tipo-ambiental { background:rgba(53,208,138,0.12); color:var(--green);
+                      border:1px solid rgba(53,208,138,0.32); }
+    .eixo-filtro { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 14px; }
+    .eixo-chip { font-family:var(--font-sans); font-size:10px; font-weight:600;
+                 letter-spacing:0.12em; text-transform:uppercase; padding:6px 12px;
+                 cursor:pointer; background:transparent;
+                 border:1px solid var(--glass-border); color:var(--white-40);
+                 transition:all var(--transition); }
+    .eixo-chip:hover  { color:var(--white); border-color:rgba(47,155,255,0.5); }
+    .eixo-chip.active { background:rgba(47,155,255,0.12); color:var(--glow-2);
+                        border-color:rgba(47,155,255,0.5); }
+    .eixo-vazio { font-family:var(--font-mono); font-size:11px; line-height:1.7;
+                  color:var(--white-40); padding:12px 0; }
+    .termo-tag { display:inline-block; font-size:9px; padding:2px 6px;
+                 background:rgba(244,247,250,0.05); color:var(--white-40);
+                 border:1px solid rgba(244,247,250,0.08);
                  margin-right:4px; font-family:var(--font-mono); }
 
     /* Relatórios em PDF */
-    .rel-box { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
-               border-radius:12px; padding:16px 20px; margin-top:14px; }
-    .rel-head { font-size:12px; font-weight:700; color:#fff; font-family:var(--font-mono);
-                display:flex; align-items:center; gap:8px; margin-bottom:4px; }
-    .rel-sub  { font-size:10.5px; color:rgba(255,255,255,0.5); line-height:1.5; margin-bottom:10px; }
-    .rel-item { display:flex; align-items:center; gap:10px; padding:8px 0;
-                border-top:1px solid rgba(255,255,255,0.08); font-family:var(--font-mono); }
-    .rel-data { font-size:11px; color:#fff; font-weight:600; min-width:112px; }
-    .rel-tags { font-size:10px; color:rgba(255,255,255,0.55); flex:1; }
-    .rel-link { font-size:10.5px; color:#64b5f6; text-decoration:none; white-space:nowrap; }
+    .rel-box { background:var(--surface-2); border:1px solid var(--glass-border);
+               padding:18px 20px; margin-top:16px; }
+    .rel-head { font-size:10.5px; font-weight:700; color:var(--white); font-family:var(--font-sans);
+                letter-spacing:0.16em; text-transform:uppercase;
+                display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .rel-sub  { font-size:10.5px; color:var(--white-40); line-height:1.6; margin-bottom:12px; }
+    .rel-item { display:flex; align-items:center; gap:10px; padding:9px 0;
+                border-top:1px solid var(--glass-border); font-family:var(--font-mono); }
+    .rel-data { font-size:11px; color:var(--white); font-weight:600; min-width:112px; }
+    .rel-tags { font-size:10px; color:var(--white-40); flex:1; }
+    .rel-link { font-size:10.5px; color:var(--glow-2); text-decoration:none; white-space:nowrap; }
     .rel-link:hover { text-decoration:underline; }
-    .rel-badge { display:inline-block; font-size:9px; padding:2px 7px; border-radius:5px;
-                 background:rgba(255,167,38,0.15); color:#ffa726; border:1px solid rgba(255,167,38,0.3); }
+    .rel-badge { display:inline-block; font-size:9px; padding:2px 7px;
+                 background:var(--amber-dim); color:var(--amber); border:1px solid rgba(255,167,38,0.3); }
 
-    /* Metrics */
-    .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+    /* Métricas: três módulos divididos por filete, como no app */
+    .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr);
+                    border:1px solid var(--glass-border); margin-bottom:40px; }
     @media(max-width:640px) { .metrics-grid { grid-template-columns:1fr; } }
     .metric-card {
-      background:var(--glass-bg); border:1px solid var(--glass-border);
-      border-radius:var(--radius-md); padding:24px 20px;
-      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-      transition:background var(--transition),border-color var(--transition);
       position:relative; overflow:hidden;
+      background:var(--surface-2); padding:24px 22px 26px;
+      border-right:1px solid var(--glass-border);
+      transition:background var(--transition);
     }
-    .metric-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 60%); pointer-events:none; }
-    .metric-card:hover { background:var(--glass-hover); border-color:rgba(255,255,255,0.18); }
-    .metric-label { font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--white-40); margin-bottom:14px; }
-    .metric-value { font-size:clamp(22px,3.5vw,30px); font-weight:700; color:var(--white); line-height:1; font-family:var(--font-mono); }
+    .metric-card:last-child { border-right:none; }
+    @media(max-width:640px) {
+      .metric-card { border-right:none; border-bottom:1px solid var(--glass-border); }
+      .metric-card:last-child { border-bottom:none; }
+    }
+    .metric-card:hover { background:var(--glass-hover); }
+    .metric-card::after { content:''; position:absolute; inset-inline:0; bottom:0; height:1px;
+                          background:var(--glow-2); transform:scaleX(0); transform-origin:left;
+                          transition:transform var(--transition); }
+    .metric-card:hover::after { transform:scaleX(1); }
+    .metric-label { font:var(--eyebrow); letter-spacing:0.18em; text-transform:uppercase;
+                    color:var(--white-40); margin-bottom:28px; }
+    .metric-value { font-family:var(--font-display); font-size:clamp(24px,3.5vw,34px);
+                    font-weight:600; color:var(--white); line-height:1; letter-spacing:-0.01em; }
     .metric-value.status-ok      { color:var(--green); }
     .metric-value.status-changed { color:var(--amber); }
-    .metric-sub { font-size:12px; color:var(--white-40); margin-top:8px; }
-    .metric-badge { display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:12px; font-weight:500; padding:4px 10px; border-radius:20px; }
-    .badge-ok      { background:var(--green-dim); color:var(--green); }
-    .badge-changed { background:var(--amber-dim); color:var(--amber); }
+    .metric-sub { font-size:11.5px; color:var(--white-40); margin-top:10px; line-height:1.5; }
+    .metric-badge { display:inline-flex; align-items:center; gap:6px; margin-top:10px;
+                    font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+                    padding:4px 9px; border:1px solid transparent; }
+    .badge-ok      { background:var(--green-dim); color:var(--green); border-color:rgba(53,208,138,0.3); }
+    .badge-changed { background:var(--amber-dim); color:var(--amber); border-color:rgba(255,167,38,0.3); }
 
-    /* Tabs */
-    .tabs { display:flex; gap:4px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:var(--radius-md); padding:6px; margin-bottom:24px; }
-    .tab-btn { flex:1; background:transparent; border:none; color:var(--white-40); font-family:var(--font-sans); font-size:13px; font-weight:500; padding:10px 16px; border-radius:var(--radius-sm); cursor:pointer; transition:all var(--transition); white-space:nowrap; }
-    .tab-btn:hover { color:var(--white-70); background:rgba(255,255,255,0.05); }
-    .tab-btn.active { background:rgba(33,150,243,0.18); color:var(--glow-2); font-weight:600; }
+    /* Abas: filete inferior ativo, sem pílula */
+    .tabs { display:flex; gap:0; border-bottom:1px solid var(--glass-border); margin-bottom:28px;
+            overflow-x:auto; }
+    .tab-btn { background:transparent; border:none; border-bottom:1px solid transparent;
+               color:var(--white-40); font-family:var(--font-sans); font-size:11px; font-weight:600;
+               letter-spacing:0.14em; text-transform:uppercase; padding:14px 18px; cursor:pointer;
+               transition:all var(--transition); white-space:nowrap; margin-bottom:-1px; }
+    .tab-btn:hover { color:var(--white-90); }
+    .tab-btn.active { color:var(--glow-2); border-bottom-color:var(--glow-2); }
     .tab-panel { display:none; }
     .tab-panel.active { display:block; }
 
-    /* Glass panel */
-    .glass-panel { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); overflow:hidden; }
-    .panel-header { padding:20px 24px; border-bottom:1px solid var(--glass-border); display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .panel-title { font-size:14px; font-weight:600; color:var(--white-90); }
-    .panel-count { font-size:12px; color:var(--white-40); font-family:var(--font-mono); }
+    /* Painel */
+    .glass-panel { background:var(--glass-bg); border:1px solid var(--glass-border);
+                   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); overflow:hidden; }
+    .panel-header { padding:18px 22px; border-bottom:1px solid var(--glass-border);
+                    display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .panel-title { font-family:var(--font-display); font-size:13px; font-weight:600;
+                   letter-spacing:0.02em; color:var(--white); }
+    .panel-count { font-size:10.5px; color:var(--white-40); font-family:var(--font-mono); }
 
-    /* Publication items */
+    /* Publicações */
     .pub-list { list-style:none; }
     .pub-item {
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: background var(--transition);
+      position:relative; padding:20px 22px;
+      border-bottom:1px solid rgba(244,247,250,0.06);
+      transition:background var(--transition);
     }
-    .pub-item:last-child { border-bottom: none; }
-    .pub-item:hover { background: rgba(255,255,255,0.03); }
+    .pub-item:last-child { border-bottom:none; }
+    .pub-item:hover { background:var(--glass-hover); }
+    .pub-item::after { content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+                       background:var(--glow-2); transform:scaleY(0); transform-origin:top;
+                       transition:transform var(--transition); }
+    .pub-item:hover::after { transform:scaleY(1); }
 
-    .pub-header { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
+    .pub-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
     .pub-tipo {
       display:inline-flex; align-items:center; justify-content:center;
-      font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px;
-      letter-spacing:0.06em; white-space:nowrap; flex-shrink:0; margin-top:2px;
+      font-size:9px; font-weight:700; padding:3px 7px;
+      letter-spacing:0.14em; white-space:nowrap; flex-shrink:0; margin-top:2px;
     }
-    .tipo-dou { background:rgba(255,167,38,0.15); color:#ffa726; border:1px solid rgba(255,167,38,0.3); }
-    .tipo-mte { background:rgba(33,150,243,0.15); color:#2196f3; border:1px solid rgba(33,150,243,0.3); }
+    .tipo-dou { background:var(--amber-dim); color:var(--amber); border:1px solid rgba(255,167,38,0.32); }
+    .tipo-mte { background:rgba(47,155,255,0.12); color:var(--glow-2); border:1px solid rgba(47,155,255,0.32); }
 
-    .pub-titulo { font-size:13px; font-weight:500; color:var(--white-90); line-height:1.5; }
-    .pub-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .pub-titulo { flex:1 1 100%; font-size:13.5px; font-weight:500; color:var(--white-90); line-height:1.55; }
+    .pub-meta { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
     .pub-fonte { font-size:11px; color:var(--white-40); }
-    .pub-date { font-size:11px; color:var(--white-40); font-family:var(--font-mono); }
+    .pub-date { font-size:10.5px; color:var(--white-40); font-family:var(--font-mono); }
     .pub-link {
-      display:inline-flex; align-items:center; gap:5px;
-      font-size:12px; font-weight:500; color:var(--glow-2);
-      text-decoration:none; padding:4px 10px; border-radius:6px;
-      border:1px solid rgba(33,150,243,0.25); background:rgba(33,150,243,0.08);
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--glow-2); text-decoration:none; padding:6px 11px;
+      border:1px solid rgba(47,155,255,0.3); background:transparent;
       transition:all var(--transition); margin-left:auto;
     }
-    .pub-link:hover { background:rgba(33,150,243,0.18); border-color:rgba(33,150,243,0.5); }
+    .pub-link:hover { background:rgba(47,155,255,0.12); border-color:rgba(47,155,255,0.6); }
 
-    /* NR List */
+    /* Lista de NR */
     .nr-list { list-style:none; }
-    .nr-item { display:grid; grid-template-columns:90px 1fr auto; align-items:center; gap:16px; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.05); transition:background var(--transition); }
+    .nr-item { position:relative; display:grid; grid-template-columns:96px 1fr auto;
+               align-items:center; gap:16px; padding:16px 22px;
+               border-bottom:1px solid rgba(244,247,250,0.06); transition:background var(--transition); }
     .nr-item:last-child { border-bottom:none; }
-    .nr-item:hover { background:rgba(255,255,255,0.03); }
+    .nr-item:hover { background:var(--glass-hover); }
     @media(max-width:600px) { .nr-item { grid-template-columns:1fr; gap:8px; } }
-    .nr-badge { display:inline-flex; align-items:center; justify-content:center; background:rgba(33,150,243,0.12); border:1px solid rgba(33,150,243,0.25); color:var(--glow-2); font-size:12px; font-weight:700; font-family:var(--font-mono); padding:6px 10px; border-radius:8px; letter-spacing:0.04em; white-space:nowrap; }
+    .nr-badge { display:inline-flex; align-items:center; justify-content:center;
+                background:transparent; border:1px solid rgba(47,155,255,0.3); color:var(--glow-2);
+                font-size:11px; font-weight:700; font-family:var(--font-mono); padding:7px 10px;
+                letter-spacing:0.08em; white-space:nowrap; }
     .nr-info { min-width:0; }
     .nr-name { font-size:13px; font-weight:500; color:var(--white-90); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .nr-source { font-size:11px; color:var(--white-40); margin-top:3px; }
-    .nr-link { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:500; color:var(--glow-2); text-decoration:none; padding:4px 10px; border-radius:6px; border:1px solid rgba(33,150,243,0.25); background:rgba(33,150,243,0.08); transition:all var(--transition); }
-    .nr-link:hover { background:rgba(33,150,243,0.18); border-color:rgba(33,150,243,0.5); }
+    .nr-source { font-size:10.5px; color:var(--white-40); margin-top:4px; }
+    .nr-link { display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:600;
+               letter-spacing:0.12em; text-transform:uppercase; color:var(--glow-2); text-decoration:none;
+               padding:6px 11px; border:1px solid rgba(47,155,255,0.3); background:transparent;
+               transition:all var(--transition); }
+    .nr-link:hover { background:rgba(47,155,255,0.12); border-color:rgba(47,155,255,0.6); }
 
-    /* Empty state */
-    .empty-state { padding:60px 24px; text-align:center; }
-    .empty-icon { font-size:40px; margin-bottom:16px; }
-    .empty-title { font-size:16px; font-weight:600; color:var(--white-70); margin-bottom:8px; }
-    .empty-sub { font-size:13px; color:var(--white-40); line-height:1.6; }
+    /* Estado vazio */
+    .empty-state { padding:68px 24px; text-align:center; }
+    .empty-icon { font-size:34px; margin-bottom:18px; opacity:0.75; }
+    .empty-title { font-family:var(--font-display); font-size:16px; font-weight:600; color:var(--white); margin-bottom:10px; }
+    .empty-sub { font-size:12.5px; color:var(--white-40); line-height:1.7; max-width:30rem; margin:0 auto; }
 
-    /* History month */
-    .history-month { padding:14px 24px 10px; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--glow-2); border-bottom:1px solid rgba(33,150,243,0.12); background:rgba(33,150,243,0.04); }
+    /* Mês no histórico */
+    .history-month { padding:14px 22px 12px; font-size:10px; font-weight:700; letter-spacing:0.2em;
+                     text-transform:uppercase; color:var(--glow-2);
+                     border-top:1px solid var(--glass-border);
+                     border-bottom:1px solid rgba(47,155,255,0.14);
+                     background:rgba(47,155,255,0.04); }
 
-    /* Search */
-    .search-wrap { padding:16px 24px; border-bottom:1px solid var(--glass-border); }
+    /* Busca */
+    .search-wrap { padding:16px 22px; border-bottom:1px solid var(--glass-border); }
     .search-inner { position:relative; }
     .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.4; }
-    .search-input { width:100%; padding:10px 12px 10px 36px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); border-radius:var(--radius-sm); color:var(--white-90); font-family:var(--font-sans); font-size:13px; outline:none; transition:border-color var(--transition); }
-    .search-input:focus { border-color:rgba(33,150,243,0.5); }
+    .search-input { width:100%; padding:11px 12px 11px 36px; background:rgba(244,247,250,0.04);
+                    border:1px solid var(--glass-border); color:var(--white-90);
+                    font-family:var(--font-sans); font-size:13px; outline:none;
+                    transition:border-color var(--transition); }
+    .search-input::placeholder { color:var(--white-40); }
+    .search-input:focus { border-color:rgba(47,155,255,0.5); }
 
-    /* Loading */
-    .loading { display:flex; align-items:center; justify-content:center; padding:40px; gap:10px; color:var(--white-40); font-size:13px; }
-    .spinner { width:18px; height:18px; border:2px solid rgba(33,150,243,0.2); border-top-color:var(--glow-2); border-radius:50%; animation:spin 0.8s linear infinite; }
+    /* Carregando */
+    .loading { display:flex; align-items:center; justify-content:center; padding:48px; gap:10px;
+               color:var(--white-40); font-size:11px; font-weight:600; letter-spacing:0.14em;
+               text-transform:uppercase; }
+    .spinner { width:16px; height:16px; border:1.5px solid rgba(47,155,255,0.2); border-top-color:var(--glow-2); border-radius:50%; animation:spin 0.8s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
-    /* Footer */
-    .footer { margin-top:56px; text-align:center; font-size:12px; color:var(--white-20); line-height:1.8; }
-    .footer a { color:var(--white-40); text-decoration:none; }
-    .footer a:hover { color:var(--white-70); }
+    /* Blocos de texto da aba Sobre */
+    .about-body { padding:30px 24px 34px; line-height:1.8; font-size:14px; color:var(--white-70); }
+    .about-body strong { color:var(--white); font-weight:600; }
+    .about-note { border:1px solid var(--glass-border); border-left:2px solid var(--glass-border);
+                  background:var(--surface-2); padding:20px 22px; margin:22px 0; }
+    .about-note.azul  { border-left-color:var(--glow-2); }
+    .about-note.ambar { border-left-color:var(--amber); }
+    .about-note.verde { border-left-color:var(--green); }
+    .about-note-title { font:var(--eyebrow); letter-spacing:0.18em; text-transform:uppercase;
+                        margin-bottom:14px; }
+    .about-note.azul  .about-note-title { color:var(--glow-2); }
+    .about-note.ambar .about-note-title { color:var(--amber); }
+    .about-note.verde .about-note-title { color:var(--green); }
+    .about-note p + p { margin-top:10px; }
+    .about-fine { font-size:11.5px; color:var(--white-40); margin-top:22px; }
+
+    /* Rodapé */
+    .footer { margin-top:72px; padding-top:28px; border-top:1px solid var(--glass-border);
+              text-align:center; font-size:10.5px; font-weight:600; letter-spacing:0.16em;
+              text-transform:uppercase; color:var(--white-40); line-height:2.2; }
+    .footer a { color:var(--white-40); text-decoration:none; transition:color var(--transition); }
+    .footer a:hover { color:var(--glow-2); }
+
+    /* Entrada por rolagem (equivalente ao Reveal do app) */
+    .reveal { opacity:0; transform:translateY(24px);
+              transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                         transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.reveal-in { opacity:1; transform:none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:0.001ms !important; animation-iteration-count:1 !important;
+        transition-duration:0.001ms !important;
+      }
+      .reveal { opacity:1; transform:none; }
+    }
   </style>
 </head>
 <body>
 
-<div class="glow-orb glow-1"></div>
-<div class="glow-orb glow-2"></div>
+<!-- Fundo técnico: malha fixa + realce azul que segue o cursor -->
+<div class="bg-tech" aria-hidden="true">
+  <div class="grid-base"></div>
+  <div class="grid-spot" id="gridSpot"></div>
+  <div class="grid-vignette"></div>
+</div>
 
 <div class="app">
 
-  <!-- Header -->
-  <header class="header">
-    <p class="header-eyebrow">Sistema de Monitoramento Legislativo</p>
-    <h1 class="header-title">Monitor <span>SST</span></h1>
-    <p class="header-sub">Segurança e Saúde no Trabalho — Normas Regulamentadoras e Publicações Oficiais</p>
+  <!-- Barra superior -->
+  <div class="topbar">
+    <span class="topbar-brand">Elsys</span>
+    <div class="topbar-spacer"></div>
     <div class="sources-badge">
-      <span class="source-tag source-dou">📰 Diário Oficial da União</span>
-      <span class="source-tag source-mte">🏛️ Portal MTE — Portarias SST</span>
+      <span class="source-tag source-dou">Diário Oficial da União</span>
+      <span class="source-tag source-mte">Portal MTE</span>
+      <span class="source-tag">Meio ambiente</span>
+    </div>
+  </div>
+
+  <!-- Header editorial -->
+  <header class="header">
+    <div class="header-glow"></div>
+    <div class="header-inner">
+      <p class="header-eyebrow">Centro de vigilância legislativa</p>
+      <h1 class="header-title">Monitor de normas <span>em tempo real.</span></h1>
+      <p class="header-sub">Segurança, saúde no trabalho e meio ambiente — Normas Regulamentadoras, publicações oficiais e legislação ambiental acompanhadas todos os dias úteis.</p>
     </div>
   </header>
 
@@ -348,7 +488,7 @@
     </div>
     <div class="metric-card">
       <div class="metric-label">Última Verificação</div>
-      <div class="metric-value" style="font-size:18px;color:var(--white-70)" id="metricLastCheck">—</div>
+      <div class="metric-value" style="font-size:20px" id="metricLastCheck">—</div>
       <div class="metric-sub">Dias úteis às 07:00 (Brasília)</div>
     </div>
     <div class="metric-card">
@@ -360,10 +500,10 @@
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('recent')">🔔 Publicações Recentes</button>
-    <button class="tab-btn" onclick="switchTab('history')">📋 Histórico Completo</button>
-    <button class="tab-btn" onclick="switchTab('nrlist')">📑 Todas as NR</button>
-    <button class="tab-btn" onclick="switchTab('about')">ℹ️ Sobre</button>
+    <button class="tab-btn active" onclick="switchTab('recent')">Recentes</button>
+    <button class="tab-btn" onclick="switchTab('history')">Histórico</button>
+    <button class="tab-btn" onclick="switchTab('nrlist')">Todas as NR</button>
+    <button class="tab-btn" onclick="switchTab('about')">Sobre</button>
   </div>
 
   <!-- Aba: Publicações Recentes -->
@@ -419,41 +559,47 @@
   <div id="panel-about" class="tab-panel">
     <div class="glass-panel">
       <div class="panel-header"><span class="panel-title">Sobre o Sistema</span></div>
-      <div style="padding:28px 24px;line-height:1.8;font-size:14px;color:var(--white-70)">
-        <p style="margin-bottom:16px">
-          O <strong style="color:#fff">Monitor SST</strong> é um sistema de vigilância legislativa para a área de
-          <strong style="color:#fff">Segurança e Saúde no Trabalho</strong>. Monitora o
-          <strong style="color:#fff">Diário Oficial da União</strong> e o portal do
-          <strong style="color:#fff">Ministério do Trabalho e Emprego</strong> diariamente.
+      <div class="about-body">
+        <p>
+          O <strong>Monitor de Normas</strong> é um sistema de vigilância legislativa para a área de
+          <strong>Segurança, Saúde no Trabalho e Meio Ambiente</strong>. Acompanha o
+          <strong>Diário Oficial da União</strong>, o portal do
+          <strong>Ministério do Trabalho e Emprego</strong> e fontes ambientais
+          federais e do Amazonas em todos os dias úteis.
         </p>
-        <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.2);border-radius:12px;padding:20px;margin:20px 0">
-          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--glow-2);margin-bottom:12px">Como funciona</p>
-          <p style="margin-bottom:10px">1. Todo dia útil às <strong style="color:#fff">07:00 (Brasília)</strong> o sistema busca no DOU por publicações relacionadas à segurança do trabalho.</p>
-          <p style="margin-bottom:10px">2. Qualquer portaria, instrução normativa ou alteração de NR publicada no DOU é detectada no <strong style="color:#fff">mesmo dia</strong>.</p>
-          <p style="margin-bottom:10px">3. O portal de portarias SST do MTE também é monitorado como fonte complementar.</p>
-          <p>4. Publicações ficam visíveis por <strong style="color:#fff">7 dias</strong> na aba Recentes e depois vão para o Histórico permanente.</p>
+        <div class="about-note azul">
+          <p class="about-note-title">Como funciona</p>
+          <p>1. Todo dia útil às <strong>07:00 (Brasília)</strong> o sistema busca nas fontes oficiais por publicações relacionadas à segurança do trabalho e ao meio ambiente.</p>
+          <p>2. Qualquer portaria, instrução normativa, resolução ou alteração de NR publicada no DOU é detectada no <strong>mesmo dia</strong>.</p>
+          <p>3. Cada achado recebe duas marcações independentes: a <strong>prioridade</strong> (ordem de leitura) e o <strong>eixo</strong> — SST, ambiental ou ambos.</p>
+          <p>4. Publicações ficam visíveis por <strong>7 dias</strong> na aba Recentes e depois vão para o Histórico permanente.</p>
         </div>
-        <div style="background:rgba(255,167,38,0.06);border:1px solid rgba(255,167,38,0.2);border-radius:12px;padding:20px;margin:20px 0">
-          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#ffa726;margin-bottom:12px">Fontes Monitoradas</p>
-          <p>• <strong style="color:#fff">Diário Oficial da União (DOU)</strong> — in.gov.br — fonte primária e oficial de toda legislação brasileira</p>
-          <p style="margin-top:8px">• <strong style="color:#fff">Portal MTE — Portarias SST</strong> — gov.br/trabalho-e-emprego — portal específico do Ministério do Trabalho</p>
+        <div class="about-note ambar">
+          <p class="about-note-title">Fontes monitoradas</p>
+          <p>• <strong>Diário Oficial da União</strong> — in.gov.br — fonte primária e oficial de toda a legislação brasileira, com buscas separadas para SST e meio ambiente</p>
+          <p>• <strong>Portal MTE</strong> — gov.br/trabalho-e-emprego — índice das Normas Regulamentadoras vigentes e portarias SST</p>
+          <p>• <strong>CONAMA</strong> — atos normativos do Conselho Nacional do Meio Ambiente</p>
+          <p>• <strong>Legislação ambiental do MMA</strong> — base consolidada lida pela API de dados abertos</p>
+          <p>• <strong>IPAAM</strong> — legislação ambiental do Amazonas</p>
         </div>
-        <div style="background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.15);border-radius:12px;padding:20px;margin:20px 0">
-          <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px">O que é monitorado</p>
-          <p>Portarias MTE/MTP/SEFIT • Instruções Normativas SST • Alterações em qualquer NR vigente • Resoluções relacionadas à segurança do trabalho • Publicações sobre EPI, CIPA, PCMSO, PGR, PPRA, LTCAT • Atos sobre insalubridade, periculosidade, espaços confinados, trabalho em altura, ergonomia e muito mais.</p>
+        <div class="about-note verde">
+          <p class="about-note-title">O que é monitorado</p>
+          <p>Portarias MTE/MTP/SEFIT • Instruções Normativas SST • Alterações em qualquer NR vigente • Publicações sobre EPI, CIPA, PCMSO, PGR, LTCAT • Atos sobre insalubridade, periculosidade, espaços confinados, trabalho em altura e ergonomia • Resoluções CONAMA • Licenciamento ambiental • Resíduos sólidos e logística reversa • Efluentes, reuso de água e emissões atmosféricas.</p>
         </div>
-        <p style="font-size:12px;color:var(--white-40);margin-top:20px">Sistema hospedado gratuitamente no GitHub Pages. Automatização via GitHub Actions. Nenhum servidor pago necessário.</p>
+        <p class="about-fine">Sistema hospedado gratuitamente no GitHub Pages. Automatização via GitHub Actions. Nenhum servidor pago necessário.</p>
       </div>
     </div>
   </div>
 
   <footer class="footer">
-    <p>Monitor SST — Verificação automática nos dias úteis às 07:00 (Brasília)</p>
+    <p>Monitor de Normas — verificação automática nos dias úteis às 07:00 (Brasília)</p>
     <p>
       <a href="https://www.in.gov.br" target="_blank" rel="noopener">Diário Oficial da União</a>
-      &nbsp;|&nbsp;
+      &nbsp;·&nbsp;
       <a href="https://www.gov.br/trabalho-e-emprego" target="_blank" rel="noopener">MTE</a>
-      &nbsp;|&nbsp;
+      &nbsp;·&nbsp;
+      <a href="https://conama.mma.gov.br/atos-normativos-sistema" target="_blank" rel="noopener">CONAMA</a>
+      &nbsp;·&nbsp;
       <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
     </p>
   </footer>
@@ -734,6 +880,25 @@ function renderHealth(state) {
     if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s)<br>${esc(f.last_error || 'erro desconhecido')}`;
     else if (f.degraded) meta = `Modo degradado — extração vazia<br>OK em ${esc(f.last_ok || '—')}`;
     else if (f.truncado && f.truncado.length) meta = `${f.item_count ?? 0} itens — <b>busca truncada</b><br>${esc(f.truncado.join('; ')).slice(0,90)}`;
+    else if (f.extra && f.extra.tipo === 'base_consolidada') {
+      // Base consolidada não é fonte de alerta diário: ela é republicada de
+      // tempos em tempos. Silêncio aqui é o comportamento certo da fonte, mas
+      // o painel tem de dizer DE QUANDO é o dado — uma base de um ano atrás
+      // exibida apenas como "ok" seria a mesma falsa garantia de sempre.
+      // Duas perguntas diferentes, e antes elas estavam coladas numa só:
+      // "que idade tem o dado" (sempre mostrar) e "a fonte furou o ciclo de
+      // publicação" (sinalizar). Uma base anual com 364 dias está no prazo e
+      // não deve alarmar; com 500, um ciclo inteiro foi pulado.
+      const d = f.extra.dias_desde_atualizacao;
+      const limite = { anual: 450, semestral: 240, mensal: 45 }[f.extra.cadencia];
+      const atrasada = limite != null && d != null && d > limite;
+      const quanto = (d == null) ? '' : (d >= 60 ? `há ${Math.floor(d/30)} meses` : `há ${d} dia(s)`);
+      const idade = !quanto ? '' :
+        (atrasada ? ` — <b style="color:#ffa726">${quanto}, ciclo de publicação vencido</b>`
+                  : ` — ${quanto}`);
+      meta = `Base consolidada, atualização ${esc(f.extra.cadencia || 'irregular')}`
+           + `<br>${f.extra.recursos ?? 0} arquivo(s) · versão de ${esc(f.extra.atualizado_em || '—')}${idade}`;
+    }
     else               meta = `${f.item_count ?? 0} itens acompanhados<br>OK em ${esc(f.last_ok || '—')}`;
     return `<div class="src-card ${estado}"><div class="src-name">${marca} ${esc(f.label || id)}</div><div class="src-meta">${meta}</div></div>`;
   }).join('');
@@ -787,7 +952,7 @@ function renderUI(state) {
 
   dot.className = problema ? 'activity-dot bad' : (hasNew ? 'activity-dot warning' : 'activity-dot');
   actText.innerHTML = problema
-    ? `<span class="highlight" style="color:#c62828">Monitoramento não confirmado — verifique o alerta acima</span>`
+    ? `<span class="highlight" style="color:#ef5350">Monitoramento não confirmado — verifique o alerta acima</span>`
     : (hasNew
         ? `Sistema ativo — <span class="highlight">Nova publicação detectada</span>`
         : `Sistema ativo — <span class="highlight">Monitorando DOU, MTE e normas técnicas</span>`);
@@ -908,7 +1073,7 @@ function mostrarFalhaGrave(titulo, mensagem) {
   document.getElementById('healthTitle').textContent = titulo;
   document.getElementById('healthMsg').textContent = mensagem;
   document.getElementById('activityDot').className = 'activity-dot bad';
-  document.getElementById('activityText').innerHTML = `<span class="highlight" style="color:#c62828">Estado indisponível</span>`;
+  document.getElementById('activityText').innerHTML = `<span class="highlight" style="color:#ef5350">Estado indisponível</span>`;
   document.getElementById('activityTime').textContent = 'Confira GitHub → Actions';
   document.getElementById('metricStatus').textContent = 'Aguardando';
 }
@@ -953,6 +1118,47 @@ try { localStorage.removeItem('gh_nr_token'); } catch (e) { /* modo privado */ }
 loadState();
 renderNrFullList();
 setInterval(loadState, 5 * 60 * 1000);
+
+// ─── Fundo reativo ao cursor ──────────────────────────────────────────────────
+// Só decoração: envolvido em try para que uma falha aqui nunca impeça o painel
+// de renderizar os dados, que é a função real da página.
+try {
+  const spot = document.getElementById('gridSpot');
+  if (spot && window.matchMedia('(hover: hover)').matches) {
+    let frame = 0;
+    window.addEventListener('pointermove', (e) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        spot.style.setProperty('--mx', e.clientX + 'px');
+        spot.style.setProperty('--my', e.clientY + 'px');
+        spot.style.setProperty('--spot', '1');
+      });
+    });
+    document.addEventListener('pointerleave', () => spot.style.setProperty('--spot', '0'));
+  }
+} catch (e) { /* sem fundo reativo; o painel segue igual */ }
+
+// ─── Entrada por rolagem ──────────────────────────────────────────────────────
+// Aplicada apenas aos blocos fixos do topo. Os painéis de dados ficam de fora
+// de propósito: eles são reescritos por innerHTML a cada loadState() e
+// animá-los faria a lista piscar a cada 5 minutos.
+try {
+  const alvos = document.querySelectorAll('.header-inner, .metrics-grid, .tabs');
+  if (!('IntersectionObserver' in window)) {
+    alvos.forEach(el => el.classList.add('reveal-in'));
+  } else {
+    const obs = new IntersectionObserver((entradas) => {
+      entradas.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('reveal-in'); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.08 });
+    alvos.forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 90) + 'ms';
+      obs.observe(el);
+    });
+  }
+} catch (e) { /* sem animação de entrada */ }
 </script>
 </body>
 </html>
