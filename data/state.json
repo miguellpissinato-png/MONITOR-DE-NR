@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "05/10/2026 18:02",
-  "last_success": "2026-10-05T18:02:27.331227-03:00",
-  "status": "Monitorando",
+  "last_check": "06/10/2026 12:35",
+  "last_success": "2026-10-06T12:35:59.410391-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -40,7 +40,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -92,14 +92,13 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 2,
+      "item_count": 1,
       "known_ids": [
-        "149182470bfec501",
-        "5d9323bef1184a75"
+        "149182470bfec501"
       ],
       "truncado": null,
       "extra": null,
@@ -108,7 +107,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -140,13 +139,14 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 5,
+      "item_count": 6,
       "truncado": null,
       "known_ids": [
+        "31c3b59196d476d6",
         "858dfdb98b87a35f",
         "c108baee5ee7c6b5",
         "01c87ac047d99d6b",
@@ -159,7 +159,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -179,7 +179,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 11
+        "dias_desde_atualizacao": 12
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -187,7 +187,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -207,7 +207,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "05/10/2026 18:02",
+      "last_ok": "06/10/2026 12:35",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -246,28 +246,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_ambiental_d66084a2827df4f4",
-      "titulo": "PORTARIA SUFRAMA Nº 2.762, DE 23 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.762-de-23-de-setembro-de-2026-735120068",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-09-29",
-      "data_fmt": "29/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Desenvolvimento, Indústria, Comércio e Serviços/Superintendência da Zona Franca de Manaus",
-      "ementa": "regras estabelecidas na Lei nº 12.305, de 2 de agosto de 2010, que institui a Política Nacional de  Resíduos  ...  Sólidos , e às exigências da Política Nacional do Meio Ambiente, observada a legislação federal, estadualPORTARIA SUFRAMA Nº 2.762, DE 23 DE SETEMBRO DE 2026 Aprova o projeto té...",
-      "iid": "d66084a2827df4f4",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Política Nacional do Meio Ambiente",
-        "Meio Ambiente",
-        "Zona Franca de Manaus",
-        "SUFRAMA"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_sst_149182470bfec501",
       "titulo": "PORTARIA ITI Nº 99, DE 15 DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-iti-n-99-de-15-de-setembro-de-2026-735410706",
@@ -351,32 +329,29 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_ambiental_31c3b59196d476d6",
+      "titulo": "PORTARIA GM/MPO Nº 430, DE 5 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mpo-n-430-de-5-de-outubro-de-2026-736583568",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-06",
+      "data_fmt": "06/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Planejamento e Orçamento/Gabinete do Ministro",
+      "ementa": "90 6 1001 1.164.000 2322 20AM Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem de  Resíduos  ...  Sólidos  10 512 1.000.000 2322 20AM 0001 Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem ... de  Resíduos Sólidos  - Nacional 10 512 1.000.000 S 4-INV 2 40 0 1001 1.000.000 2322 21CC Apoio a Implantação ... e Melhoria de Sistemas Públicos de Manejo de  Resíduos Sólidos  em Municípios de até 50.000 Habitantes ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões",
+      "iid": "31c3b59196d476d6",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_ambiental_d66084a2827df4f4",
-      "titulo": "PORTARIA SUFRAMA Nº 2.762, DE 23 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-suframa-n-2.762-de-23-de-setembro-de-2026-735120068",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-09-29",
-      "data_fmt": "29/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Desenvolvimento, Indústria, Comércio e Serviços/Superintendência da Zona Franca de Manaus",
-      "ementa": "regras estabelecidas na Lei nº 12.305, de 2 de agosto de 2010, que institui a Política Nacional de  Resíduos  ...  Sólidos , e às exigências da Política Nacional do Meio Ambiente, observada a legislação federal, estadualPORTARIA SUFRAMA Nº 2.762, DE 23 DE SETEMBRO DE 2026 Aprova o projeto té...",
-      "iid": "d66084a2827df4f4",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Política Nacional do Meio Ambiente",
-        "Meio Ambiente",
-        "Zona Franca de Manaus",
-        "SUFRAMA"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_sst_149182470bfec501",
       "titulo": "PORTARIA ITI Nº 99, DE 15 DE SETEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-iti-n-99-de-15-de-setembro-de-2026-735410706",
@@ -460,6 +435,25 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_ambiental_31c3b59196d476d6",
+      "titulo": "PORTARIA GM/MPO Nº 430, DE 5 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mpo-n-430-de-5-de-outubro-de-2026-736583568",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-06",
+      "data_fmt": "06/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Planejamento e Orçamento/Gabinete do Ministro",
+      "ementa": "90 6 1001 1.164.000 2322 20AM Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem de  Resíduos  ...  Sólidos  10 512 1.000.000 2322 20AM 0001 Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem ... de  Resíduos Sólidos  - Nacional 10 512 1.000.000 S 4-INV 2 40 0 1001 1.000.000 2322 21CC Apoio a Implantação ... e Melhoria de Sistemas Públicos de Manejo de  Resíduos Sólidos  em Municípios de até 50.000 Habitantes ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões",
+      "iid": "31c3b59196d476d6",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
     }
   ],
   "history": [
@@ -1299,9 +1293,28 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_ambiental_31c3b59196d476d6",
+      "titulo": "PORTARIA GM/MPO Nº 430, DE 5 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mpo-n-430-de-5-de-outubro-de-2026-736583568",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-06",
+      "data_fmt": "06/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Planejamento e Orçamento/Gabinete do Ministro",
+      "ementa": "90 6 1001 1.164.000 2322 20AM Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem de  Resíduos  ...  Sólidos  10 512 1.000.000 2322 20AM 0001 Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem ... de  Resíduos Sólidos  - Nacional 10 512 1.000.000 S 4-INV 2 40 0 1001 1.000.000 2322 21CC Apoio a Implantação ... e Melhoria de Sistemas Públicos de Manejo de  Resíduos Sólidos  em Municípios de até 50.000 Habitantes ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões",
+      "iid": "31c3b59196d476d6",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-05T18:02:27.331227-03:00",
+  "last_check_iso": "2026-10-06T12:35:59.410391-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
