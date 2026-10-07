@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "06/10/2026 15:41",
+  "last_check": "07/10/2026 10:38",
   "last_success": "2026-10-06T15:41:03.100700-03:00",
-  "status": "Monitorando",
+  "status": "Falha na verificação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "06/10/2026 15:41",
+      "last_ok": "07/10/2026 10:38",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -40,7 +40,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "06/10/2026 15:41",
+      "last_ok": "07/10/2026 10:38",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,8 +93,8 @@
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
       "last_ok": "06/10/2026 15:41",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 1,
       "known_ids": [
@@ -107,7 +107,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "06/10/2026 15:41",
+      "last_ok": "07/10/2026 10:38",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -140,8 +140,8 @@
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
       "last_ok": "06/10/2026 15:41",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 6,
       "truncado": null,
@@ -159,7 +159,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "06/10/2026 15:41",
+      "last_ok": "07/10/2026 10:38",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -179,7 +179,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 12
+        "dias_desde_atualizacao": 13
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -187,7 +187,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "06/10/2026 15:41",
+      "last_ok": "07/10/2026 10:38",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -208,8 +208,8 @@
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
       "last_ok": "06/10/2026 15:41",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "URLError em https://www.ipaam.am.gov.br/legislacao-online/ após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 25,
       "truncado": null,
@@ -245,57 +245,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_149182470bfec501",
-      "titulo": "PORTARIA ITI Nº 99, DE 15 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-iti-n-99-de-15-de-setembro-de-2026-735410706",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Gestão e da Inovação em Serviços Públicos/Instituto Nacional de Tecnologia da Informação",
-      "ementa": "julgar necessárias ao Conselho do Plano de Carreiras de Ciência e Tecnologia - CPC; II - atender às  normas  ...  regulamentadoras  que fixam as diretrizes para realização de concursos públicos na área de Ciência erna do Plano de Carreiras de Ciência e Tecnologia no âmbito do Instituto Nacio...",
-      "iid": "149182470bfec501",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_01c87ac047d99d6b",
-      "titulo": "PORTARIA Nº 3.462, dE 29 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-3.462-de-29-de-setembro-de-2026-735411101",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Saúde/Fundação Nacional de Saúde",
-      "ementa": "ação 21CB - Sistemas Públicos de Esgotamento Sanitário; c) ação 21CC - Sistemas Públicos de Manejo de  Resíduos  ...  Sólidos ; d) ação 21CG - Serviços de Drenagem e Manejo de Águas Pluviais Urbanas; e) ação 21CI - Implantação ... em Municípios; g) ação 20AM - apoio à implementação de Projetos de Coleta, Triagem e Reciclagem de  Resíduos  ...  Sólidos ; h) ação 20AF - apoio aos Controle e à Vigilância da Qualidade da Água para Consumo Humano para",
-      "iid": "01c87ac047d99d6b",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_efecc8a34e763405",
-      "titulo": "PORTARIA MAPA Nº 957, DE 29 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-957-de-29-de-setembro-de-2026-735407702",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"reuso de água\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Agricultura e Pecuária/Gabinete do Ministro",
-      "ementa": "e projetos de estruturação produtiva da agricultura irrigada; sistemas de irrigação eficientes e de  reúso  ... de  água ; estudos e implementação de soluções de energias renováveis; recuperação de áreas e pastagenstituição, e tendo em vista o disposto nos arts. 165, § 15, e 166, §§ 9º, 12 e...",
-      "iid": "efecc8a34e763405",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_ambiental_858dfdb98b87a35f",
       "titulo": "ATA Nº 37, DE 23 DE SETEMBRO DE 2026",
@@ -351,57 +300,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_149182470bfec501",
-      "titulo": "PORTARIA ITI Nº 99, DE 15 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-iti-n-99-de-15-de-setembro-de-2026-735410706",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Gestão e da Inovação em Serviços Públicos/Instituto Nacional de Tecnologia da Informação",
-      "ementa": "julgar necessárias ao Conselho do Plano de Carreiras de Ciência e Tecnologia - CPC; II - atender às  normas  ...  regulamentadoras  que fixam as diretrizes para realização de concursos públicos na área de Ciência erna do Plano de Carreiras de Ciência e Tecnologia no âmbito do Instituto Nacio...",
-      "iid": "149182470bfec501",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_01c87ac047d99d6b",
-      "titulo": "PORTARIA Nº 3.462, dE 29 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-3.462-de-29-de-setembro-de-2026-735411101",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Saúde/Fundação Nacional de Saúde",
-      "ementa": "ação 21CB - Sistemas Públicos de Esgotamento Sanitário; c) ação 21CC - Sistemas Públicos de Manejo de  Resíduos  ...  Sólidos ; d) ação 21CG - Serviços de Drenagem e Manejo de Águas Pluviais Urbanas; e) ação 21CI - Implantação ... em Municípios; g) ação 20AM - apoio à implementação de Projetos de Coleta, Triagem e Reciclagem de  Resíduos  ...  Sólidos ; h) ação 20AF - apoio aos Controle e à Vigilância da Qualidade da Água para Consumo Humano para",
-      "iid": "01c87ac047d99d6b",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_efecc8a34e763405",
-      "titulo": "PORTARIA MAPA Nº 957, DE 29 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mapa-n-957-de-29-de-setembro-de-2026-735407702",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"reuso de água\"",
-      "data": "2026-09-30",
-      "data_fmt": "30/09/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Agricultura e Pecuária/Gabinete do Ministro",
-      "ementa": "e projetos de estruturação produtiva da agricultura irrigada; sistemas de irrigação eficientes e de  reúso  ... de  água ; estudos e implementação de soluções de energias renováveis; recuperação de áreas e pastagenstituição, e tendo em vista o disposto nos arts. 165, § 15, e 166, §§ 9º, 12 e...",
-      "iid": "efecc8a34e763405",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_ambiental_858dfdb98b87a35f",
       "titulo": "ATA Nº 37, DE 23 DE SETEMBRO DE 2026",
@@ -1314,10 +1212,13 @@
       "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-06T15:41:03.100700-03:00",
-  "sources_ok": 8,
+  "last_check_iso": "2026-10-07T10:38:16.071868-03:00",
+  "sources_ok": 5,
   "sources_total": 8,
-  "failures": [],
+  "failures": [
+    "Diário Oficial da União — Seção 1 (2x seguidas): nenhuma consulta ao DOU respondeu: RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas",
+    "Diário Oficial da União — ambiental (2x seguidas): nenhuma consulta ao DOU respondeu: RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas | RemoteDisconnected em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=30-09-2026&publishTo=07-10-2026&sortType=0&delta=50 após 3 tentativas"
+  ],
   "nrs": [
     {
       "nr": "NR-01",
