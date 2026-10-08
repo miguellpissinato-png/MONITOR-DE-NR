@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "07/10/2026 16:07",
-  "last_success": "2026-10-07T16:07:25.674644-03:00",
-  "status": "Monitorando",
+  "last_check": "08/10/2026 12:58",
+  "last_success": "2026-10-08T12:58:44.754928-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -40,7 +40,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -92,7 +92,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -101,7 +101,7 @@
         "2c1850d6bcb38343",
         "1bef0e4acc1217c6",
         "1d9249b25f5633dd",
-        "149182470bfec501"
+        "8ca69e5a8e2a5e71"
       ],
       "truncado": null,
       "extra": null,
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -142,19 +142,18 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 6,
+      "item_count": 5,
       "truncado": null,
       "known_ids": [
+        "315b24af4b608c44",
         "af45ffa04d84b20d",
         "31c3b59196d476d6",
         "858dfdb98b87a35f",
-        "c108baee5ee7c6b5",
-        "01c87ac047d99d6b",
-        "efecc8a34e763405"
+        "c108baee5ee7c6b5"
       ],
       "extra": null,
       "kind": "dou_search"
@@ -162,7 +161,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -182,7 +181,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 13
+        "dias_desde_atualizacao": 14
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -190,7 +189,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -210,7 +209,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "07/10/2026 16:07",
+      "last_ok": "08/10/2026 12:58",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -372,6 +371,44 @@
         "temperatura"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_8ca69e5a8e2a5e71",
+      "titulo": "ATA Nº 33, DE 29 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-33-de-29-de-setembro-de-2026-737222913",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "VISTOS e relacionados estes autos de aposentadoria concedida pela Fundação Jorge Duprat Figueiredo, de  Segurança  ... e  Medicina  do  Trabalho . ... Órgão/Entidade: Fundação Jorge Duprat Figueiredo, de  Segurança  e  Medicina  do  Trabalho . 1.3.",
+      "iid": "8ca69e5a8e2a5e71",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_315b24af4b608c44",
+      "titulo": "PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-197-de-6-de-outubro-de-2026-737215510",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+      "ementa": "União nº 240, de 16 de dezembro de 2010, que delega à Secretaria de Meio Ambiente do Estado de Goiás o  licenciamento  ...  ambiental  das obras de implantação e pavimentação do Contorno Rodoviário de Aragarças/GO.PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026 Revoga a Portaria Ibama nº 34, ...",
+      "iid": "315b24af4b608c44",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "IBAMA",
+        "Meio Ambiente",
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
@@ -497,6 +534,44 @@
       "eixo": "ambos",
       "termos": [
         "temperatura"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_8ca69e5a8e2a5e71",
+      "titulo": "ATA Nº 33, DE 29 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-33-de-29-de-setembro-de-2026-737222913",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "VISTOS e relacionados estes autos de aposentadoria concedida pela Fundação Jorge Duprat Figueiredo, de  Segurança  ... e  Medicina  do  Trabalho . ... Órgão/Entidade: Fundação Jorge Duprat Figueiredo, de  Segurança  e  Medicina  do  Trabalho . 1.3.",
+      "iid": "8ca69e5a8e2a5e71",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_315b24af4b608c44",
+      "titulo": "PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-197-de-6-de-outubro-de-2026-737215510",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+      "ementa": "União nº 240, de 16 de dezembro de 2010, que delega à Secretaria de Meio Ambiente do Estado de Goiás o  licenciamento  ...  ambiental  das obras de implantação e pavimentação do Contorno Rodoviário de Aragarças/GO.PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026 Revoga a Portaria Ibama nº 34, ...",
+      "iid": "315b24af4b608c44",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "IBAMA",
+        "Meio Ambiente",
+        "ambiental"
       ],
       "relevante": true
     }
@@ -1429,9 +1504,47 @@
         "temperatura"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_8ca69e5a8e2a5e71",
+      "titulo": "ATA Nº 33, DE 29 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-33-de-29-de-setembro-de-2026-737222913",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e medicina do trabalho\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "VISTOS e relacionados estes autos de aposentadoria concedida pela Fundação Jorge Duprat Figueiredo, de  Segurança  ... e  Medicina  do  Trabalho . ... Órgão/Entidade: Fundação Jorge Duprat Figueiredo, de  Segurança  e  Medicina  do  Trabalho . 1.3.",
+      "iid": "8ca69e5a8e2a5e71",
+      "prioridade": "baixa",
+      "eixo": "sst",
+      "termos": [],
+      "relevante": false
+    },
+    {
+      "id": "dou_ambiental_315b24af4b608c44",
+      "titulo": "PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-197-de-6-de-outubro-de-2026-737215510",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-08",
+      "data_fmt": "08/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis",
+      "ementa": "União nº 240, de 16 de dezembro de 2010, que delega à Secretaria de Meio Ambiente do Estado de Goiás o  licenciamento  ...  ambiental  das obras de implantação e pavimentação do Contorno Rodoviário de Aragarças/GO.PORTARIA IBAMA Nº 197, DE 6 DE OUTUBRO DE 2026 Revoga a Portaria Ibama nº 34, ...",
+      "iid": "315b24af4b608c44",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "IBAMA",
+        "Meio Ambiente",
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-07T16:07:25.674644-03:00",
+  "last_check_iso": "2026-10-08T12:58:44.754928-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
