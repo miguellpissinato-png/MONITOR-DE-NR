@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "08/10/2026 16:03",
-  "last_success": "2026-10-08T16:03:40.282222-03:00",
-  "status": "Monitorando",
+  "last_check": "09/10/2026 12:41",
+  "last_success": "2026-10-09T12:41:04.939734-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -40,7 +40,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -92,7 +92,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -142,18 +142,22 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 5,
+      "item_count": 9,
       "truncado": null,
       "known_ids": [
+        "7d31998527c139cf",
+        "172ce75c8c12892e",
         "315b24af4b608c44",
+        "bca556cef9e38c7a",
         "af45ffa04d84b20d",
         "31c3b59196d476d6",
         "858dfdb98b87a35f",
-        "c108baee5ee7c6b5"
+        "c108baee5ee7c6b5",
+        "d1c12d8453d8cbd0"
       ],
       "extra": null,
       "kind": "dou_search"
@@ -161,7 +165,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -181,7 +185,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 14
+        "dias_desde_atualizacao": 15
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -189,7 +193,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -209,7 +213,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "08/10/2026 16:03",
+      "last_ok": "09/10/2026 12:41",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -248,40 +252,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_ambiental_858dfdb98b87a35f",
-      "titulo": "ATA Nº 37, DE 23 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-37-de-23-de-setembro-de-2026-736058042",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-02",
-      "data_fmt": "02/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "abastecimento de água, de esgotamento sanitário, de drenagem de águas pluviais, de gestão e destinação final de  resíduos  ...  sólidos , entre outras áreas de atuação da Funasa; a.5) redefinir sua política institucional revisada Costa e Silva Secretária das Sessões: AUFC Lorena Medeiros Bas...",
-      "iid": "858dfdb98b87a35f",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_c108baee5ee7c6b5",
-      "titulo": "PORTARIA SNPGB/MME Nº 232, DE 25 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-snpgb/mme-n-232-de-25-de-setembro-de-2026-736029891",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-02",
-      "data_fmt": "02/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Minas e Energia/Secretaria Nacional de Petróleo, Gás Natural e Biocombustíveis",
-      "ementa": "biometano, com capacidade de 130.000 Nm³/dia, a partir da purificação de biogás de aterro sanitário de  resíduos  ...  sólidos  domiciliares. 1º, inciso I da Portaria nº 681/GM/MME, de 22 de agosto de 2022, tendo em vista o disposto no art. 6º do Decreto nº 6.144, de 3 de julho de 2007, no a...",
-      "iid": "c108baee5ee7c6b5",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_ambiental_31c3b59196d476d6",
       "titulo": "PORTARIA GM/MPO Nº 430, DE 5 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mpo-n-430-de-5-de-outubro-de-2026-736583568",
@@ -407,46 +377,89 @@
         "IBAMA",
         "Meio Ambiente",
         "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_7d31998527c139cf",
+      "titulo": "ATA Nº 38, DE 30 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-30-de-setembro-de-2026-737505288",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "empreendimento; 9.2.3. permanecem com o Segmento 3 impedido de avançar em razão de pendências relacionadas ao  licenciamento  ...  ambiental , ante reiterados atrasos na obtenção da licença de instalação junto à Superintendência dessão Ordinária do Plenário) Presidência: Ministro Walton Alen...",
+      "iid": "7d31998527c139cf",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_172ce75c8c12892e",
+      "titulo": "Portaria Nº 461, DE 2 DE outubro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério de Portos e Aeroportos/Secretaria Nacional de Portos",
+      "ementa": "necessária à implementação dos projetos; e IV - acompanhamento prioritário de providências relacionadas ao  licenciamento  ...  ambiental , sem prejuízo das competências dos órgãos ambientais. § 2º A prioridade será aplicada semodernização da Portaria n.º 530, de 13 de agosto de 2019, que es...",
+      "iid": "172ce75c8c12892e",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_bca556cef9e38c7a",
+      "titulo": "Portaria nº 99, de 8 de outubro de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-99-de-8-de-outubro-de-2026-737470178",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Instituto do Patrimônio Histórico e Artístico Nacional/Departamento de Ações Estratégicas e Intersetoriais/Centro Nacional de Arqueologia",
+      "ementa": "Prazo de Validade: 06 (seis) meses 15-Enquadramento: Nível III Empreendimento: Aterro Sanitário de  Resíduos  ...  Sólidos  Domiciliar Empreendedor: Prefeitura Municipal de Itaoca Processo Iphan n.º 01450.012339/2025 ... -80 Projeto: Avaliação de impacto ao patrimônio arqueológico do Aterro Sanitário de  Resíduos Sólidos",
+      "iid": "bca556cef9e38c7a",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_d1c12d8453d8cbd0",
+      "titulo": "PORTARIA SEFIC/MINC Nº 686, DE 8 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sefic/minc-n-686-de-8-de-outubro-de-2026-737485420",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Secretaria de Fomento e Incentivo à Cultura",
+      "ementa": "Serão introduzidos conceitos como sustentabilidade, gestão de resíduos,  logística reversa , empreendedorismologar os projetos culturais relacionados nos anexos desta portaria, que após terem atendido aos requisitos de admissibilidade estabelecidos pela Lei nº 8.313/91, Decreto nº 11.453/2023 e a Instrução Normativa vigente, passam a fase de ob...",
+      "iid": "d1c12d8453d8cbd0",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "logística reversa",
+        "sustentabilidade"
       ],
       "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_ambiental_858dfdb98b87a35f",
-      "titulo": "ATA Nº 37, DE 23 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-37-de-23-de-setembro-de-2026-736058042",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-02",
-      "data_fmt": "02/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "abastecimento de água, de esgotamento sanitário, de drenagem de águas pluviais, de gestão e destinação final de  resíduos  ...  sólidos , entre outras áreas de atuação da Funasa; a.5) redefinir sua política institucional revisada Costa e Silva Secretária das Sessões: AUFC Lorena Medeiros Bas...",
-      "iid": "858dfdb98b87a35f",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_c108baee5ee7c6b5",
-      "titulo": "PORTARIA SNPGB/MME Nº 232, DE 25 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-snpgb/mme-n-232-de-25-de-setembro-de-2026-736029891",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-02",
-      "data_fmt": "02/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Minas e Energia/Secretaria Nacional de Petróleo, Gás Natural e Biocombustíveis",
-      "ementa": "biometano, com capacidade de 130.000 Nm³/dia, a partir da purificação de biogás de aterro sanitário de  resíduos  ...  sólidos  domiciliares. 1º, inciso I da Portaria nº 681/GM/MME, de 22 de agosto de 2022, tendo em vista o disposto no art. 6º do Decreto nº 6.144, de 3 de julho de 2007, no a...",
-      "iid": "c108baee5ee7c6b5",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_ambiental_31c3b59196d476d6",
       "titulo": "PORTARIA GM/MPO Nº 430, DE 5 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mpo-n-430-de-5-de-outubro-de-2026-736583568",
@@ -572,6 +585,83 @@
         "IBAMA",
         "Meio Ambiente",
         "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_7d31998527c139cf",
+      "titulo": "ATA Nº 38, DE 30 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-30-de-setembro-de-2026-737505288",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "empreendimento; 9.2.3. permanecem com o Segmento 3 impedido de avançar em razão de pendências relacionadas ao  licenciamento  ...  ambiental , ante reiterados atrasos na obtenção da licença de instalação junto à Superintendência dessão Ordinária do Plenário) Presidência: Ministro Walton Alen...",
+      "iid": "7d31998527c139cf",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_172ce75c8c12892e",
+      "titulo": "Portaria Nº 461, DE 2 DE outubro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério de Portos e Aeroportos/Secretaria Nacional de Portos",
+      "ementa": "necessária à implementação dos projetos; e IV - acompanhamento prioritário de providências relacionadas ao  licenciamento  ...  ambiental , sem prejuízo das competências dos órgãos ambientais. § 2º A prioridade será aplicada semodernização da Portaria n.º 530, de 13 de agosto de 2019, que es...",
+      "iid": "172ce75c8c12892e",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_bca556cef9e38c7a",
+      "titulo": "Portaria nº 99, de 8 de outubro de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-99-de-8-de-outubro-de-2026-737470178",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Instituto do Patrimônio Histórico e Artístico Nacional/Departamento de Ações Estratégicas e Intersetoriais/Centro Nacional de Arqueologia",
+      "ementa": "Prazo de Validade: 06 (seis) meses 15-Enquadramento: Nível III Empreendimento: Aterro Sanitário de  Resíduos  ...  Sólidos  Domiciliar Empreendedor: Prefeitura Municipal de Itaoca Processo Iphan n.º 01450.012339/2025 ... -80 Projeto: Avaliação de impacto ao patrimônio arqueológico do Aterro Sanitário de  Resíduos Sólidos",
+      "iid": "bca556cef9e38c7a",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_d1c12d8453d8cbd0",
+      "titulo": "PORTARIA SEFIC/MINC Nº 686, DE 8 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sefic/minc-n-686-de-8-de-outubro-de-2026-737485420",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Secretaria de Fomento e Incentivo à Cultura",
+      "ementa": "Serão introduzidos conceitos como sustentabilidade, gestão de resíduos,  logística reversa , empreendedorismologar os projetos culturais relacionados nos anexos desta portaria, que após terem atendido aos requisitos de admissibilidade estabelecidos pela Lei nº 8.313/91, Decreto nº 11.453/2023 e a Instrução Normativa vigente, passam a fase de ob...",
+      "iid": "d1c12d8453d8cbd0",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "logística reversa",
+        "sustentabilidade"
       ],
       "relevante": true
     }
@@ -1542,9 +1632,86 @@
         "ambiental"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_ambiental_7d31998527c139cf",
+      "titulo": "ATA Nº 38, DE 30 DE SETEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-30-de-setembro-de-2026-737505288",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "empreendimento; 9.2.3. permanecem com o Segmento 3 impedido de avançar em razão de pendências relacionadas ao  licenciamento  ...  ambiental , ante reiterados atrasos na obtenção da licença de instalação junto à Superintendência dessão Ordinária do Plenário) Presidência: Ministro Walton Alen...",
+      "iid": "7d31998527c139cf",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_172ce75c8c12892e",
+      "titulo": "Portaria Nº 461, DE 2 DE outubro DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério de Portos e Aeroportos/Secretaria Nacional de Portos",
+      "ementa": "necessária à implementação dos projetos; e IV - acompanhamento prioritário de providências relacionadas ao  licenciamento  ...  ambiental , sem prejuízo das competências dos órgãos ambientais. § 2º A prioridade será aplicada semodernização da Portaria n.º 530, de 13 de agosto de 2019, que es...",
+      "iid": "172ce75c8c12892e",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_bca556cef9e38c7a",
+      "titulo": "Portaria nº 99, de 8 de outubro de 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-n-99-de-8-de-outubro-de-2026-737470178",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Instituto do Patrimônio Histórico e Artístico Nacional/Departamento de Ações Estratégicas e Intersetoriais/Centro Nacional de Arqueologia",
+      "ementa": "Prazo de Validade: 06 (seis) meses 15-Enquadramento: Nível III Empreendimento: Aterro Sanitário de  Resíduos  ...  Sólidos  Domiciliar Empreendedor: Prefeitura Municipal de Itaoca Processo Iphan n.º 01450.012339/2025 ... -80 Projeto: Avaliação de impacto ao patrimônio arqueológico do Aterro Sanitário de  Resíduos Sólidos",
+      "iid": "bca556cef9e38c7a",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Resíduos Sólido"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_d1c12d8453d8cbd0",
+      "titulo": "PORTARIA SEFIC/MINC Nº 686, DE 8 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-sefic/minc-n-686-de-8-de-outubro-de-2026-737485420",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-09",
+      "data_fmt": "09/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Ministério da Cultura/Secretaria de Fomento e Incentivo à Cultura",
+      "ementa": "Serão introduzidos conceitos como sustentabilidade, gestão de resíduos,  logística reversa , empreendedorismologar os projetos culturais relacionados nos anexos desta portaria, que após terem atendido aos requisitos de admissibilidade estabelecidos pela Lei nº 8.313/91, Decreto nº 11.453/2023 e a Instrução Normativa vigente, passam a fase de ob...",
+      "iid": "d1c12d8453d8cbd0",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "logística reversa",
+        "sustentabilidade"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-08T16:03:40.282222-03:00",
+  "last_check_iso": "2026-10-09T12:41:04.939734-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
