@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "15/10/2026 14:27",
-  "last_success": "2026-10-15T14:27:15.301457-03:00",
-  "status": "Monitorando",
+  "last_check": "16/10/2026 10:39",
+  "last_success": "2026-10-16T10:39:15.781635-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,15 +93,15 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
       "item_count": 3,
       "known_ids": [
+        "906836c75ab48e2f",
         "0ac220e71c8e016d",
-        "9250f8d80f5eb13b",
-        "8ca69e5a8e2a5e71"
+        "9250f8d80f5eb13b"
       ],
       "truncado": null,
       "extra": null,
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -142,7 +142,7 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -151,10 +151,10 @@
       "known_ids": [
         "7d31998527c139cf",
         "172ce75c8c12892e",
-        "315b24af4b608c44",
         "445ce0a01d557fe7",
         "bca556cef9e38c7a",
-        "d1c12d8453d8cbd0"
+        "d1c12d8453d8cbd0",
+        "906836c75ab48e2f"
       ],
       "extra": null,
       "kind": "dou_search"
@@ -162,7 +162,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -182,7 +182,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 21
+        "dias_desde_atualizacao": 22
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -190,7 +190,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -210,7 +210,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "15/10/2026 14:27",
+      "last_ok": "16/10/2026 10:39",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -249,83 +249,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_ambiental_7d31998527c139cf",
-      "titulo": "ATA Nº 38, DE 30 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-30-de-setembro-de-2026-737505288",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "empreendimento; 9.2.3. permanecem com o Segmento 3 impedido de avançar em razão de pendências relacionadas ao  licenciamento  ...  ambiental , ante reiterados atrasos na obtenção da licença de instalação junto à Superintendência dessão Ordinária do Plenário) Presidência: Ministro Walton Alen...",
-      "iid": "7d31998527c139cf",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_172ce75c8c12892e",
-      "titulo": "Portaria Nº 461, DE 2 DE outubro DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Portos e Aeroportos/Secretaria Nacional de Portos",
-      "ementa": "necessária à implementação dos projetos; e IV - acompanhamento prioritário de providências relacionadas ao  licenciamento  ...  ambiental , sem prejuízo das competências dos órgãos ambientais. § 2º A prioridade será aplicada semodernização da Portaria n.º 530, de 13 de agosto de 2019, que es...",
-      "iid": "172ce75c8c12892e",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_bca556cef9e38c7a",
-      "titulo": "Portaria nº 99, de 8 de outubro de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-99-de-8-de-outubro-de-2026-737470178",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Cultura/Instituto do Patrimônio Histórico e Artístico Nacional/Departamento de Ações Estratégicas e Intersetoriais/Centro Nacional de Arqueologia",
-      "ementa": "Prazo de Validade: 06 (seis) meses 15-Enquadramento: Nível III Empreendimento: Aterro Sanitário de  Resíduos  ...  Sólidos  Domiciliar Empreendedor: Prefeitura Municipal de Itaoca Processo Iphan n.º 01450.012339/2025 ... -80 Projeto: Avaliação de impacto ao patrimônio arqueológico do Aterro Sanitário de  Resíduos Sólidos",
-      "iid": "bca556cef9e38c7a",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_d1c12d8453d8cbd0",
-      "titulo": "PORTARIA SEFIC/MINC Nº 686, DE 8 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sefic/minc-n-686-de-8-de-outubro-de-2026-737485420",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"logística reversa\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Cultura/Secretaria de Fomento e Incentivo à Cultura",
-      "ementa": "Serão introduzidos conceitos como sustentabilidade, gestão de resíduos,  logística reversa , empreendedorismologar os projetos culturais relacionados nos anexos desta portaria, que após terem atendido aos requisitos de admissibilidade estabelecidos pela Lei nº 8.313/91, Decreto nº 11.453/2023 e a Instrução Normativa vigente, passam a fase de ob...",
-      "iid": "d1c12d8453d8cbd0",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "logística reversa",
-        "sustentabilidade"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_ambiental_445ce0a01d557fe7",
       "titulo": "PORTARIA SQA/MMA Nº 1.801, DE 7 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-sqa/mma-n-1.801-de-7-de-outubro-de-2026-737771209",
@@ -398,89 +321,33 @@
       "termos": [
         "NR-28",
         "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_906836c75ab48e2f",
+      "titulo": "ATA Nº 39, DE 7 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-39-de-7-de-outubro-de-2026-738579892",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-10-16",
+      "data_fmt": "16/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "omissão de requisitos de segurança do trabalho e contenção de valas, contrariando as exigências da  Norma  ...  Regulamentadora  18 do Ministério do Trabalho e Emprego (NR 18, subitem 18.7.2), o art. 6º, inciso IX, da Constituição Federal de 1988, para que a Fundação Parque de Alta Tecnologi...",
+      "iid": "906836c75ab48e2f",
+      "prioridade": "alta",
+      "eixo": "ambos",
+      "termos": [
+        "NR 18",
+        "Ministério do Trabalho",
+        "condicionantes ambienta"
       ],
       "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_ambiental_7d31998527c139cf",
-      "titulo": "ATA Nº 38, DE 30 DE SETEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-30-de-setembro-de-2026-737505288",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "empreendimento; 9.2.3. permanecem com o Segmento 3 impedido de avançar em razão de pendências relacionadas ao  licenciamento  ...  ambiental , ante reiterados atrasos na obtenção da licença de instalação junto à Superintendência dessão Ordinária do Plenário) Presidência: Ministro Walton Alen...",
-      "iid": "7d31998527c139cf",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_172ce75c8c12892e",
-      "titulo": "Portaria Nº 461, DE 2 DE outubro DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Portos e Aeroportos/Secretaria Nacional de Portos",
-      "ementa": "necessária à implementação dos projetos; e IV - acompanhamento prioritário de providências relacionadas ao  licenciamento  ...  ambiental , sem prejuízo das competências dos órgãos ambientais. § 2º A prioridade será aplicada semodernização da Portaria n.º 530, de 13 de agosto de 2019, que es...",
-      "iid": "172ce75c8c12892e",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_bca556cef9e38c7a",
-      "titulo": "Portaria nº 99, de 8 de outubro de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-99-de-8-de-outubro-de-2026-737470178",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Cultura/Instituto do Patrimônio Histórico e Artístico Nacional/Departamento de Ações Estratégicas e Intersetoriais/Centro Nacional de Arqueologia",
-      "ementa": "Prazo de Validade: 06 (seis) meses 15-Enquadramento: Nível III Empreendimento: Aterro Sanitário de  Resíduos  ...  Sólidos  Domiciliar Empreendedor: Prefeitura Municipal de Itaoca Processo Iphan n.º 01450.012339/2025 ... -80 Projeto: Avaliação de impacto ao patrimônio arqueológico do Aterro Sanitário de  Resíduos Sólidos",
-      "iid": "bca556cef9e38c7a",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_d1c12d8453d8cbd0",
-      "titulo": "PORTARIA SEFIC/MINC Nº 686, DE 8 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sefic/minc-n-686-de-8-de-outubro-de-2026-737485420",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"logística reversa\"",
-      "data": "2026-10-09",
-      "data_fmt": "09/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Cultura/Secretaria de Fomento e Incentivo à Cultura",
-      "ementa": "Serão introduzidos conceitos como sustentabilidade, gestão de resíduos,  logística reversa , empreendedorismologar os projetos culturais relacionados nos anexos desta portaria, que após terem atendido aos requisitos de admissibilidade estabelecidos pela Lei nº 8.313/91, Decreto nº 11.453/2023 e a Instrução Normativa vigente, passam a fase de ob...",
-      "iid": "d1c12d8453d8cbd0",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "logística reversa",
-        "sustentabilidade"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_ambiental_445ce0a01d557fe7",
       "titulo": "PORTARIA SQA/MMA Nº 1.801, DE 7 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/portaria-sqa/mma-n-1.801-de-7-de-outubro-de-2026-737771209",
@@ -553,6 +420,27 @@
       "termos": [
         "NR-28",
         "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_906836c75ab48e2f",
+      "titulo": "ATA Nº 39, DE 7 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-39-de-7-de-outubro-de-2026-738579892",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-10-16",
+      "data_fmt": "16/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "omissão de requisitos de segurança do trabalho e contenção de valas, contrariando as exigências da  Norma  ...  Regulamentadora  18 do Ministério do Trabalho e Emprego (NR 18, subitem 18.7.2), o art. 6º, inciso IX, da Constituição Federal de 1988, para que a Fundação Parque de Alta Tecnologi...",
+      "iid": "906836c75ab48e2f",
+      "prioridade": "alta",
+      "eixo": "ambos",
+      "termos": [
+        "NR 18",
+        "Ministério do Trabalho",
+        "condicionantes ambienta"
       ],
       "relevante": true
     }
@@ -1676,9 +1564,30 @@
         "MTE"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_906836c75ab48e2f",
+      "titulo": "ATA Nº 39, DE 7 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-39-de-7-de-outubro-de-2026-738579892",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-10-16",
+      "data_fmt": "16/10/2026",
+      "tipo": "DOU",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "omissão de requisitos de segurança do trabalho e contenção de valas, contrariando as exigências da  Norma  ...  Regulamentadora  18 do Ministério do Trabalho e Emprego (NR 18, subitem 18.7.2), o art. 6º, inciso IX, da Constituição Federal de 1988, para que a Fundação Parque de Alta Tecnologi...",
+      "iid": "906836c75ab48e2f",
+      "prioridade": "alta",
+      "eixo": "ambos",
+      "termos": [
+        "NR 18",
+        "Ministério do Trabalho",
+        "condicionantes ambienta"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-15T14:27:15.301457-03:00",
+  "last_check_iso": "2026-10-16T10:39:15.781635-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
