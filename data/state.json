@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "26/10/2026 15:55",
-  "last_success": "2026-10-26T15:55:17.969571-03:00",
-  "status": "Monitorando",
+  "last_check": "27/10/2026 12:02",
+  "last_success": "2026-10-27T12:02:47.804565-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,7 +93,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -109,7 +109,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -141,11 +141,11 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 7,
+      "item_count": 8,
       "truncado": null,
       "known_ids": [
         "50fe7a95162a1024",
@@ -154,6 +154,7 @@
         "dee12fef8ef35548",
         "7391c07d75bcc100",
         "4818cdbc26077d5f",
+        "b3acba5fd8fd1526",
         "69faae4708378174"
       ],
       "extra": null,
@@ -162,7 +163,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -182,7 +183,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 32
+        "dias_desde_atualizacao": 33
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -190,7 +191,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "26/10/2026 15:55",
+      "last_ok": "27/10/2026 12:02",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -210,9 +211,9 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "26/10/2026 14:02",
-      "last_error": "URLError em https://www.ipaam.am.gov.br/legislacao-online/ após 3 tentativas",
-      "consecutive_failures": 1,
+      "last_ok": "27/10/2026 12:02",
+      "last_error": null,
+      "consecutive_failures": 0,
       "degraded": false,
       "item_count": 25,
       "truncado": null,
@@ -249,82 +250,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_cb88415a414379c1",
-      "titulo": "EXTRATO DE ATA DA 1.279ª SESSÃO EXTRAORDINÁRIA",
-      "link": "https://www.in.gov.br/web/dou/-/extrato-de-ata-da-1.279-sessao-extraordinaria-739124281",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Fazenda/Conselho Monetário Nacional",
-      "ementa": "de 3 de julho de 2026, que estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento para beneficiários adimplentes do Fundo de Financiamentoras do dia dez de julho de dois mil e vinte e seis, por meio eletrô...",
-      "iid": "cb88415a414379c1",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_f205606876aa45f1",
-      "titulo": "PORTARIA Nº 20.137, DE 5 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-20.137-de-5-de-outubro-de-2026-739059267",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Portos e Aeroportos/Agência Nacional de Aviação Civil/Superintendência de Infraestrutura Aeroportuária/Gerência de Certificação e Segurança Operacional",
-      "ementa": "3º O disposto nesta Portaria não dispensa o operador de aeródromo da observância dos requisitos de  licenciamento  ...  ambiental , de uso do solo e de zoneamento urbano e outras posturas. 32, inciso XIV, alínea \"a\", do Regimento Interno, aprovado pela Resolução Interna nº 10, de 27 de julho...",
-      "iid": "f205606876aa45f1",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_4818cdbc26077d5f",
-      "titulo": "PORTARIA SQA/MMA Nº 1.806, DE 15 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sqa/mma-n-1.806-de-15-de-outubro-de-2026-739147563",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Secretaria Nacional de Meio Ambiente Urbano, Recursos Hídricos e Qualidade Ambiental",
-      "ementa": "Sólidos  (PNRS). ...  sólidos . ... O objetivo central do projeto é ampliar a capacidade da associação na gestão de  resíduos sólidos , melhorando ...  sólidos . ... PROPONENTE:23902493000150 - COOPERATIVA DOS CATADORES DE MATERIAIS RECICLAVEIS E  RESIDUOS SOLIDOS  DE",
-      "iid": "4818cdbc26077d5f",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "resíduos sólido",
-        "PNRS",
-        "Meio Ambiente",
-        "Ambiental",
-        "Recursos Hídricos"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_69faae4708378174",
-      "titulo": "PORTARIA Nº 432, DE 15 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-432-de-15-de-outubro-de-2026-739153190",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos perigosos\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte/Secretaria Nacional de Ambiente de Negócios/Departamento Nacional de Registro Empresarial e Integração",
-      "ementa": "por conta própria e para terceiros, tanto em Itália como no estrangeiro, e a recolha e transporte de  resíduos  ...  perigosos  e não perigosos, especiais e urbanos; (n) a prestação de serviços ecológicos, ambientais etência subdelegada pela Portaria GM/MDIC nº 118, de 11 de maio de 2023, no...",
-      "iid": "69faae4708378174",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_sst_46ce35844804df90",
       "titulo": "RESOLUÇÃO CRMV-GO Nº 570, DE 14 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-crmv-go-n-570-de-14-de-outubro-de-2026-739400542",
@@ -415,88 +340,31 @@
       "eixo": "ambiental",
       "termos": [
         "Resíduos Sólido"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_b3acba5fd8fd1526",
+      "titulo": "ATA Nº 36, DE 20 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-36-de-20-de-outubro-de-2026-740435843",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-27",
+      "data_fmt": "27/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "Logística Reversa  (10.254.988/0001-79). 1.2. Recorrente: Mario Hildebrandt (674.916.349-15). 1.3. HOMOLOGAÇÃO DE ATA A Primeira Câmara homologou a Ata nº 35, referente à sessão realizada em 13 de outubro de 2026. PUBLICAÇÃO DA ATA NA INTERNET Os anexos das atas, de acordo com a Resolução nº 184/2005, estão publicados na página do Tribunal de ...",
+      "iid": "b3acba5fd8fd1526",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Logística Reversa"
       ],
       "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_cb88415a414379c1",
-      "titulo": "EXTRATO DE ATA DA 1.279ª SESSÃO EXTRAORDINÁRIA",
-      "link": "https://www.in.gov.br/web/dou/-/extrato-de-ata-da-1.279-sessao-extraordinaria-739124281",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Fazenda/Conselho Monetário Nacional",
-      "ementa": "de 3 de julho de 2026, que estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  aplicáveis às linhas de financiamento para beneficiários adimplentes do Fundo de Financiamentoras do dia dez de julho de dois mil e vinte e seis, por meio eletrô...",
-      "iid": "cb88415a414379c1",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_f205606876aa45f1",
-      "titulo": "PORTARIA Nº 20.137, DE 5 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-20.137-de-5-de-outubro-de-2026-739059267",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério de Portos e Aeroportos/Agência Nacional de Aviação Civil/Superintendência de Infraestrutura Aeroportuária/Gerência de Certificação e Segurança Operacional",
-      "ementa": "3º O disposto nesta Portaria não dispensa o operador de aeródromo da observância dos requisitos de  licenciamento  ...  ambiental , de uso do solo e de zoneamento urbano e outras posturas. 32, inciso XIV, alínea \"a\", do Regimento Interno, aprovado pela Resolução Interna nº 10, de 27 de julho...",
-      "iid": "f205606876aa45f1",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_4818cdbc26077d5f",
-      "titulo": "PORTARIA SQA/MMA Nº 1.806, DE 15 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sqa/mma-n-1.806-de-15-de-outubro-de-2026-739147563",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Secretaria Nacional de Meio Ambiente Urbano, Recursos Hídricos e Qualidade Ambiental",
-      "ementa": "Sólidos  (PNRS). ...  sólidos . ... O objetivo central do projeto é ampliar a capacidade da associação na gestão de  resíduos sólidos , melhorando ...  sólidos . ... PROPONENTE:23902493000150 - COOPERATIVA DOS CATADORES DE MATERIAIS RECICLAVEIS E  RESIDUOS SOLIDOS  DE",
-      "iid": "4818cdbc26077d5f",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "resíduos sólido",
-        "PNRS",
-        "Meio Ambiente",
-        "Ambiental",
-        "Recursos Hídricos"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_69faae4708378174",
-      "titulo": "PORTARIA Nº 432, DE 15 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-432-de-15-de-outubro-de-2026-739153190",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos perigosos\"",
-      "data": "2026-10-20",
-      "data_fmt": "20/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte/Secretaria Nacional de Ambiente de Negócios/Departamento Nacional de Registro Empresarial e Integração",
-      "ementa": "por conta própria e para terceiros, tanto em Itália como no estrangeiro, e a recolha e transporte de  resíduos  ...  perigosos  e não perigosos, especiais e urbanos; (n) a prestação de serviços ecológicos, ambientais etência subdelegada pela Portaria GM/MDIC nº 118, de 11 de maio de 2023, no...",
-      "iid": "69faae4708378174",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_sst_46ce35844804df90",
       "titulo": "RESOLUÇÃO CRMV-GO Nº 570, DE 14 DE OUTUBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-crmv-go-n-570-de-14-de-outubro-de-2026-739400542",
@@ -587,6 +455,25 @@
       "eixo": "ambiental",
       "termos": [
         "Resíduos Sólido"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_b3acba5fd8fd1526",
+      "titulo": "ATA Nº 36, DE 20 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-36-de-20-de-outubro-de-2026-740435843",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-27",
+      "data_fmt": "27/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "Logística Reversa  (10.254.988/0001-79). 1.2. Recorrente: Mario Hildebrandt (674.916.349-15). 1.3. HOMOLOGAÇÃO DE ATA A Primeira Câmara homologou a Ata nº 35, referente à sessão realizada em 13 de outubro de 2026. PUBLICAÇÃO DA ATA NA INTERNET Os anexos das atas, de acordo com a Resolução nº 184/2005, estão publicados na página do Tribunal de ...",
+      "iid": "b3acba5fd8fd1526",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Logística Reversa"
       ],
       "relevante": true
     }
@@ -1901,10 +1788,29 @@
         "Resíduos Sólido"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_ambiental_b3acba5fd8fd1526",
+      "titulo": "ATA Nº 36, DE 20 DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-36-de-20-de-outubro-de-2026-740435843",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"logística reversa\"",
+      "data": "2026-10-27",
+      "data_fmt": "27/10/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/1ª Câmara",
+      "ementa": "Logística Reversa  (10.254.988/0001-79). 1.2. Recorrente: Mario Hildebrandt (674.916.349-15). 1.3. HOMOLOGAÇÃO DE ATA A Primeira Câmara homologou a Ata nº 35, referente à sessão realizada em 13 de outubro de 2026. PUBLICAÇÃO DA ATA NA INTERNET Os anexos das atas, de acordo com a Resolução nº 184/2005, estão publicados na página do Tribunal de ...",
+      "iid": "b3acba5fd8fd1526",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "Logística Reversa"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-26T15:55:17.969571-03:00",
-  "sources_ok": 7,
+  "last_check_iso": "2026-10-27T12:02:47.804565-03:00",
+  "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
   "nrs": [
