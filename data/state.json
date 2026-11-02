@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
-  "last_check": "30/10/2026 15:18",
-  "last_success": "2026-10-30T15:18:37.180999-03:00",
+  "last_check": "02/11/2026 15:59",
+  "last_success": "2026-11-02T15:59:38.490276-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,7 +93,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -142,7 +142,7 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -160,7 +160,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -180,7 +180,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 36
+        "dias_desde_atualizacao": 39
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -188,7 +188,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -208,7 +208,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "30/10/2026 15:18",
+      "last_ok": "02/11/2026 15:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -246,44 +246,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_ambiental_50fe7a95162a1024",
-      "titulo": "PORTARIA NORMATIVA PGF/AGU Nº 101, DE 19 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-normativa-pgf/agu-n-101-de-19-de-outubro-de-2026-740288645",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-26",
-      "data_fmt": "26/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Presidência da República/Advocacia-Geral da União/Procuradoria-Geral Federal",
-      "ementa": "inclusive as demandas judiciais integrantes do AGU Recupera; XX - demandas cujo objeto seja procedimento de  licenciamento  ...  ambiental  indicado pela entidade como de grande impacto; XXI - demandas que visem a anular ou tornaracterização de relevância de demandas judiciais e sobre a resp...",
-      "iid": "50fe7a95162a1024",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_dee12fef8ef35548",
-      "titulo": "PORTARIA MCID Nº 1.448, DE 23 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.448-de-23-de-outubro-de-2026-740385651",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-26",
-      "data_fmt": "26/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério das Cidades/Gabinete do Ministro",
-      "ementa": "contratação de operações de crédito para a execução de ações de saneamento, na modalidade Manejo de  Resíduos  ...  Sólidos , para Mutuários Públicos, com recursos do Fundo de Garantia do Tempo de Serviço - FGTS, no âmbito ...  Sólidos , para Mutuários Públicos, com recursos do Fundo de Garantia do Tempo de Serviço - FGTS, no âmbito ...  SÓLIDOS  Nº Nome do Programa Número da Proposta Objeto Proponente UF Valor do Financiamento (R$) 1 Novo ... PAC - Cidades Sustentáveis e Resilientes: Gestão de  Resíduos Sólidos  56000001850/2025 Aquisição de 02",
-      "iid": "dee12fef8ef35548",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_ambiental_b3acba5fd8fd1526",
       "titulo": "ATA Nº 36, DE 20 DE OUTUBRO DE 2026",
@@ -785,44 +747,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_ambiental_50fe7a95162a1024",
-      "titulo": "PORTARIA NORMATIVA PGF/AGU Nº 101, DE 19 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-normativa-pgf/agu-n-101-de-19-de-outubro-de-2026-740288645",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-10-26",
-      "data_fmt": "26/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Presidência da República/Advocacia-Geral da União/Procuradoria-Geral Federal",
-      "ementa": "inclusive as demandas judiciais integrantes do AGU Recupera; XX - demandas cujo objeto seja procedimento de  licenciamento  ...  ambiental  indicado pela entidade como de grande impacto; XXI - demandas que visem a anular ou tornaracterização de relevância de demandas judiciais e sobre a resp...",
-      "iid": "50fe7a95162a1024",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_dee12fef8ef35548",
-      "titulo": "PORTARIA MCID Nº 1.448, DE 23 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.448-de-23-de-outubro-de-2026-740385651",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-10-26",
-      "data_fmt": "26/10/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério das Cidades/Gabinete do Ministro",
-      "ementa": "contratação de operações de crédito para a execução de ações de saneamento, na modalidade Manejo de  Resíduos  ...  Sólidos , para Mutuários Públicos, com recursos do Fundo de Garantia do Tempo de Serviço - FGTS, no âmbito ...  Sólidos , para Mutuários Públicos, com recursos do Fundo de Garantia do Tempo de Serviço - FGTS, no âmbito ...  SÓLIDOS  Nº Nome do Programa Número da Proposta Objeto Proponente UF Valor do Financiamento (R$) 1 Novo ... PAC - Cidades Sustentáveis e Resilientes: Gestão de  Resíduos Sólidos  56000001850/2025 Aquisição de 02",
-      "iid": "dee12fef8ef35548",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_ambiental_b3acba5fd8fd1526",
       "titulo": "ATA Nº 36, DE 20 DE OUTUBRO DE 2026",
@@ -3134,7 +3058,7 @@
       "relevante": true
     }
   ],
-  "last_check_iso": "2026-10-30T15:18:37.180999-03:00",
+  "last_check_iso": "2026-11-02T15:59:38.490276-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
