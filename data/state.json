@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
-  "last_check": "04/11/2026 17:08",
-  "last_success": "2026-11-04T17:08:01.059397-03:00",
+  "last_check": "05/11/2026 13:59",
+  "last_success": "2026-11-05T13:59:02.072856-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,12 +93,13 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 4,
+      "item_count": 5,
       "known_ids": [
+        "8a66edea2d7370b4",
         "4b9170bbb2d766be",
         "522a71bfaf2c0bff",
         "c78c099065168533",
@@ -111,7 +112,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -143,13 +144,14 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 3,
+      "item_count": 4,
       "truncado": null,
       "known_ids": [
+        "8a66edea2d7370b4",
         "f1c599722c6c03b9",
         "212c151957759fce",
         "74b6e2e02453157a"
@@ -160,7 +162,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -180,7 +182,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 41
+        "dias_desde_atualizacao": 42
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -188,7 +190,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -208,7 +210,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "04/11/2026 17:08",
+      "last_ok": "05/11/2026 13:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -247,62 +249,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_522a71bfaf2c0bff",
-      "titulo": "Portaria nº 1.050, de 27 de outubro de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-1.050-de-27-de-outubro-de-2026-741166118",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério Público da União/Ministério Público do Distrito Federal e Territórios/Procuradoria-Geral de Justiça/Coordenadorias das Promotorias de Justiça",
-      "ementa": "Diário Oficial e dê-se ciência à respectiva Câmara de Coordenação e Revisão do MPDFT, em observância às  normas  ...  regulamentares  pertinentes; II - Comunique-se formalmente o noticiante a respeito do refaturamento efetivado Consumidor Portaria nº 1.050, de 27 de outubro de 2026 ICP nº 08...",
-      "iid": "522a71bfaf2c0bff",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_c78c099065168533",
-      "titulo": "RESOLUÇÃO CFQ Nº 354, DE 21 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfq-n-354-de-21-de-agosto-de-2026-741116272",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Federal de Química",
-      "ementa": "agentes de fiscalização durante a execução de atividades em ambientes industriais ou de risco, conforme  normas  ...  regulamentadoras  de saúde e segurança no trabalho. 3.3.RESOLUÇÃO CFQ Nº 354, DE 21 DE AGOSTO DE 2026 Altera dispositivos da Resolução nº 340, de 22 de outubro de 2025, que d...",
-      "iid": "c78c099065168533",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "saúde e segurança no trabalho"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_212c151957759fce",
-      "titulo": "RESOLUÇÃO Nº 246, DE 22 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-n-246-de-22-de-outubro-de-2026-741114023",
-      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério Público da União/Ministério Público do Trabalho/Procuradoria-Geral/Conselho Superior",
-      "ementa": "Este preceito legal foi disciplinado pela  Norma Regulamentadora  nº 07 do Ministério da Economia, que ...  Regulamentadora  nº 16, também trataram do assunto por meio de uma  Norma Regulamentadora  própria, a de ...  Regulamentadora  nº 16, também trataram do assunto por meio de uma  Norma Regulamentadora  própria, a de ... FUNDAMENTAÇÃO NORMATIVA Constituição Federal, art. 7º, incisos XXII e XXIII  Norma Regulamentadora  nº ...  Regulamentadora  n o 30 do Ministério da Economia - Secretaria de Trabalho  Norma Regulamentadora  n o",
-      "iid": "212c151957759fce",
-      "prioridade": "alta",
-      "eixo": "ambos",
-      "termos": [
-        "Norma Regulamentadora",
-        "resíduos sólido"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_sst_4b9170bbb2d766be",
       "titulo": "Decisão COREN-CE Nº 102, de 8 de outubro DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/decisao-coren-ce-n-102-de-8-de-outubro-de-2026-741117577",
@@ -352,66 +298,29 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_8a66edea2d7370b4",
+      "titulo": "PORTARIA GM/MS Nº 12.169, DE 1º DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.169-de-1-de-outubro-de-2026-741866105",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-11-05",
+      "data_fmt": "05/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Saúde/Gabinete do Ministro",
+      "ementa": "bem-estar de pacientes, acompanhantes, visitantes e funcionários; II - monitorar o cumprimento das  normas  ...  regulamentadoras  e padrões técnicos de qualidade, segurança e o controle de infecção e vigilância sanitária o Regimento Interno do Ministério da Saúde. O MINISTRO DE ESTADO DA SA...",
+      "iid": "8a66edea2d7370b4",
+      "prioridade": "possivel",
+      "eixo": "ambos",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_522a71bfaf2c0bff",
-      "titulo": "Portaria nº 1.050, de 27 de outubro de 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-n-1.050-de-27-de-outubro-de-2026-741166118",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério Público da União/Ministério Público do Distrito Federal e Territórios/Procuradoria-Geral de Justiça/Coordenadorias das Promotorias de Justiça",
-      "ementa": "Diário Oficial e dê-se ciência à respectiva Câmara de Coordenação e Revisão do MPDFT, em observância às  normas  ...  regulamentares  pertinentes; II - Comunique-se formalmente o noticiante a respeito do refaturamento efetivado Consumidor Portaria nº 1.050, de 27 de outubro de 2026 ICP nº 08...",
-      "iid": "522a71bfaf2c0bff",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_c78c099065168533",
-      "titulo": "RESOLUÇÃO CFQ Nº 354, DE 21 DE AGOSTO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cfq-n-354-de-21-de-agosto-de-2026-741116272",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Federal de Química",
-      "ementa": "agentes de fiscalização durante a execução de atividades em ambientes industriais ou de risco, conforme  normas  ...  regulamentadoras  de saúde e segurança no trabalho. 3.3.RESOLUÇÃO CFQ Nº 354, DE 21 DE AGOSTO DE 2026 Altera dispositivos da Resolução nº 340, de 22 de outubro de 2025, que d...",
-      "iid": "c78c099065168533",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "saúde e segurança no trabalho"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_212c151957759fce",
-      "titulo": "RESOLUÇÃO Nº 246, DE 22 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-n-246-de-22-de-outubro-de-2026-741114023",
-      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-10-29",
-      "data_fmt": "29/10/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério Público da União/Ministério Público do Trabalho/Procuradoria-Geral/Conselho Superior",
-      "ementa": "Este preceito legal foi disciplinado pela  Norma Regulamentadora  nº 07 do Ministério da Economia, que ...  Regulamentadora  nº 16, também trataram do assunto por meio de uma  Norma Regulamentadora  própria, a de ...  Regulamentadora  nº 16, também trataram do assunto por meio de uma  Norma Regulamentadora  própria, a de ... FUNDAMENTAÇÃO NORMATIVA Constituição Federal, art. 7º, incisos XXII e XXIII  Norma Regulamentadora  nº ...  Regulamentadora  n o 30 do Ministério da Economia - Secretaria de Trabalho  Norma Regulamentadora  n o",
-      "iid": "212c151957759fce",
-      "prioridade": "alta",
-      "eixo": "ambos",
-      "termos": [
-        "Norma Regulamentadora",
-        "resíduos sólido"
-      ],
-      "relevante": true
-    },
-    {
       "id": "dou_sst_4b9170bbb2d766be",
       "titulo": "Decisão COREN-CE Nº 102, de 8 de outubro DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/decisao-coren-ce-n-102-de-8-de-outubro-de-2026-741117577",
@@ -461,6 +370,25 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_8a66edea2d7370b4",
+      "titulo": "PORTARIA GM/MS Nº 12.169, DE 1º DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.169-de-1-de-outubro-de-2026-741866105",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-11-05",
+      "data_fmt": "05/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Saúde/Gabinete do Ministro",
+      "ementa": "bem-estar de pacientes, acompanhantes, visitantes e funcionários; II - monitorar o cumprimento das  normas  ...  regulamentadoras  e padrões técnicos de qualidade, segurança e o controle de infecção e vigilância sanitária o Regimento Interno do Ministério da Saúde. O MINISTRO DE ESTADO DA SA...",
+      "iid": "8a66edea2d7370b4",
+      "prioridade": "possivel",
+      "eixo": "ambos",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
   "history": [
@@ -2323,9 +2251,28 @@
       "eixo": "ambiental",
       "termos": [],
       "relevante": false
+    },
+    {
+      "id": "dou_sst_8a66edea2d7370b4",
+      "titulo": "PORTARIA GM/MS Nº 12.169, DE 1º DE OUTUBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/ms-n-12.169-de-1-de-outubro-de-2026-741866105",
+      "fonte": "Diário Oficial da União — Seção 1 + Diário Oficial da União — ambiental",
+      "busca": "\"norma regulamentadora\"",
+      "data": "2026-11-05",
+      "data_fmt": "05/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério da Saúde/Gabinete do Ministro",
+      "ementa": "bem-estar de pacientes, acompanhantes, visitantes e funcionários; II - monitorar o cumprimento das  normas  ...  regulamentadoras  e padrões técnicos de qualidade, segurança e o controle de infecção e vigilância sanitária o Regimento Interno do Ministério da Saúde. O MINISTRO DE ESTADO DA SA...",
+      "iid": "8a66edea2d7370b4",
+      "prioridade": "possivel",
+      "eixo": "ambos",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-11-04T17:08:01.059397-03:00",
+  "last_check_iso": "2026-11-05T13:59:02.072856-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
