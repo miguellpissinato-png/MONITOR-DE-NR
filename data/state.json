@@ -1,15 +1,15 @@
 {
   "schema_version": 5,
-  "last_check": "12/11/2026 17:31",
-  "last_success": "2026-11-12T17:31:46.521966-03:00",
-  "status": "Monitorando",
+  "last_check": "13/11/2026 13:52",
+  "last_success": "2026-11-13T13:52:03.057454-03:00",
+  "status": "Nova Publicação",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,16 +93,17 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 5,
+      "item_count": 6,
       "known_ids": [
         "afeebc93ee23d0ca",
         "6b607cdeac7126b7",
         "5b731c88bedf56a3",
-        "8a66edea2d7370b4",
+        "bd1eb764c85f26ea",
+        "505f7b632717b011",
         "63d6ccd89b5f490d"
       ],
       "truncado": null,
@@ -112,7 +113,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -144,16 +145,17 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 6,
+      "item_count": 7,
       "truncado": null,
       "known_ids": [
+        "2763e17eb7e3da35",
         "699c9f9a502c5dff",
         "1479bb274fdfae7b",
-        "8a66edea2d7370b4",
+        "43864534023031fe",
         "bb6cb7bdfb16169f",
         "cb5f0d55c3fdb755",
         "9b6d2049fe89a92f"
@@ -164,7 +166,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -184,7 +186,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 49
+        "dias_desde_atualizacao": 50
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -192,7 +194,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -212,7 +214,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "12/11/2026 17:31",
+      "last_ok": "13/11/2026 13:52",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -251,97 +253,6 @@
   },
   "publicacoes_recentes": [
     {
-      "id": "dou_sst_5b731c88bedf56a3",
-      "titulo": "RESOLUÇÃO CFFa Nº 855, DE 17 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cffa-n-855-de-17-de-outubro-de-2026-742146941",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Federal de Fonoaudiologia",
-      "ementa": "instruções sobre os procedimentos eleitorais do Conselho Regional de Fonoaudiologia, em cumprimento às  normas  ...  regulamentadoras  editadas pelo Conselho Federal de Fonoaudiologia; fixar critérios para elaboração daspõe sobre o Regimento Interno Único dos Conselhos Regionais de Fonoaudio...",
-      "iid": "5b731c88bedf56a3",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_63d6ccd89b5f490d",
-      "titulo": "ATA Nº 38, DE 3 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-3-de-novembro-de-2026-742146698",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e medicina do trabalho\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "DOU",
-      "orgao": "Tribunal de Contas da União/2ª Câmara",
-      "ementa": "MJSP; Fundação Instituto Brasileiro de Geografia e Estatística; Fundação Jorge Duprat Figueiredo, de  Segurança  ... e  Medicina  do  Trabalho ; Fundação Nacional de Saúde; Fundação Nacional dos Povos Indígenas; FundaçãoATA Nº 38, DE 3 DE...",
-      "iid": "63d6ccd89b5f490d",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_1479bb274fdfae7b",
-      "titulo": "RESOLUÇÃO ANA Nº 309, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-309-de-5-de-novembro-de-2026-742131339",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Integração e do Desenvolvimento Regional/Agência Nacional de Águas e Saneamento Básico",
-      "ementa": "autorizações ambientais exigíveis em seu escopo de atuação, ou, alternativamente, a respectiva dispensa de  licenciamento  ...  ambiental , quando prevista na legislação pertinente, bem como solicitar a retificação das outorgas de ...  ambiental , quando prevista na legislação pertinente, bem como as outorgas exigidas; VI - garantir o ... uso de recursos hídricos exigíveis, ou de comprovar, quando cabível, a dispensa ou a não sujeição ao  licenciamento  ...  ambiental , nos termos da legislação aplicável, assim como do cumprimento das demais obrigações legais",
-      "iid": "1479bb274fdfae7b",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental",
-        "recursos hídricos",
-        "ANA"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_cb5f0d55c3fdb755",
-      "titulo": "PORTARIA SOF/MPO Nº 493, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sof/mpo-n-493-de-5-de-novembro-de-2026-742152527",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Planejamento e Orçamento/Secretaria de Orçamento Federal/Subsecretaria de Gestão Orçamentária",
-      "ementa": "Sólidos  10 512 4.529.418 2322 20AM 0001 Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem ... de  Resíduos Sólidos  - Nacional 10 512 4.529.418 S 4-INV 2 40 0 3049 4.529.418 2322 21C9 Implantação, ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões ... de  Resíduos Sólidos  - Nacional 10 512 4.529.418 S 4-INV 2 40 0 1001 4.529.418 2322 21C9 Implantação,",
-      "iid": "cb5f0d55c3fdb755",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_9b6d2049fe89a92f",
-      "titulo": "PORTARIA MCID Nº 1.516, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.516-de-5-de-novembro-de-2026-742133165",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério das Cidades/Gabinete do Ministro",
-      "ementa": ": 27.317.738/0001-33 - Participação: 3,65% Setor Prioritário Saneamento Básico Modalidade Manejo de  Resíduos  ...  Sólidos  Urbanos Nome do Projeto/ Objeto Renovação de outorga referente ao Contrato de Concessão nº 027 ... 2024 para a prestação dos serviços públicos de coleta, transporte, tratamento e destinação final de  resíduos  ...  sólidos  do município de São Paulo/SP - Agrupamento Noroeste Benefícios Sociais e/ou Ambientais Alavanca ...  sólidos  do município de São Paulo/SP - Agrupamento Noroeste, tendo a renovação do contrato de concessão",
-      "iid": "9b6d2049fe89a92f",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_sst_6b607cdeac7126b7",
       "titulo": "RESOLUÇÃO ANATEL Nº 793, DE 5 DE NOVEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-793-de-5-de-novembro-de-2026-742460945",
@@ -418,103 +329,93 @@
       "eixo": "sst",
       "termos": [
         "normas regulamentadora"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_bd1eb764c85f26ea",
+      "titulo": "PORTARIA MTE Nº 2.002, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-2.002-de-12-de-novembro-de-2026-744145158",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e  Saúde no Trabalho  (SST) com redução de riscos Unidade responsável pelo monitoramento: Secretaria de ... Indicador: Número de pessoas alcançadas por ações de difusão de conhecimentos técnicos e científicos em  segurança  ... e  saúde no trabalho  pela Fundacentro Unidade responsável pelo monitoramento: Fundação Jorge Duprat Figueiredo ... ESTRATÉGICO: REDUZIR OS RISCOS NOS AMBIENTES DE TRABALHO Indicador: Número de ações fiscais diretas em  Segurança  ... e  Saúde no Trabalho  (SST) com redução de riscos Meta 2025: 2.047(1º trimestre), 5.095 (2º trimestre)",
+      "iid": "bd1eb764c85f26ea",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "SST",
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_505f7b632717b011",
+      "titulo": "DESPACHO DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/despacho-de-12-de-novembro-de-2026-744144118",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Secretaria de Inspeção do Trabalho/Departamento de Segurança e Saúde no Trabalho",
+      "ementa": "DESPACHO DE 12 DE NOVEMBRO DE 2026 O DIRETOR DO DEPARTAMENTO DE  SEGURANÇA  E  SAÚDE NO TRABALHO  DA SECRETARIA DE INSPEÇÃO DO TRABALHO, no uso das atribuições que lhe confere o art. 151, § 1º, da Portaria MTP/GM nº 672, de 8 de novembro de 2021, e o art. 207, Parágrafo único, da Instrução N...",
+      "iid": "505f7b632717b011",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Segurança e Saúde no Trabalho",
+        "Ministério do Trabalho",
+        "INSPEÇÃO DO TRABALHO",
+        "SECRETARIA DE INSPEÇÃO DO TRABALHO"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_2763e17eb7e3da35",
+      "titulo": "ATA Nº 44, DE 4 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-44-de-4-de-novembro-de-2026-744156294",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "adequação do orçamento referencial e da metodologia de formação dos preços, o planejamento relativo ao  licenciamento  ...  ambiental  e aos prazos contratuais, bem como as regras operacionais e os prazos do procedimento eletrônico ... custos unitários, não demonstra, por si só, majoração indevida do orçamento; considerando, quanto ao  licenciamento  ...  ambiental , que consta do instrumento convocatório manifestação prévia ambiental favorável ao prosseguimento",
+      "iid": "2763e17eb7e3da35",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_43864534023031fe",
+      "titulo": "RESOLUÇÃO GECEX Nº 979, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-979-de-12-de-novembro-de-2026-744165979",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Presidência da República/Câmara de Comércio Exterior/Comitê-Executivo de Gestão",
+      "ementa": "plásticos, CDR (Combustível Derivado de Resíduos) e outros materiais, compostas de: trituradora de  resíduos  ...  sólidos  de rotor único com eixo, 10 discos, 40 lâminas e capacidade de produção compreendida entre 20 ... e 30t/h; esteira transportadora; prensa compactadora de  resíduos sólidos  com força máxima de prensagem",
+      "iid": "43864534023031fe",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "resíduos sólido"
       ],
       "relevante": true
     }
   ],
   "recent_changes": [
     {
-      "id": "dou_sst_5b731c88bedf56a3",
-      "titulo": "RESOLUÇÃO CFFa Nº 855, DE 17 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-cffa-n-855-de-17-de-outubro-de-2026-742146941",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Federal de Fonoaudiologia",
-      "ementa": "instruções sobre os procedimentos eleitorais do Conselho Regional de Fonoaudiologia, em cumprimento às  normas  ...  regulamentadoras  editadas pelo Conselho Federal de Fonoaudiologia; fixar critérios para elaboração daspõe sobre o Regimento Interno Único dos Conselhos Regionais de Fonoaudio...",
-      "iid": "5b731c88bedf56a3",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_63d6ccd89b5f490d",
-      "titulo": "ATA Nº 38, DE 3 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-38-de-3-de-novembro-de-2026-742146698",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e medicina do trabalho\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "DOU",
-      "orgao": "Tribunal de Contas da União/2ª Câmara",
-      "ementa": "MJSP; Fundação Instituto Brasileiro de Geografia e Estatística; Fundação Jorge Duprat Figueiredo, de  Segurança  ... e  Medicina  do  Trabalho ; Fundação Nacional de Saúde; Fundação Nacional dos Povos Indígenas; FundaçãoATA Nº 38, DE 3 DE...",
-      "iid": "63d6ccd89b5f490d",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_ambiental_1479bb274fdfae7b",
-      "titulo": "RESOLUÇÃO ANA Nº 309, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-309-de-5-de-novembro-de-2026-742131339",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério da Integração e do Desenvolvimento Regional/Agência Nacional de Águas e Saneamento Básico",
-      "ementa": "autorizações ambientais exigíveis em seu escopo de atuação, ou, alternativamente, a respectiva dispensa de  licenciamento  ...  ambiental , quando prevista na legislação pertinente, bem como solicitar a retificação das outorgas de ...  ambiental , quando prevista na legislação pertinente, bem como as outorgas exigidas; VI - garantir o ... uso de recursos hídricos exigíveis, ou de comprovar, quando cabível, a dispensa ou a não sujeição ao  licenciamento  ...  ambiental , nos termos da legislação aplicável, assim como do cumprimento das demais obrigações legais",
-      "iid": "1479bb274fdfae7b",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental",
-        "recursos hídricos",
-        "ANA"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_cb5f0d55c3fdb755",
-      "titulo": "PORTARIA SOF/MPO Nº 493, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-sof/mpo-n-493-de-5-de-novembro-de-2026-742152527",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério do Planejamento e Orçamento/Secretaria de Orçamento Federal/Subsecretaria de Gestão Orçamentária",
-      "ementa": "Sólidos  10 512 4.529.418 2322 20AM 0001 Apoio à Implementação de Projetos de Coleta, Triagem e Reciclagem ... de  Resíduos Sólidos  - Nacional 10 512 4.529.418 S 4-INV 2 40 0 3049 4.529.418 2322 21C9 Implantação, ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões ...  Sólidos  em Municípios de até 50.000 Habitantes, Exclusive em Regiões Metropolitanas (RM) ou Regiões ... de  Resíduos Sólidos  - Nacional 10 512 4.529.418 S 4-INV 2 40 0 1001 4.529.418 2322 21C9 Implantação,",
-      "iid": "cb5f0d55c3fdb755",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "Resíduos Sólido"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_9b6d2049fe89a92f",
-      "titulo": "PORTARIA MCID Nº 1.516, DE 5 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mcid-n-1.516-de-5-de-novembro-de-2026-742133165",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-06",
-      "data_fmt": "06/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Ministério das Cidades/Gabinete do Ministro",
-      "ementa": ": 27.317.738/0001-33 - Participação: 3,65% Setor Prioritário Saneamento Básico Modalidade Manejo de  Resíduos  ...  Sólidos  Urbanos Nome do Projeto/ Objeto Renovação de outorga referente ao Contrato de Concessão nº 027 ... 2024 para a prestação dos serviços públicos de coleta, transporte, tratamento e destinação final de  resíduos  ...  sólidos  do município de São Paulo/SP - Agrupamento Noroeste Benefícios Sociais e/ou Ambientais Alavanca ...  sólidos  do município de São Paulo/SP - Agrupamento Noroeste, tendo a renovação do contrato de concessão",
-      "iid": "9b6d2049fe89a92f",
-      "prioridade": "baixa",
-      "eixo": "ambiental",
-      "termos": [],
-      "relevante": false
-    },
-    {
       "id": "dou_sst_6b607cdeac7126b7",
       "titulo": "RESOLUÇÃO ANATEL Nº 793, DE 5 DE NOVEMBRO DE 2026",
       "link": "https://www.in.gov.br/web/dou/-/resolucao-anatel-n-793-de-5-de-novembro-de-2026-742460945",
@@ -591,6 +492,87 @@
       "eixo": "sst",
       "termos": [
         "normas regulamentadora"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_bd1eb764c85f26ea",
+      "titulo": "PORTARIA MTE Nº 2.002, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-2.002-de-12-de-novembro-de-2026-744145158",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e  Saúde no Trabalho  (SST) com redução de riscos Unidade responsável pelo monitoramento: Secretaria de ... Indicador: Número de pessoas alcançadas por ações de difusão de conhecimentos técnicos e científicos em  segurança  ... e  saúde no trabalho  pela Fundacentro Unidade responsável pelo monitoramento: Fundação Jorge Duprat Figueiredo ... ESTRATÉGICO: REDUZIR OS RISCOS NOS AMBIENTES DE TRABALHO Indicador: Número de ações fiscais diretas em  Segurança  ... e  Saúde no Trabalho  (SST) com redução de riscos Meta 2025: 2.047(1º trimestre), 5.095 (2º trimestre)",
+      "iid": "bd1eb764c85f26ea",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "SST",
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_505f7b632717b011",
+      "titulo": "DESPACHO DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/despacho-de-12-de-novembro-de-2026-744144118",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Secretaria de Inspeção do Trabalho/Departamento de Segurança e Saúde no Trabalho",
+      "ementa": "DESPACHO DE 12 DE NOVEMBRO DE 2026 O DIRETOR DO DEPARTAMENTO DE  SEGURANÇA  E  SAÚDE NO TRABALHO  DA SECRETARIA DE INSPEÇÃO DO TRABALHO, no uso das atribuições que lhe confere o art. 151, § 1º, da Portaria MTP/GM nº 672, de 8 de novembro de 2021, e o art. 207, Parágrafo único, da Instrução N...",
+      "iid": "505f7b632717b011",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Segurança e Saúde no Trabalho",
+        "Ministério do Trabalho",
+        "INSPEÇÃO DO TRABALHO",
+        "SECRETARIA DE INSPEÇÃO DO TRABALHO"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_2763e17eb7e3da35",
+      "titulo": "ATA Nº 44, DE 4 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-44-de-4-de-novembro-de-2026-744156294",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "adequação do orçamento referencial e da metodologia de formação dos preços, o planejamento relativo ao  licenciamento  ...  ambiental  e aos prazos contratuais, bem como as regras operacionais e os prazos do procedimento eletrônico ... custos unitários, não demonstra, por si só, majoração indevida do orçamento; considerando, quanto ao  licenciamento  ...  ambiental , que consta do instrumento convocatório manifestação prévia ambiental favorável ao prosseguimento",
+      "iid": "2763e17eb7e3da35",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_43864534023031fe",
+      "titulo": "RESOLUÇÃO GECEX Nº 979, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-979-de-12-de-novembro-de-2026-744165979",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Presidência da República/Câmara de Comércio Exterior/Comitê-Executivo de Gestão",
+      "ementa": "plásticos, CDR (Combustível Derivado de Resíduos) e outros materiais, compostas de: trituradora de  resíduos  ...  sólidos  de rotor único com eixo, 10 discos, 40 lâminas e capacidade de produção compreendida entre 20 ... e 30t/h; esteira transportadora; prensa compactadora de  resíduos sólidos  com força máxima de prensagem",
+      "iid": "43864534023031fe",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "resíduos sólido"
       ],
       "relevante": true
     }
@@ -2645,9 +2627,90 @@
         "normas regulamentadora"
       ],
       "relevante": true
+    },
+    {
+      "id": "dou_sst_bd1eb764c85f26ea",
+      "titulo": "PORTARIA MTE Nº 2.002, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-2.002-de-12-de-novembro-de-2026-744145158",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
+      "ementa": "e  Saúde no Trabalho  (SST) com redução de riscos Unidade responsável pelo monitoramento: Secretaria de ... Indicador: Número de pessoas alcançadas por ações de difusão de conhecimentos técnicos e científicos em  segurança  ... e  saúde no trabalho  pela Fundacentro Unidade responsável pelo monitoramento: Fundação Jorge Duprat Figueiredo ... ESTRATÉGICO: REDUZIR OS RISCOS NOS AMBIENTES DE TRABALHO Indicador: Número de ações fiscais diretas em  Segurança  ... e  Saúde no Trabalho  (SST) com redução de riscos Meta 2025: 2.047(1º trimestre), 5.095 (2º trimestre)",
+      "iid": "bd1eb764c85f26ea",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "SST",
+        "Ministério do Trabalho",
+        "MTE"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_sst_505f7b632717b011",
+      "titulo": "DESPACHO DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/despacho-de-12-de-novembro-de-2026-744144118",
+      "fonte": "Diário Oficial da União — Seção 1",
+      "busca": "\"segurança e saúde no trabalho\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "DOU",
+      "orgao": "Ministério do Trabalho e Emprego/Secretaria de Inspeção do Trabalho/Departamento de Segurança e Saúde no Trabalho",
+      "ementa": "DESPACHO DE 12 DE NOVEMBRO DE 2026 O DIRETOR DO DEPARTAMENTO DE  SEGURANÇA  E  SAÚDE NO TRABALHO  DA SECRETARIA DE INSPEÇÃO DO TRABALHO, no uso das atribuições que lhe confere o art. 151, § 1º, da Portaria MTP/GM nº 672, de 8 de novembro de 2021, e o art. 207, Parágrafo único, da Instrução N...",
+      "iid": "505f7b632717b011",
+      "prioridade": "alta",
+      "eixo": "sst",
+      "termos": [
+        "Segurança e Saúde no Trabalho",
+        "Ministério do Trabalho",
+        "INSPEÇÃO DO TRABALHO",
+        "SECRETARIA DE INSPEÇÃO DO TRABALHO"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_2763e17eb7e3da35",
+      "titulo": "ATA Nº 44, DE 4 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/ata-n-44-de-4-de-novembro-de-2026-744156294",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"licenciamento ambiental\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Tribunal de Contas da União/Plenário",
+      "ementa": "adequação do orçamento referencial e da metodologia de formação dos preços, o planejamento relativo ao  licenciamento  ...  ambiental  e aos prazos contratuais, bem como as regras operacionais e os prazos do procedimento eletrônico ... custos unitários, não demonstra, por si só, majoração indevida do orçamento; considerando, quanto ao  licenciamento  ...  ambiental , que consta do instrumento convocatório manifestação prévia ambiental favorável ao prosseguimento",
+      "iid": "2763e17eb7e3da35",
+      "prioridade": "possivel",
+      "eixo": "ambiental",
+      "termos": [
+        "ambiental"
+      ],
+      "relevante": true
+    },
+    {
+      "id": "dou_ambiental_43864534023031fe",
+      "titulo": "RESOLUÇÃO GECEX Nº 979, DE 12 DE NOVEMBRO DE 2026",
+      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-979-de-12-de-novembro-de-2026-744165979",
+      "fonte": "Diário Oficial da União — ambiental",
+      "busca": "\"resíduos sólidos\"",
+      "data": "2026-11-13",
+      "data_fmt": "13/11/2026",
+      "tipo": "AMBIENTAL",
+      "orgao": "Presidência da República/Câmara de Comércio Exterior/Comitê-Executivo de Gestão",
+      "ementa": "plásticos, CDR (Combustível Derivado de Resíduos) e outros materiais, compostas de: trituradora de  resíduos  ...  sólidos  de rotor único com eixo, 10 discos, 40 lâminas e capacidade de produção compreendida entre 20 ... e 30t/h; esteira transportadora; prensa compactadora de  resíduos sólidos  com força máxima de prensagem",
+      "iid": "43864534023031fe",
+      "prioridade": "alta",
+      "eixo": "ambiental",
+      "termos": [
+        "resíduos sólido"
+      ],
+      "relevante": true
     }
   ],
-  "last_check_iso": "2026-11-12T17:31:46.521966-03:00",
+  "last_check_iso": "2026-11-13T13:52:03.057454-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
