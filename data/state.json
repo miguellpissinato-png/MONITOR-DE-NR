@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
-  "last_check": "19/11/2026 18:03",
-  "last_success": "2026-11-19T18:03:38.092578-03:00",
+  "last_check": "20/11/2026 14:26",
+  "last_success": "2026-11-20T14:26:15.521762-03:00",
   "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -93,17 +93,16 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 8,
+      "item_count": 7,
       "known_ids": [
         "1898bb7915f186b4",
         "28d1c47955f1886e",
         "1e39718882a1633b",
         "c0949a46ca4efe99",
-        "afeebc93ee23d0ca",
         "dcd6fda1bbfd0682",
         "bd1eb764c85f26ea",
         "505f7b632717b011"
@@ -115,7 +114,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -147,7 +146,7 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -165,7 +164,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -185,7 +184,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 56
+        "dias_desde_atualizacao": 57
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -193,7 +192,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -213,7 +212,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "19/11/2026 18:03",
+      "last_ok": "20/11/2026 14:26",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -251,87 +250,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_bd1eb764c85f26ea",
-      "titulo": "PORTARIA MTE Nº 2.002, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-2.002-de-12-de-novembro-de-2026-744145158",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
-      "ementa": "e  Saúde no Trabalho  (SST) com redução de riscos Unidade responsável pelo monitoramento: Secretaria de ... Indicador: Número de pessoas alcançadas por ações de difusão de conhecimentos técnicos e científicos em  segurança  ... e  saúde no trabalho  pela Fundacentro Unidade responsável pelo monitoramento: Fundação Jorge Duprat Figueiredo ... ESTRATÉGICO: REDUZIR OS RISCOS NOS AMBIENTES DE TRABALHO Indicador: Número de ações fiscais diretas em  Segurança  ... e  Saúde no Trabalho  (SST) com redução de riscos Meta 2025: 2.047(1º trimestre), 5.095 (2º trimestre)",
-      "iid": "bd1eb764c85f26ea",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "SST",
-        "Ministério do Trabalho",
-        "MTE"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_505f7b632717b011",
-      "titulo": "DESPACHO DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/despacho-de-12-de-novembro-de-2026-744144118",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Secretaria de Inspeção do Trabalho/Departamento de Segurança e Saúde no Trabalho",
-      "ementa": "DESPACHO DE 12 DE NOVEMBRO DE 2026 O DIRETOR DO DEPARTAMENTO DE  SEGURANÇA  E  SAÚDE NO TRABALHO  DA SECRETARIA DE INSPEÇÃO DO TRABALHO, no uso das atribuições que lhe confere o art. 151, § 1º, da Portaria MTP/GM nº 672, de 8 de novembro de 2021, e o art. 207, Parágrafo único, da Instrução N...",
-      "iid": "505f7b632717b011",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "Segurança e Saúde no Trabalho",
-        "Ministério do Trabalho",
-        "INSPEÇÃO DO TRABALHO",
-        "SECRETARIA DE INSPEÇÃO DO TRABALHO"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_2763e17eb7e3da35",
-      "titulo": "ATA Nº 44, DE 4 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-44-de-4-de-novembro-de-2026-744156294",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "adequação do orçamento referencial e da metodologia de formação dos preços, o planejamento relativo ao  licenciamento  ...  ambiental  e aos prazos contratuais, bem como as regras operacionais e os prazos do procedimento eletrônico ... custos unitários, não demonstra, por si só, majoração indevida do orçamento; considerando, quanto ao  licenciamento  ...  ambiental , que consta do instrumento convocatório manifestação prévia ambiental favorável ao prosseguimento",
-      "iid": "2763e17eb7e3da35",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_43864534023031fe",
-      "titulo": "RESOLUÇÃO GECEX Nº 979, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-979-de-12-de-novembro-de-2026-744165979",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Presidência da República/Câmara de Comércio Exterior/Comitê-Executivo de Gestão",
-      "ementa": "plásticos, CDR (Combustível Derivado de Resíduos) e outros materiais, compostas de: trituradora de  resíduos  ...  sólidos  de rotor único com eixo, 10 discos, 40 lâminas e capacidade de produção compreendida entre 20 ... e 30t/h; esteira transportadora; prensa compactadora de  resíduos sólidos  com força máxima de prensagem",
-      "iid": "43864534023031fe",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "resíduos sólido"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_sst_1e39718882a1633b",
       "titulo": "PORTARIA GM/MMA Nº 1.818, DE 12 DE NOVEMBRO DE 2026",
@@ -459,87 +377,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_bd1eb764c85f26ea",
-      "titulo": "PORTARIA MTE Nº 2.002, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-mte-n-2.002-de-12-de-novembro-de-2026-744145158",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Gabinete do Ministro",
-      "ementa": "e  Saúde no Trabalho  (SST) com redução de riscos Unidade responsável pelo monitoramento: Secretaria de ... Indicador: Número de pessoas alcançadas por ações de difusão de conhecimentos técnicos e científicos em  segurança  ... e  saúde no trabalho  pela Fundacentro Unidade responsável pelo monitoramento: Fundação Jorge Duprat Figueiredo ... ESTRATÉGICO: REDUZIR OS RISCOS NOS AMBIENTES DE TRABALHO Indicador: Número de ações fiscais diretas em  Segurança  ... e  Saúde no Trabalho  (SST) com redução de riscos Meta 2025: 2.047(1º trimestre), 5.095 (2º trimestre)",
-      "iid": "bd1eb764c85f26ea",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "SST",
-        "Ministério do Trabalho",
-        "MTE"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_505f7b632717b011",
-      "titulo": "DESPACHO DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/despacho-de-12-de-novembro-de-2026-744144118",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Secretaria de Inspeção do Trabalho/Departamento de Segurança e Saúde no Trabalho",
-      "ementa": "DESPACHO DE 12 DE NOVEMBRO DE 2026 O DIRETOR DO DEPARTAMENTO DE  SEGURANÇA  E  SAÚDE NO TRABALHO  DA SECRETARIA DE INSPEÇÃO DO TRABALHO, no uso das atribuições que lhe confere o art. 151, § 1º, da Portaria MTP/GM nº 672, de 8 de novembro de 2021, e o art. 207, Parágrafo único, da Instrução N...",
-      "iid": "505f7b632717b011",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "Segurança e Saúde no Trabalho",
-        "Ministério do Trabalho",
-        "INSPEÇÃO DO TRABALHO",
-        "SECRETARIA DE INSPEÇÃO DO TRABALHO"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_2763e17eb7e3da35",
-      "titulo": "ATA Nº 44, DE 4 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/ata-n-44-de-4-de-novembro-de-2026-744156294",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"licenciamento ambiental\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Tribunal de Contas da União/Plenário",
-      "ementa": "adequação do orçamento referencial e da metodologia de formação dos preços, o planejamento relativo ao  licenciamento  ...  ambiental  e aos prazos contratuais, bem como as regras operacionais e os prazos do procedimento eletrônico ... custos unitários, não demonstra, por si só, majoração indevida do orçamento; considerando, quanto ao  licenciamento  ...  ambiental , que consta do instrumento convocatório manifestação prévia ambiental favorável ao prosseguimento",
-      "iid": "2763e17eb7e3da35",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "ambiental"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_ambiental_43864534023031fe",
-      "titulo": "RESOLUÇÃO GECEX Nº 979, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-gecex-n-979-de-12-de-novembro-de-2026-744165979",
-      "fonte": "Diário Oficial da União — ambiental",
-      "busca": "\"resíduos sólidos\"",
-      "data": "2026-11-13",
-      "data_fmt": "13/11/2026",
-      "tipo": "AMBIENTAL",
-      "orgao": "Presidência da República/Câmara de Comércio Exterior/Comitê-Executivo de Gestão",
-      "ementa": "plásticos, CDR (Combustível Derivado de Resíduos) e outros materiais, compostas de: trituradora de  resíduos  ...  sólidos  de rotor único com eixo, 10 discos, 40 lâminas e capacidade de produção compreendida entre 20 ... e 30t/h; esteira transportadora; prensa compactadora de  resíduos sólidos  com força máxima de prensagem",
-      "iid": "43864534023031fe",
-      "prioridade": "alta",
-      "eixo": "ambiental",
-      "termos": [
-        "resíduos sólido"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_sst_1e39718882a1633b",
       "titulo": "PORTARIA GM/MMA Nº 1.818, DE 12 DE NOVEMBRO DE 2026",
@@ -2924,7 +2761,7 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-11-19T18:03:38.092578-03:00",
+  "last_check_iso": "2026-11-20T14:26:15.521762-03:00",
   "sources_ok": 8,
   "sources_total": 8,
   "failures": [],
