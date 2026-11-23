@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "last_check": "20/11/2026 17:55",
+  "last_check": "23/11/2026 17:50",
   "last_success": "2026-11-20T15:52:49.853340-03:00",
   "status": "Falha na verificação",
   "total_nrs": 38,
@@ -11,7 +11,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-      "consecutive_failures": 2,
+      "consecutive_failures": 4,
       "degraded": false,
       "item_count": 17,
       "known_ids": [
@@ -43,7 +43,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-      "consecutive_failures": 2,
+      "consecutive_failures": 4,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -94,8 +94,8 @@
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
       "last_ok": "20/11/2026 17:55",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 7,
       "known_ids": [
@@ -114,7 +114,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "20/11/2026 17:55",
+      "last_ok": "23/11/2026 17:50",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -147,8 +147,8 @@
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
       "last_ok": "20/11/2026 17:55",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 4,
       "truncado": null,
@@ -164,7 +164,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "20/11/2026 17:55",
+      "last_ok": "23/11/2026 17:50",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -184,7 +184,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 57
+        "dias_desde_atualizacao": 60
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -192,7 +192,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "20/11/2026 17:55",
+      "last_ok": "23/11/2026 17:50",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -212,7 +212,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "20/11/2026 17:55",
+      "last_ok": "23/11/2026 17:50",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -250,61 +250,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_1e39718882a1633b",
-      "titulo": "PORTARIA GM/MMA Nº 1.818, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.818-de-12-de-novembro-de-2026-744426998",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Gabinete do Ministro",
-      "ementa": "Funcional Físico e Digital; IV - subsidiar a CGGP na correta aplicação da legislação, jurisprudência e  normas  ...  regulamentares  pertinentes à Gestão de Pessoas; V - emitir pronunciamento, na condição de órgão setorialanejamento, Orçamento e Administração, unidade organizacional vinculad...",
-      "iid": "1e39718882a1633b",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "Meio Ambiente"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_c0949a46ca4efe99",
-      "titulo": "EXTRATO DE ATA DA 1.285ª SESSÃO EXTRAORDINÁRIA",
-      "link": "https://www.in.gov.br/web/dou/-/extrato-de-ata-da-1.285-sessao-extraordinaria-744426127",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Fazenda/Conselho Monetário Nacional",
-      "ementa": "de 16 de abril de 2026, que estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  das linhas de financiamento de que trata a Medida Provisória nº 1.345, de 24 de marçoras e um minuto do dia vinte e sete de agosto de dois mil e vinte e seis, p...",
-      "iid": "c0949a46ca4efe99",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_dcd6fda1bbfd0682",
-      "titulo": "RESOLUÇÃO CTPP Nº 33, DE 10 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-ctpp-n-33-de-10-de-novembro-de-2026-744399466",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Comissão Tripartite Paritária Permanente",
-      "ementa": "e  Saúde no Trabalho . ... e  Saúde no Trabalho  - PNSST e acompanhar a execução do Plano Nacional de  Segurança  e  Saúde no Trabalho  ... e  Saúde no Trabalho , instituída pelo Decreto nº 7.602, de 7 de novembro de 2011. ... e a outros indicadores de  segurança  e  saúde no trabalho ; IV - participar da organização da campanha ... e  saúde no trabalho .",
-      "iid": "dcd6fda1bbfd0682",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "Ministério do Trabalho"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_sst_28d1c47955f1886e",
       "titulo": "RESOLUÇÃO CRMV-GO Nº 571, DE 29 DE OUTUBRO DE 2026",
@@ -377,61 +322,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_1e39718882a1633b",
-      "titulo": "PORTARIA GM/MMA Nº 1.818, DE 12 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.818-de-12-de-novembro-de-2026-744426998",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Meio Ambiente e Mudança do Clima/Gabinete do Ministro",
-      "ementa": "Funcional Físico e Digital; IV - subsidiar a CGGP na correta aplicação da legislação, jurisprudência e  normas  ...  regulamentares  pertinentes à Gestão de Pessoas; V - emitir pronunciamento, na condição de órgão setorialanejamento, Orçamento e Administração, unidade organizacional vinculad...",
-      "iid": "1e39718882a1633b",
-      "prioridade": "possivel",
-      "eixo": "ambiental",
-      "termos": [
-        "Meio Ambiente"
-      ],
-      "relevante": true
-    },
-    {
-      "id": "dou_sst_c0949a46ca4efe99",
-      "titulo": "EXTRATO DE ATA DA 1.285ª SESSÃO EXTRAORDINÁRIA",
-      "link": "https://www.in.gov.br/web/dou/-/extrato-de-ata-da-1.285-sessao-extraordinaria-744426127",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério da Fazenda/Conselho Monetário Nacional",
-      "ementa": "de 16 de abril de 2026, que estabelece as condições, os encargos financeiros, os prazos e as demais  normas  ...  regulamentadoras  das linhas de financiamento de que trata a Medida Provisória nº 1.345, de 24 de marçoras e um minuto do dia vinte e sete de agosto de dois mil e vinte e seis, p...",
-      "iid": "c0949a46ca4efe99",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
-    {
-      "id": "dou_sst_dcd6fda1bbfd0682",
-      "titulo": "RESOLUÇÃO CTPP Nº 33, DE 10 DE NOVEMBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-ctpp-n-33-de-10-de-novembro-de-2026-744399466",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"segurança e saúde no trabalho\"",
-      "data": "2026-11-16",
-      "data_fmt": "16/11/2026",
-      "tipo": "DOU",
-      "orgao": "Ministério do Trabalho e Emprego/Comissão Tripartite Paritária Permanente",
-      "ementa": "e  Saúde no Trabalho . ... e  Saúde no Trabalho  - PNSST e acompanhar a execução do Plano Nacional de  Segurança  e  Saúde no Trabalho  ... e  Saúde no Trabalho , instituída pelo Decreto nº 7.602, de 7 de novembro de 2011. ... e a outros indicadores de  segurança  e  saúde no trabalho ; IV - participar da organização da campanha ... e  saúde no trabalho .",
-      "iid": "dcd6fda1bbfd0682",
-      "prioridade": "alta",
-      "eixo": "sst",
-      "termos": [
-        "Ministério do Trabalho"
-      ],
-      "relevante": true
-    },
     {
       "id": "dou_sst_28d1c47955f1886e",
       "titulo": "RESOLUÇÃO CRMV-GO Nº 571, DE 29 DE OUTUBRO DE 2026",
@@ -2761,12 +2651,14 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-11-20T17:55:02.689821-03:00",
-  "sources_ok": 6,
+  "last_check_iso": "2026-11-23T17:50:44.588906-03:00",
+  "sources_ok": 4,
   "sources_total": 8,
   "failures": [
-    "Portarias SST — MTE (2x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-    "Índice das Normas Regulamentadoras — MTE (2x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas"
+    "Portarias SST — MTE (4x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
+    "Índice das Normas Regulamentadoras — MTE (4x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
+    "Diário Oficial da União — Seção 1 (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas",
+    "Diário Oficial da União — ambiental (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=16-11-2026&publishTo=23-11-2026&sortType=0&delta=50 após 3 tentativas"
   ],
   "nrs": [
     {
