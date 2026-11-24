@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "last_check": "23/11/2026 21:31",
+  "last_check": "24/11/2026 09:27",
   "last_success": "2026-11-20T15:52:49.853340-03:00",
   "status": "Falha na verificação",
   "total_nrs": 38,
@@ -11,7 +11,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-      "consecutive_failures": 8,
+      "consecutive_failures": 10,
       "degraded": false,
       "item_count": 17,
       "known_ids": [
@@ -43,7 +43,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-      "consecutive_failures": 8,
+      "consecutive_failures": 10,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -94,8 +94,8 @@
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
       "last_ok": "23/11/2026 21:31",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 4,
       "known_ids": [
@@ -111,7 +111,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "23/11/2026 21:31",
+      "last_ok": "24/11/2026 09:27",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -144,8 +144,8 @@
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
       "last_ok": "23/11/2026 21:31",
-      "last_error": null,
-      "consecutive_failures": 0,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 2,
       "degraded": false,
       "item_count": 2,
       "truncado": null,
@@ -159,7 +159,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "23/11/2026 21:31",
+      "last_ok": "24/11/2026 09:27",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -187,7 +187,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "23/11/2026 21:31",
+      "last_ok": "24/11/2026 09:27",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -207,7 +207,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "23/11/2026 21:31",
+      "last_ok": "24/11/2026 09:27",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -245,23 +245,6 @@
     }
   },
   "publicacoes_recentes": [
-    {
-      "id": "dou_sst_28d1c47955f1886e",
-      "titulo": "RESOLUÇÃO CRMV-GO Nº 571, DE 29 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-crmv-go-n-571-de-29-de-outubro-de-2026-744733259",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-17",
-      "data_fmt": "17/11/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Regional de Medicina Veterinária do Estado de Goiás",
-      "ementa": ", de 23 de outubro de 1968 e do Decreto Federal n° 64.704, de 17 de junho de 1969, combinado com as  normas  ...  regulamentadas  pela Resolução CFMV n° 591, de 26 de junho de 1992, especialmente alínea \"r\", do artigo 4° e demais disposições legais, resolve: Art. 1º - Revogar a Resolução CRMV/GO nº 491/2014 de 17 de outubro de 2014 que disciplina a criação das Comissões Assessoras do CRMV-GO e regulamenta o seu funcionamento. Art. 2º - Esta Resolução entra em vigor na data de sua assinatura. Suzana Rodrigues Severino Presidente do Conselho Adriana da Silva Santos Secretária-Geral",
-      "iid": "28d1c47955f1886e",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_ambiental_a238f78555479601",
       "titulo": "PORTARIA SEFIC/MINC Nº 789, DE 17 DE NOVEMBRO DE 2026",
@@ -317,23 +300,6 @@
     }
   ],
   "recent_changes": [
-    {
-      "id": "dou_sst_28d1c47955f1886e",
-      "titulo": "RESOLUÇÃO CRMV-GO Nº 571, DE 29 DE OUTUBRO DE 2026",
-      "link": "https://www.in.gov.br/web/dou/-/resolucao-crmv-go-n-571-de-29-de-outubro-de-2026-744733259",
-      "fonte": "Diário Oficial da União — Seção 1",
-      "busca": "\"norma regulamentadora\"",
-      "data": "2026-11-17",
-      "data_fmt": "17/11/2026",
-      "tipo": "DOU",
-      "orgao": "Entidades de Fiscalização do Exercício das Profissões Liberais/Conselho Regional de Medicina Veterinária do Estado de Goiás",
-      "ementa": ", de 23 de outubro de 1968 e do Decreto Federal n° 64.704, de 17 de junho de 1969, combinado com as  normas  ...  regulamentadas  pela Resolução CFMV n° 591, de 26 de junho de 1992, especialmente alínea \"r\", do artigo 4° e demais disposições legais, resolve: Art. 1º - Revogar a Resolução CRMV/GO nº 491/2014 de 17 de outubro de 2014 que disciplina a criação das Comissões Assessoras do CRMV-GO e regulamenta o seu funcionamento. Art. 2º - Esta Resolução entra em vigor na data de sua assinatura. Suzana Rodrigues Severino Presidente do Conselho Adriana da Silva Santos Secretária-Geral",
-      "iid": "28d1c47955f1886e",
-      "prioridade": "baixa",
-      "eixo": "sst",
-      "termos": [],
-      "relevante": false
-    },
     {
       "id": "dou_ambiental_a238f78555479601",
       "titulo": "PORTARIA SEFIC/MINC Nº 789, DE 17 DE NOVEMBRO DE 2026",
@@ -2646,12 +2612,14 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-11-23T21:31:41.434141-03:00",
-  "sources_ok": 6,
+  "last_check_iso": "2026-11-24T09:27:43.099691-03:00",
+  "sources_ok": 4,
   "sources_total": 8,
   "failures": [
-    "Portarias SST — MTE (8x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-    "Índice das Normas Regulamentadoras — MTE (8x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas"
+    "Portarias SST — MTE (10x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
+    "Índice das Normas Regulamentadoras — MTE (10x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
+    "Diário Oficial da União — Seção 1 (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
+    "Diário Oficial da União — ambiental (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas"
   ],
   "nrs": [
     {
