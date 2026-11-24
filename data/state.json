@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "last_check": "24/11/2026 16:53",
+  "last_check": "24/11/2026 17:59",
   "last_success": "2026-11-20T15:52:49.853340-03:00",
   "status": "Falha na verificação",
   "total_nrs": 38,
@@ -11,7 +11,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-      "consecutive_failures": 12,
+      "consecutive_failures": 14,
       "degraded": false,
       "item_count": 17,
       "known_ids": [
@@ -43,7 +43,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-      "consecutive_failures": 12,
+      "consecutive_failures": 14,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -93,7 +93,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -109,7 +109,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -141,14 +141,13 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 2,
+      "item_count": 1,
       "truncado": null,
       "known_ids": [
-        "a238f78555479601",
         "29c11a6323a2170b"
       ],
       "extra": null,
@@ -157,7 +156,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -185,7 +184,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -205,7 +204,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "24/11/2026 16:53",
+      "last_ok": "24/11/2026 17:59",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -2610,12 +2609,12 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-11-24T16:53:35.488653-03:00",
+  "last_check_iso": "2026-11-24T17:59:01.759037-03:00",
   "sources_ok": 6,
   "sources_total": 8,
   "failures": [
-    "Portarias SST — MTE (12x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-    "Índice das Normas Regulamentadoras — MTE (12x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas"
+    "Portarias SST — MTE (14x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
+    "Índice das Normas Regulamentadoras — MTE (14x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas"
   ],
   "nrs": [
     {
