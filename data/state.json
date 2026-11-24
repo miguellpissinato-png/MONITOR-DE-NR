@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "last_check": "24/11/2026 09:27",
+  "last_check": "24/11/2026 16:53",
   "last_success": "2026-11-20T15:52:49.853340-03:00",
   "status": "Falha na verificação",
   "total_nrs": 38,
@@ -11,7 +11,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-      "consecutive_failures": 10,
+      "consecutive_failures": 12,
       "degraded": false,
       "item_count": 17,
       "known_ids": [
@@ -43,7 +43,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-      "consecutive_failures": 10,
+      "consecutive_failures": 12,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -93,16 +93,14 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "23/11/2026 21:31",
-      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
-      "consecutive_failures": 2,
+      "last_ok": "24/11/2026 16:53",
+      "last_error": null,
+      "consecutive_failures": 0,
       "degraded": false,
-      "item_count": 4,
+      "item_count": 2,
       "known_ids": [
         "1898bb7915f186b4",
-        "28d1c47955f1886e",
-        "1e39718882a1633b",
-        "c0949a46ca4efe99"
+        "28d1c47955f1886e"
       ],
       "truncado": null,
       "extra": null,
@@ -111,7 +109,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "24/11/2026 09:27",
+      "last_ok": "24/11/2026 16:53",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -143,9 +141,9 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "23/11/2026 21:31",
-      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
-      "consecutive_failures": 2,
+      "last_ok": "24/11/2026 16:53",
+      "last_error": null,
+      "consecutive_failures": 0,
       "degraded": false,
       "item_count": 2,
       "truncado": null,
@@ -159,7 +157,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "24/11/2026 09:27",
+      "last_ok": "24/11/2026 16:53",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -187,7 +185,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "24/11/2026 09:27",
+      "last_ok": "24/11/2026 16:53",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -207,7 +205,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "24/11/2026 09:27",
+      "last_ok": "24/11/2026 16:53",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -2612,14 +2610,12 @@
       "relevante": false
     }
   ],
-  "last_check_iso": "2026-11-24T09:27:43.099691-03:00",
-  "sources_ok": 4,
+  "last_check_iso": "2026-11-24T16:53:35.488653-03:00",
+  "sources_ok": 6,
   "sources_total": 8,
   "failures": [
-    "Portarias SST — MTE (10x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-    "Índice das Normas Regulamentadoras — MTE (10x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-    "Diário Oficial da União — Seção 1 (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas",
-    "Diário Oficial da União — ambiental (2x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=17-11-2026&publishTo=24-11-2026&sortType=0&delta=50 após 3 tentativas"
+    "Portarias SST — MTE (12x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
+    "Índice das Normas Regulamentadoras — MTE (12x seguidas): URLError em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas"
   ],
   "nrs": [
     {
