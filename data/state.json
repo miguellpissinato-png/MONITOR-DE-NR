@@ -1,8 +1,8 @@
 {
   "schema_version": 5,
-  "last_check": "25/11/2026 10:56",
-  "last_success": "2026-11-25T10:56:15.792068-03:00",
-  "status": "Nova Publicação",
+  "last_check": "25/11/2026 15:54",
+  "last_success": "2026-11-25T15:54:55.084691-03:00",
+  "status": "Monitorando",
   "total_nrs": 38,
   "sources": {
     "mte_portarias": {
@@ -11,7 +11,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError ([Errno 104] Connection reset by peer) em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1 após 3 tentativas | URLError ([Errno 104] Connection reset by peer) em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2025-1 após 3 tentativas | URLError ([Errno 104] Connection reset by peer) em https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias após 3 tentativas",
-      "consecutive_failures": 17,
+      "consecutive_failures": 18,
       "degraded": false,
       "item_count": 17,
       "known_ids": [
@@ -43,7 +43,7 @@
       "critical": true,
       "last_ok": "20/11/2026 15:52",
       "last_error": "URLError ([Errno 104] Connection reset by peer) em https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes após 3 tentativas",
-      "consecutive_failures": 17,
+      "consecutive_failures": 18,
       "degraded": false,
       "item_count": 38,
       "known_ids": [
@@ -93,7 +93,7 @@
     "dou_sst": {
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -142,7 +142,7 @@
     "dou_ambiental": {
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -160,7 +160,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -188,7 +188,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -208,7 +208,7 @@
     "ipaam_legislacao": {
       "label": "Legislação ambiental — IPAAM (AM)",
       "critical": false,
-      "last_ok": "25/11/2026 10:56",
+      "last_ok": "25/11/2026 15:54",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -2755,7 +2755,7 @@
       "relevante": true
     }
   ],
-  "last_check_iso": "2026-11-25T10:56:15.792068-03:00",
+  "last_check_iso": "2026-11-25T15:54:55.084691-03:00",
   "sources_ok": 6,
   "sources_total": 8,
   "failures": [],
