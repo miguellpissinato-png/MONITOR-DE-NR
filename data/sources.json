@@ -12,7 +12,8 @@
         "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/{YEAR_PREV}-1",
         "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias"
       ],
-      "item_pattern": "portaria|instru\\u00e7\\u00e3o normativa|nr-?\\s*\\d+"
+      "item_pattern": "portaria|instru\\u00e7\\u00e3o normativa|nr-?\\s*\\d+",
+      "coberta_por": "dou_sst"
     },
     {
       "id": "nr_index",
@@ -22,7 +23,8 @@
       "critical": true,
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes",
       "item_pattern": "nr-?\\s*\\d+|norma regulamentadora",
-      "lista_nrs": true
+      "lista_nrs": true,
+      "coberta_por": "dou_sst"
     },
     {
       "id": "dou_sst",

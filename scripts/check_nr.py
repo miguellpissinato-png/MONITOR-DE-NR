@@ -98,7 +98,11 @@ def fetch(url, timeout=TIMEOUT_S, tentativas=TENTATIVAS):
                 raise SourceError(f"HTTP {e.code} em {url}")
             ultimo = f"HTTP {e.code}"
         except Exception as e:
-            ultimo = type(e).__name__
+            # Guardar o MOTIVO, não só o tipo: "URLError" sozinho não diz se foi
+            # tempo esgotado, conexão recusada, DNS ou certificado — e é isso
+            # que separa "site fora do ar" de "site bloqueando o GitHub".
+            motivo = getattr(e, 'reason', None) or e
+            ultimo = f"{type(e).__name__} ({str(motivo)[:80]})"
         if n < tentativas:
             print(f"[{ultimo}, tentativa {n}/{tentativas}]", end=" ", flush=True)
             time.sleep(BACKOFF_S * n)      # 3s, depois 6s
@@ -797,17 +801,14 @@ def run_check():
     novos_total, falhas_criticas, fontes_ok = [], [], 0
     por_iid = {}   # ato do DOU -> entrada já criada, para fundir achados repetidos
 
+    ok_por_id, falhas_avaliar = {}, []
     for cfg in fontes:
         novos, ok = processa_fonte(cfg, state, agora, vocab)
+        ok_por_id[cfg['id']] = ok
         if ok:
             fontes_ok += 1
         else:
-            saude = state["sources"].get(cfg['id'], {})
-            seguidas = saude.get("consecutive_failures", 0)
-            if cfg.get('critical') or seguidas >= NONCRITICAL_FAILURE_LIMIT:
-                falhas_criticas.append(
-                    f"{cfg.get('label', cfg['id'])} ({seguidas}x seguidas): "
-                    f"{saude.get('last_error')}")
+            falhas_avaliar.append(cfg)
         for p in novos:
             if p['id'] in vistos:
                 continue
@@ -831,6 +832,27 @@ def run_check():
             if p.get('iid'):
                 por_iid[p['iid']] = p
             novos_total.append(p)
+
+    # Avaliado depois do laço porque a fonte de cobertura (o DOU) é lida
+    # DEPOIS das páginas do MTE. Desde 20/11/2026 o gov.br/trabalho-e-emprego
+    # deixou de responder aos servidores do GitHub Actions (tempo esgotado),
+    # embora o site siga no ar para quem acessa do Brasil. Toda portaria do MTE
+    # é publicada antes no DOU, que continua sendo lido; então, se a fonte de
+    # cobertura leu bem NESTA execução, a falha da página do MTE vira aviso
+    # (cartão vermelho + faixa amarela no painel) em vez de derrubar tudo.
+    # Se a cobertura também falhar, volta a ser falha crítica.
+    for cfg in falhas_avaliar:
+        saude = state["sources"].get(cfg['id'], {})
+        seguidas = saude.get("consecutive_failures", 0)
+        cobertura = cfg.get('coberta_por')
+        if cobertura and ok_por_id.get(cobertura):
+            print(f"  [aviso] {cfg.get('label', cfg['id'])} falhou ({seguidas}x), "
+                  f"mas está coberta por '{cobertura}', que leu bem.")
+            continue
+        if cfg.get('critical') or seguidas >= NONCRITICAL_FAILURE_LIMIT:
+            falhas_criticas.append(
+                f"{cfg.get('label', cfg['id'])} ({seguidas}x seguidas): "
+                f"{saude.get('last_error')}")
 
     state["last_check"] = agora.strftime('%d/%m/%Y %H:%M')
     state["last_check_iso"] = agora.isoformat()
