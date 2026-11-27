@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "last_check": "27/11/2026 16:46",
+  "last_check": "27/11/2026 18:48",
   "last_success": "2026-11-25T19:01:54.555240-03:00",
   "status": "Falha na verificação",
   "total_nrs": 38,
@@ -9,7 +9,7 @@
       "page_hash": "49847b8dedddf1f46938cb2353d9425d",
       "label": "Portarias SST — MTE",
       "critical": true,
-      "last_ok": "27/11/2026 16:46",
+      "last_ok": "27/11/2026 18:48",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -41,7 +41,7 @@
       "page_hash": "28aacf7a0c03cb272e8b6e84b7e47bc7",
       "label": "Índice das Normas Regulamentadoras — MTE",
       "critical": true,
-      "last_ok": "27/11/2026 16:46",
+      "last_ok": "27/11/2026 18:48",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -94,8 +94,8 @@
       "label": "Diário Oficial da União — Seção 1",
       "critical": true,
       "last_ok": "25/11/2026 19:01",
-      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50",
-      "consecutive_failures": 12,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 14,
       "degraded": false,
       "item_count": 3,
       "known_ids": [
@@ -110,7 +110,7 @@
     "abnt_sst": {
       "label": "ABNT — normas técnicas publicadas",
       "critical": false,
-      "last_ok": "27/11/2026 16:46",
+      "last_ok": "27/11/2026 18:48",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -143,8 +143,8 @@
       "label": "Diário Oficial da União — ambiental",
       "critical": true,
       "last_ok": "25/11/2026 19:01",
-      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50",
-      "consecutive_failures": 12,
+      "last_error": "nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas",
+      "consecutive_failures": 14,
       "degraded": false,
       "item_count": 4,
       "truncado": null,
@@ -160,7 +160,7 @@
     "mma_legislacao": {
       "label": "Legislação ambiental — base do MMA",
       "critical": false,
-      "last_ok": "27/11/2026 16:46",
+      "last_ok": "27/11/2026 18:48",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -180,7 +180,7 @@
         "cadencia": "anual",
         "atualizado_em": "2026-09-23",
         "recursos": 7,
-        "dias_desde_atualizacao": 64
+        "dias_desde_atualizacao": 65
       },
       "kind": "ckan_dataset",
       "baseline_reset": "2026-09-22-ckan"
@@ -188,7 +188,7 @@
     "conama_atos": {
       "label": "Atos normativos — CONAMA",
       "critical": false,
-      "last_ok": "27/11/2026 16:46",
+      "last_ok": "27/11/2026 18:48",
       "last_error": null,
       "consecutive_failures": 0,
       "degraded": false,
@@ -210,7 +210,7 @@
       "critical": false,
       "last_ok": "27/11/2026 09:25",
       "last_error": "URLError (timed out) em https://www.ipaam.am.gov.br/legislacao-online/ após 3 tentativas",
-      "consecutive_failures": 4,
+      "consecutive_failures": 6,
       "degraded": false,
       "item_count": 25,
       "truncado": null,
@@ -2687,13 +2687,13 @@
       "relevante": true
     }
   ],
-  "last_check_iso": "2026-11-27T16:46:02.415128-03:00",
+  "last_check_iso": "2026-11-27T18:48:32.513776-03:00",
   "sources_ok": 5,
   "sources_total": 8,
   "failures": [
-    "Diário Oficial da União — Seção 1 (12x seguidas): nenhuma consulta ao DOU respondeu: HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50",
-    "Diário Oficial da União — ambiental (12x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 | HTTP 404 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50",
-    "Legislação ambiental — IPAAM (AM) (4x seguidas): URLError (timed out) em https://www.ipaam.am.gov.br/legislacao-online/ após 3 tentativas"
+    "Diário Oficial da União — Seção 1 (14x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22norma+regulamentadora%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22normas+regulamentadoras%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22seguran%C3%A7a+e+sa%C3%BAde+no+trabalho%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas",
+    "Diário Oficial da União — ambiental (14x seguidas): nenhuma consulta ao DOU respondeu: HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22licenciamento+ambiental%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22res%C3%ADduos+s%C3%B3lidos%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas | HTTP 502 em https://www.in.gov.br/consulta/-/buscar/dou?q=%22log%C3%ADstica+reversa%22&s=do1&exactDate=personalizado&publishFrom=20-11-2026&publishTo=27-11-2026&sortType=0&delta=50 após 3 tentativas",
+    "Legislação ambiental — IPAAM (AM) (6x seguidas): URLError (timed out) em https://www.ipaam.am.gov.br/legislacao-online/ após 3 tentativas"
   ],
   "nrs": [
     {
