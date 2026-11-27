@@ -5,19 +5,9 @@ on:
 jobs:
   diag:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
-      - run: |
-          curl -s https://ipinfo.io/json | head -12 || true
-          t(){ echo "== $1"; curl -sS -o /tmp/o -w "code=%{http_code} t=%{time_total}s size=%{size_download}\n" -m 25 -A "$2" "$1" 2>&1 | tail -1; head -c 300 /tmp/o 2>/dev/null | tr '\n' ' '; echo; }
-          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36"
-          t "https://www.gov.br/trabalho-e-emprego/pt-br" "$UA"
-          t "https://www.gov.br/pt-br" "$UA"
-          t "https://www.gov.br/mma/pt-br" "$UA"
-          t "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1" "curl/8"
-          t "https://www.in.gov.br/servicos/diario-oficial-da-uniao" "$UA"
-          t "https://www.in.gov.br/leiturajornal?data=26-11-2026&secao=do1" "$UA"
-          t "https://inlabs.in.gov.br/" "$UA"
-          t "https://inlabs.in.gov.br/logar.php" "$UA"
-          t "https://r.jina.ai/https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1" "$UA"
-          t "https://web.archive.org/web/2026/https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-portarias/2026-1" "$UA"
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: python -u scripts/_teste_mte.py

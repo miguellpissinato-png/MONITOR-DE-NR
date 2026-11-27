@@ -109,12 +109,87 @@ def fetch(url, timeout=TIMEOUT_S, tentativas=TENTATIVAS):
     raise SourceError(f"{ultimo} em {url} após {tentativas} tentativas")
 
 
-def fetch_first_available(urls):
+# ─── Leitor alternativo (gov.br bloqueando o GitHub) ─────────────────────────
+#
+# Desde 20/11/2026 o gov.br inteiro (não só o MTE) derruba a conexão vinda dos
+# servidores do GitHub Actions — "Connection reset by peer" em toda tentativa,
+# até na página inicial. Diagnóstico de 27/11/2026: o runner sai por IP da
+# Microsoft em Chicago (EUA); do Brasil, a mesma URL abre em 0,1 s. É bloqueio
+# por origem, não site fora do ar, e repetir não resolve.
+#
+# O r.jina.ai é um leitor público: ele busca a página a partir dos servidores
+# dele e devolve o HTML. No mesmo diagnóstico, a página de portarias do MTE
+# abriu por ele em 9 s. Usamos SÓ como plano B e SÓ para fontes que declaram
+# "leitor_alternativo": true no sources.json: o acesso direto é sempre tentado
+# antes, então quando o bloqueio cair o monitor volta sozinho a ler direto.
+# Com o secret JINA_API_KEY o limite de requisições sobe (opcional).
+LEITOR_URL = 'https://r.jina.ai/'
+LEITOR_TIMEOUT_S = 60
+TENTATIVAS_DIRETO_COM_LEITOR = 2   # com plano B, não gasta 3 tentativas diretas
+_HOSTS_VIA_LEITOR = set()          # hosts que já recusaram nesta execução
+
+
+def _host(url):
+    return (urllib.parse.urlsplit(url).hostname or '').lower()
+
+
+def _fetch_leitor(url):
+    headers = {'X-Return-Format': 'html', 'X-No-Cache': 'true'}
+    chave = os.environ.get('JINA_API_KEY', '').strip()
+    if chave:
+        headers['Authorization'] = f'Bearer {chave}'
+    ultimo = None
+    for n in range(1, TENTATIVAS + 1):
+        req = urllib.request.Request(LEITOR_URL + url, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=LEITOR_TIMEOUT_S) as r:
+                html = r.read().decode('utf-8', errors='replace')
+            # O leitor pode devolver 200 com uma página de erro curta. Uma
+            # página do gov.br de verdade tem dezenas de KB e muitos links; sem
+            # isso, tratar como falha evita registrar "alteração" fantasma.
+            if len(html) < 3000 or html.count('<a ') < 20:
+                raise SourceError(f"resposta suspeita do leitor ({len(html)} bytes)")
+            return html
+        except urllib.error.HTTPError as e:
+            ultimo = f"HTTP {e.code}"
+        except SourceError as e:
+            ultimo = str(e)
+        except Exception as e:
+            motivo = getattr(e, 'reason', None) or e
+            ultimo = f"{type(e).__name__} ({str(motivo)[:80]})"
+        if n < TENTATIVAS:
+            time.sleep(BACKOFF_S * n)
+    raise SourceError(f"leitor alternativo também falhou: {ultimo}")
+
+
+def fetch_com_leitor(url):
+    """Direto primeiro; se o host recusar, tenta pelo leitor alternativo."""
+    host = _host(url)
+    if host not in _HOSTS_VIA_LEITOR:
+        try:
+            return fetch(url, tentativas=TENTATIVAS_DIRETO_COM_LEITOR)
+        except SourceError as e:
+            erro_direto = str(e)
+            if erro_direto.startswith('HTTP 4'):
+                raise          # 404 é resposta definitiva, não bloqueio
+            _HOSTS_VIA_LEITOR.add(host)
+    else:
+        erro_direto = f"{host} já recusou o acesso direto nesta execução"
+    print("[acesso direto recusado — usando leitor alternativo]", end=" ", flush=True)
+    try:
+        html = _fetch_leitor(url)
+    except SourceError as e:
+        raise SourceError(f"{erro_direto} | {e}")
+    print("[OK via leitor]", end=" ", flush=True)
+    return html
+
+
+def fetch_first_available(urls, leitor=False):
     """Tenta cada URL na ordem. Devolve (html, url_usada)."""
     erros = []
     for url in urls:
         try:
-            return fetch(url), url
+            return (fetch_com_leitor(url) if leitor else fetch(url)), url
         except SourceError as e:
             erros.append(str(e))
     raise SourceError(" | ".join(erros) if erros else "nenhuma URL configurada")
@@ -206,7 +281,7 @@ def collect_page_items(cfg):
     urls = [u.replace('{YEAR}', str(year)).replace('{YEAR_PREV}', str(year - 1))
             for u in urls]
 
-    html, url_usada = fetch_first_available(urls)
+    html, url_usada = fetch_first_available(urls, leitor=bool(cfg.get('leitor_alternativo')))
     padrao = re.compile(cfg.get('item_pattern', '.'), re.IGNORECASE)
 
     parser = LinkExtractor()
@@ -818,8 +893,20 @@ def run_check():
             # a segunda, FUNDE: a publicação passa a valer pelos dois eixos.
             gemeo = por_iid.get(p.get('iid'))
             if gemeo is not None:
+                # Só vira 'ambos' se os DOIS achados trouxeram evidência. O
+                # trecho (ementa) que o DOU devolve é recortado em volta do
+                # termo buscado, então a busca de SST pode achar o ato sem
+                # nenhum termo de SST no recorte ('baixa'). Fundir isso como
+                # 'ambos' rotulou o regimento interno do INCRA (25/11/2026) como
+                # "SST + Ambiental" e o pôs no bloco de prioridade alta de SST.
+                p_tem = p.get('prioridade') != 'baixa'
+                g_tem = gemeo.get('prioridade') != 'baixa'
                 if gemeo.get('eixo') != p.get('eixo'):
-                    gemeo['eixo'] = 'ambos'
+                    if p_tem and g_tem:
+                        gemeo['eixo'] = 'ambos'
+                    elif p_tem:
+                        gemeo['eixo'] = p.get('eixo')
+                    # se só o gêmeo tem evidência, o eixo dele já está certo
                 if ORDEM_PRIO[p.get('prioridade')] > ORDEM_PRIO[gemeo.get('prioridade')]:
                     gemeo['prioridade'] = p['prioridade']
                     gemeo['relevante'] = p['prioridade'] != 'baixa'
