@@ -58,6 +58,10 @@ jobs:
 
       - name: Executar monitoramento
         id: monitor
+        env:
+          # Opcional: aumenta o limite do leitor alternativo usado quando o
+          # gov.br recusa o GitHub (ver README). Sem ele, funciona igual.
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: |
           set -uo pipefail
           # O script agora repete cada URL 3x com backoff, então esta camada

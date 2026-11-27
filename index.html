@@ -167,7 +167,14 @@
     .health-icon { font-size:18px; line-height:1.2; flex-shrink:0; }
     .health-title { font-size:12px; font-weight:700; color:var(--white); letter-spacing:0.08em; text-transform:uppercase; }
     .health-msg { font-size:11.5px; color:var(--white-70); margin-top:6px; line-height:1.6; }
-    .health-msg li { margin-top:3px; }
+    .health-msg li { margin-top:6px; }
+    .falha-n    { color:var(--white-40); }
+    .falha-dica { color:var(--white-40); font-size:10.5px; }
+    .falha-det  { margin-top:3px; }
+    .falha-det summary { cursor:pointer; color:var(--white-40); font-size:10px; letter-spacing:0.04em; }
+    .falha-det summary:hover { color:var(--white-70); }
+    .falha-det code { display:block; margin-top:4px; font-size:10px; color:var(--white-40);
+                      word-break:break-all; white-space:pre-wrap; }
 
     /* Saúde por fonte: grade de filetes, sem cantos */
     .src-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px;
@@ -804,6 +811,25 @@ function lastCheckTime(state) {
   return isNaN(t) ? null : t;
 }
 
+// Traduz o erro técnico gravado pelo check_nr.py em causa legível.
+// `externo` = o problema está no site oficial, não no monitor.
+function causaFalha(erro) {
+  const e = String(erro || '');
+  if (/manuten/i.test(e))
+    return { texto: 'site oficial em manutenção', externo: true };
+  if (/HTTP 5\d\d/.test(e))
+    return { texto: 'site oficial fora do ar (erro no servidor dele)', externo: true };
+  if (/Connection reset|refused|recusou/i.test(e))
+    return { texto: 'o site recusou o acesso automático do monitor', externo: true };
+  if (/timed out|Timeout|tempo esgotado/i.test(e))
+    return { texto: 'o site não respondeu a tempo', externo: true };
+  if (/HTTP 404|HTTP 410/.test(e))
+    return { texto: 'a página mudou de endereço — precisa ajustar a fonte', externo: false };
+  if (/HTTP 4\d\d/.test(e))
+    return { texto: 'o site negou o acesso', externo: true };
+  return { texto: 'erro técnico na leitura', externo: false };
+}
+
 function renderHealth(state) {
   const banner = document.getElementById('healthBanner');
   const now = Date.now();
@@ -835,8 +861,19 @@ function renderHealth(state) {
   } else if (falhas.length) {
     cls = 'stale'; icone = '🔴';
     titulo = 'FALHA NA ÚLTIMA VERIFICAÇÃO';
+    // O texto cru do erro (URL inteira + 3 tentativas por endereço) enchia a
+    // tela e não dizia o que importa: de quem é o problema. Mostra a causa em
+    // linguagem simples e deixa o detalhe técnico recolhido.
     msg = 'Estas fontes não puderam ser lidas — o que aparece abaixo pode estar incompleto:<ul>'
-        + falhas.map(f => `<li>${esc(f)}</li>`).join('') + '</ul>';
+        + falhas.map(f => {
+            const m = /^(.*?) \((\d+)x seguidas\): ([\s\S]*)$/.exec(f);
+            if (!m) return `<li>${esc(f)}</li>`;
+            const c = causaFalha(m[3]);
+            return `<li><strong>${esc(m[1])}</strong> — ${c.texto} `
+                 + `<span class="falha-n">(${m[2]}x seguidas)</span>`
+                 + (c.externo ? `<br><span class="falha-dica">Problema do site oficial, não do monitor: a leitura volta sozinha quando ele normalizar.</span>` : '')
+                 + `<details class="falha-det"><summary>detalhe técnico</summary><code>${esc(m[3])}</code></details></li>`;
+          }).join('') + '</ul>';
   } else if (degradadas.length || comFalha.length || truncadas.length) {
     cls = 'degraded'; icone = '🟡';
     titulo = 'ATENÇÃO — MONITORAMENTO PARCIAL';
@@ -877,7 +914,9 @@ function renderHealth(state) {
     const estado = falhando ? 'bad' : ((f.degraded || truncado) ? 'warn' : 'ok');
     const marca = falhando ? '🔴' : ((f.degraded || truncado) ? '🟡' : '🟢');
     let meta;
-    if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s)<br>${esc(f.last_error || 'erro desconhecido')}`;
+    if (falhando)      meta = `Falhou ${f.consecutive_failures}x seguida(s) — ${causaFalha(f.last_error).texto}`
+                            + `<br>Última leitura OK: ${esc(f.last_ok || 'nunca')}`
+                            + `<details class="falha-det"><summary>detalhe técnico</summary><code>${esc(f.last_error || 'erro desconhecido')}</code></details>`;
     else if (f.degraded) meta = `Modo degradado — extração vazia<br>OK em ${esc(f.last_ok || '—')}`;
     else if (f.truncado && f.truncado.length) meta = `${f.item_count ?? 0} itens — <b>busca truncada</b><br>${esc(f.truncado.join('; ')).slice(0,90)}`;
     else if (f.extra && f.extra.tipo === 'base_consolidada') {

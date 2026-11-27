@@ -170,6 +170,26 @@ Isso existe porque o `gov.br` falhava por timeout de forma intermitente: 6 das
 e a ABNT nunca falharam). Sem retry no script, a única defesa era repetir tudo
 no workflow — 12 minutos de runner para o que um backoff de 3 segundos resolve.
 
+### gov.br bloqueando o GitHub — leitor alternativo
+
+Desde 20/11/2026 o `gov.br` inteiro derruba a conexão vinda do GitHub Actions
+(`Connection reset by peer` até na página inicial). Diagnóstico de 27/11/2026:
+o runner sai por IP da Microsoft nos EUA; do Brasil, a mesma página abre em
+0,1 s. É bloqueio por origem, não site fora do ar.
+
+Fontes com `"leitor_alternativo": true` no `sources.json` (hoje as duas do MTE)
+tentam o acesso direto 2 vezes e, se o host recusar, leem a página pelo
+[r.jina.ai](https://r.jina.ai), que busca a partir dos servidores dele. Nada
+muda na extração: no teste de 27/11 os 17 itens de portarias e as 38 NRs
+bateram 100% com a base já gravada. Quando o bloqueio cair, o acesso direto
+volta a ser usado sozinho. O secret opcional `JINA_API_KEY` aumenta o limite
+de requisições do leitor (sem ele, o gratuito basta para as 4 páginas).
+
+O DOU **não** usa o leitor: em 26–27/11/2026 a falha dele era do próprio
+in.gov.br (busca com 504 até do Brasil, CAPTCHA na leitura do jornal e o INLABS
+em "Manutenção Programada"). Isso o monitor não tem como contornar; a leitura
+volta sozinha quando a Imprensa Nacional normalizar.
+
 ## Lista de NRs
 
 O painel **não** mantém uma lista própria de Normas Regulamentadoras. Ele exibe
